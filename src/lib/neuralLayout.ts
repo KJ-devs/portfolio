@@ -24,6 +24,19 @@ const CATEGORY_TARGETS: Record<NeuronCategory, [number, number, number]> = {
   contact:    [0,   -5,  -30],
 }
 
+// Specific pinned positions for guided tour nodes.
+// These guarantee deterministic positions so CameraController can always navigate correctly.
+const PINNED_POSITIONS: Partial<Record<string, [number, number, number]>> = {
+  'me':              [0,    0,    0],
+  'alternance':      [-28, -15,   5],
+  'master-ia':       [-22, -25,  -8],
+  'supporthelper':   [-28,  18,   5],
+  'tiktok-edu':      [-18,  22, -10],
+  'typescript':      [ 32,  12,   5],
+  'machine-learning':[ 28,  -8,  12],
+  'github':          [  5,  -8, -32],
+}
+
 export interface LayoutNode extends SimNode {
   id: string
   label: string
@@ -63,25 +76,29 @@ export function getLayoutResult(): LayoutResult | null {
 }
 
 export function createNeuralLayout(): LayoutResult {
-  // Build nodes — scatter them near origin so simulation has room to work
-  const nodes: LayoutNode[] = NEURONS.map((neuron) => ({
-    id: neuron.id,
-    label: neuron.label,
-    category: neuron.category,
-    size: neuron.size,
-    color: neuron.color,
-    // Random initial position (except 'me' which is pinned)
-    x: neuron.id === 'me' ? 0 : (Math.random() - 0.5) * 20,
-    y: neuron.id === 'me' ? 0 : (Math.random() - 0.5) * 20,
-    z: neuron.id === 'me' ? 0 : (Math.random() - 0.5) * 20,
-    vx: 0,
-    vy: 0,
-    vz: 0,
-    // Pin 'me' at origin via fx/fy/fz
-    fx: neuron.id === 'me' ? 0 : null,
-    fy: neuron.id === 'me' ? 0 : null,
-    fz: neuron.id === 'me' ? 0 : null,
-  }))
+  // Build nodes — use pinned positions for tour nodes, scatter others near category targets
+  const nodes: LayoutNode[] = NEURONS.map((neuron) => {
+    const pin = PINNED_POSITIONS[neuron.id]
+    const [cx, cy, cz] = CATEGORY_TARGETS[neuron.category]
+    return {
+      id: neuron.id,
+      label: neuron.label,
+      category: neuron.category,
+      size: neuron.size,
+      color: neuron.color,
+      // Pinned nodes start at their exact position; others scatter near category target
+      x: pin ? pin[0] : cx + (Math.random() - 0.5) * 15,
+      y: pin ? pin[1] : cy + (Math.random() - 0.5) * 15,
+      z: pin ? pin[2] : cz + (Math.random() - 0.5) * 15,
+      vx: 0,
+      vy: 0,
+      vz: 0,
+      // Pinned nodes are locked in place — d3-force cannot move them
+      fx: pin ? pin[0] : null,
+      fy: pin ? pin[1] : null,
+      fz: pin ? pin[2] : null,
+    }
+  })
 
   // Build links — d3-force-3d will resolve string IDs to node references during tick
   const rawLinks: RawLink[] = CONNECTIONS.map((conn) => ({
@@ -128,12 +145,14 @@ export function createNeuralLayout(): LayoutResult {
   // Run synchronously — 300 ticks is sufficient for convergence on ~30 nodes
   simulation.tick(FORCE_CONFIG.tickCount)
 
-  // Guarantee central neuron is exactly at origin (numerical precision)
-  const meNode = nodes.find((n) => n.id === 'me')
-  if (meNode) {
-    meNode.x = 0
-    meNode.y = 0
-    meNode.z = 0
+  // Guarantee all pinned nodes are at their exact positions (numerical precision)
+  for (const node of nodes) {
+    const pin = PINNED_POSITIONS[node.id]
+    if (pin) {
+      node.x = pin[0]
+      node.y = pin[1]
+      node.z = pin[2]
+    }
   }
 
   // After tick(), d3-force has resolved link source/target strings → node refs

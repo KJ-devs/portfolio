@@ -68,6 +68,7 @@ export function CameraController() {
       }
       proxyRef.current = { ...proxy }
 
+      ctrl.enabled = false
       tweenRef.current = gsap.to(proxy, {
         cx: tx, cy: ty, cz: tz,
         ox: 0,  oy: 0,  oz: 0,
@@ -82,6 +83,8 @@ export function CameraController() {
           ctrl.target.set(0, 0, 0)
           ctrl.update()
           proxyRef.current = null
+          tweenRef.current = null
+          ctrl.enabled = true
           ctrl.autoRotate = true
         },
       })
@@ -111,6 +114,7 @@ export function CameraController() {
     }
     proxyRef.current = { ...proxy }
     ctrl.autoRotate  = false
+    ctrl.enabled     = false
 
     tweenRef.current = gsap.to(proxy, {
       cx: newCamPos.x, cy: newCamPos.y, cz: newCamPos.z,
@@ -126,6 +130,8 @@ export function CameraController() {
         ctrl.target.set(nodeX, nodeY, nodeZ)
         ctrl.update()
         proxyRef.current = null
+        tweenRef.current = null
+        ctrl.enabled     = true
         ctrl.autoRotate  = false
       },
     })
@@ -135,6 +141,8 @@ export function CameraController() {
         tweenRef.current.kill()
         tweenRef.current = null
         proxyRef.current = null
+        // Re-enable controls if tween was killed mid-flight
+        if (controlsRef.current) controlsRef.current.enabled = true
       }
     }
   }, [selectedNeuron, camera])
