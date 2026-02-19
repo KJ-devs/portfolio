@@ -30,6 +30,8 @@ export function CameraController() {
 
     if (!selectedNeuron) {
       // Return to overview
+      gsap.killTweensOf(camera.position)
+      gsap.killTweensOf(ctrl.target)
       ctrl.enabled = false
       ctrl.autoRotate = false
 
@@ -63,6 +65,10 @@ export function CameraController() {
     const nodeY = node.y ?? 0
     const nodeZ = node.z ?? 0
 
+    // Kill any in-progress camera tweens before starting new ones
+    gsap.killTweensOf(camera.position)
+    gsap.killTweensOf(ctrl.target)
+
     // Offset camera slightly so the neuron is not dead-center
     const offset = 12
     ctrl.enabled = false
@@ -86,6 +92,10 @@ export function CameraController() {
       duration: ANIMATION_CONFIG.cameraZoom.duration,
       ease: ANIMATION_CONFIG.cameraZoom.ease,
     })
+    return () => {
+      gsap.killTweensOf(camera.position)
+      gsap.killTweensOf(ctrl.target)
+    }
   }, [selectedNeuron, camera])
 
   return (

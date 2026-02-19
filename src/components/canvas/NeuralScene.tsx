@@ -14,6 +14,7 @@ import { PostProcessing } from './PostProcessing'
 export function NeuralScene() {
   const closePanel = usePortfolioStore((s) => s.closePanel)
   const isPanelOpen = usePortfolioStore((s) => s.isPanelOpen)
+  const isTourActive = usePortfolioStore((s) => s.isTourActive)
 
   return (
     <div className="fixed inset-0 w-screen h-screen">
@@ -28,7 +29,7 @@ export function NeuralScene() {
         dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
         style={{ background: '#0A0A0F' }}
-        onPointerMissed={() => { if (isPanelOpen) closePanel() }}
+        onPointerMissed={() => { if (isPanelOpen && !isTourActive) closePanel() }}
       >
         <Suspense fallback={null}>
           {/* Deep space fog for atmospheric depth */}
