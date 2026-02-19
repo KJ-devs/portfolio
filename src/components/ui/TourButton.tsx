@@ -64,7 +64,7 @@ export function TourButton() {
   if (!isIntroComplete) return null
 
   return (
-    <div className="fixed bottom-[4.5rem] left-4 z-20">
+    <div className="fixed bottom-6 left-1/2 z-30 -translate-x-1/2">
       {isActive ? (
         <button
           onClick={stopTour}

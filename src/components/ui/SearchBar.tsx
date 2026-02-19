@@ -82,7 +82,7 @@ export function SearchBar() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed left-1/2 top-4 z-50 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white/50 backdrop-blur-md transition-colors hover:border-white/20 hover:text-white/80"
+          className="fixed left-1/2 top-14 z-50 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white/50 backdrop-blur-md transition-colors hover:border-white/20 hover:text-white/80"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.2" />
