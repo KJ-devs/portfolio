@@ -31,22 +31,33 @@ export function NeuralScene() {
         onPointerMissed={() => { if (isPanelOpen) closePanel() }}
       >
         <Suspense fallback={null}>
+          {/* Deep space fog for atmospheric depth */}
+          <fogExp2 attach="fog" args={['#08081a', 0.005]} />
+
           {/* Ambient light for base scene illumination */}
-          <ambientLight intensity={0.3} color="#ffffff" />
+          <ambientLight intensity={0.4} color="#8899ff" />
 
           {/* Main point light from above */}
           <pointLight
             position={[0, 50, 0]}
-            intensity={2.0}
+            intensity={2.5}
             color="#ffffff"
-            distance={200}
+            distance={250}
           />
 
-          {/* Secondary accent light — blue-ish, from the side */}
+          {/* Secondary accent light — cyan, from the side */}
           <pointLight
             position={[-50, 0, 30]}
-            intensity={0.8}
+            intensity={1.2}
             color="#00D4FF"
+            distance={180}
+          />
+
+          {/* Warm fill light — bottom */}
+          <pointLight
+            position={[40, -40, -20]}
+            intensity={0.6}
+            color="#A855F7"
             distance={150}
           />
 
