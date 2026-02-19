@@ -2,6 +2,32 @@ import type { Project } from '@/types/portfolio'
 
 export const PROJECTS: Project[] = [
   {
+    id: 'hiking',
+    title: 'HikingProject',
+    description:
+      'Application de réseau social dédié à la randonnée — partage de trails, profils de randonneurs et communauté outdoor',
+    stack: ['JavaScript', 'HTML/CSS', 'Node.js'],
+    highlights: [
+      'Feed social de trails avec géolocalisation',
+      'Profils randonneurs avec statistiques',
+      'Communauté et système de partage',
+    ],
+    links: { github: 'https://github.com/KJ-devs/HikingProject' },
+  },
+  {
+    id: 'travelbuddy',
+    title: 'TravelBuddy',
+    description:
+      'Application Python de planification de voyages — itinéraires intelligents, suggestions de destinations et gestion de budget',
+    stack: ['Python', 'API REST'],
+    highlights: [
+      'Génération automatique d\'itinéraires',
+      'Suggestions de destinations personnalisées',
+      'Gestion de budget voyage',
+    ],
+    links: { github: 'https://github.com/KJ-devs/travelbuddy' },
+  },
+  {
     id: 'supporthelper',
     title: 'supportHelper v2',
     description:

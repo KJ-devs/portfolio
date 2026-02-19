@@ -2,6 +2,7 @@
 
 import { create } from 'zustand'
 import type { NeuronCategory, NeuronData } from '@/types/neuron'
+import type { Lang } from '@/lib/i18n'
 
 interface PortfolioStore {
   // State
@@ -14,6 +15,7 @@ interface PortfolioStore {
   highlightedPath: string[] | null
   activeView: 'hr' | 'neural'
   isTourActive: boolean
+  language: Lang
 
   // Actions
   setSelectedNeuron: (neuron: NeuronData | null) => void
@@ -26,6 +28,7 @@ interface PortfolioStore {
   setHighlightedPath: (path: string[] | null) => void
   setActiveView: (view: 'hr' | 'neural') => void
   setTourActive: (active: boolean) => void
+  setLanguage: (lang: Lang) => void
 }
 
 export const usePortfolioStore = create<PortfolioStore>((set) => ({
@@ -39,6 +42,7 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
   highlightedPath: null,
   activeView: 'hr',
   isTourActive: false,
+  language: 'fr',
 
   // Actions
   setSelectedNeuron: (neuron) =>
@@ -74,4 +78,7 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
 
   setTourActive: (active) =>
     set({ isTourActive: active }),
+
+  setLanguage: (lang) =>
+    set({ language: lang }),
 }))

@@ -6,7 +6,17 @@
       "Bash(gh repo view:*)",
       "Bash(gh issue create:*)",
       "Bash(sort:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(pnpm tsc:*)",
+      "Bash(git stash:*)",
+      "Bash(git commit:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npx playwright:*)",
+      "Bash(curl:*)",
+      "Bash(node:*)",
+      "Bash(pnpm add:*)",
+      "Bash(gh api:*)"
     ]
   }
 }
