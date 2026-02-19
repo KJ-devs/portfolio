@@ -11,6 +11,8 @@ import { NEURON_DEFAULTS } from '@/lib/constants'
 import type { LayoutNode } from '@/lib/neuralLayout'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
+import { Tooltip } from './Tooltip'
+
 interface NeuronProps {
   node: LayoutNode
   introDelay?: number
@@ -29,6 +31,8 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
   const isIntroComplete = usePortfolioStore((s) => s.isIntroComplete)
   const activeCategories = usePortfolioStore((s) => s.activeCategories)
+
+  const isPanelOpen = usePortfolioStore((s) => s.isPanelOpen)
 
   const isHovered = hoveredNeuron === node.id
   const isSelected = selectedNeuron?.id === node.id
@@ -139,6 +143,15 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
             {node.label}
           </span>
         </Html>
+
+        {/* Tooltip: label + description, only when hovered and no panel open */}
+        <Tooltip
+          visible={isHovered && !isPanelOpen}
+          label={node.label}
+          description={NEURONS_BY_ID[node.id]?.description ?? ''}
+          color={color}
+          radius={radius}
+        />
       </group>
     </Float>
   )
