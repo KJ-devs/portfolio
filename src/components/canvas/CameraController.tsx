@@ -99,6 +99,10 @@ export function CameraController() {
       maxDistance={CAMERA_CONFIG.maxDistance}
       enableDamping
       dampingFactor={0.08}
+      touches={{
+        ONE: THREE.TOUCH.ROTATE,
+        TWO: THREE.TOUCH.DOLLY_ROTATE,
+      }}
     />
   )
 }
