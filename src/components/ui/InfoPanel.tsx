@@ -7,6 +7,7 @@ import { useConnectedNeurons } from '@/hooks/useConnectedNeurons'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { NeuronData } from '@/types/neuron'
 
+import { ChatPanel } from './panels/ChatPanel'
 import { ContactPanel } from './panels/ContactPanel'
 import { CorePanel } from './panels/CorePanel'
 import { ExperiencePanel } from './panels/ExperiencePanel'
@@ -16,6 +17,11 @@ import { SkillPanel } from './panels/SkillPanel'
 // ─── Dispatch content per neuron type ────────────────────────────────────────
 
 function NeuronContent({ neuron }: { neuron: NeuronData }) {
+  // Easter egg — brain neuron shows chatbot interface
+  if (neuron.id === 'brain') {
+    return <ChatPanel />
+  }
+
   const { metadata } = neuron
   switch (metadata.type) {
     case 'skill':

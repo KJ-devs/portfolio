@@ -370,6 +370,23 @@ export const NEURONS: NeuronData[] = [
       action: 'url',
     },
   },
+
+  // ═══════════════════════════════════════════
+  // EASTER EGG — hidden brain neuron
+  // ═══════════════════════════════════════════
+  {
+    id: 'brain',
+    label: '?',
+    category: 'core',
+    description: 'Pose-moi une question...',
+    size: 0.5,
+    color: '#F5A623',
+    metadata: {
+      type: 'core',
+      bio: 'Easter egg — Ask my brain!',
+      title: 'Ask my brain',
+    },
+  },
 ]
 
 export const NEURONS_BY_ID: Record<string, NeuronData> = Object.fromEntries(
