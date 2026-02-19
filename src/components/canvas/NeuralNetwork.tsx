@@ -4,6 +4,7 @@ import { useNeuralNetwork } from '@/hooks/useNeuralNetwork'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 import { Neuron } from './Neuron'
+import { Particles } from './Particles'
 import { Synapse } from './Synapse'
 
 export function NeuralNetwork() {
@@ -29,6 +30,9 @@ export function NeuralNetwork() {
       {visibleLinks.map((link, i) => (
         <Synapse key={`${link.source.id}-${link.target.id}-${i}`} link={link} />
       ))}
+
+      {/* Particles travel along synapses */}
+      <Particles links={visibleLinks} />
 
       {/* Render neurons on top */}
       {visibleNodes.map((node) => (
