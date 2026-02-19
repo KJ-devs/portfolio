@@ -18,15 +18,26 @@ export function Synapse({ link }: SynapseProps) {
   const targetOpacityRef = useRef(0.2)
 
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
+  const highlightedPath = usePortfolioStore((s) => s.highlightedPath)
 
   const { source: sourceNode, target: targetNode } = link
 
+  // Path takes visual priority over selection
+  const isOnPath =
+    highlightedPath !== null &&
+    highlightedPath.includes(sourceNode.id) &&
+    highlightedPath.includes(targetNode.id)
+
   // Compute target opacity from current selection state
-  const targetOpacity = !selectedNeuron
-    ? 0.15 + link.strength * 0.25 // 0.15–0.40 proportional to strength
-    : selectedNeuron.id === sourceNode.id || selectedNeuron.id === targetNode.id
-      ? 0.8 // highlight connected synapses
-      : 0.05 // dim unrelated synapses
+  const targetOpacity = isOnPath
+    ? 0.95 // path glow
+    : !selectedNeuron
+      ? 0.15 + link.strength * 0.25 // 0.15–0.40 proportional to strength
+      : selectedNeuron.id === sourceNode.id || selectedNeuron.id === targetNode.id
+        ? 0.8 // highlight connected synapses
+        : highlightedPath !== null
+          ? 0.02 // path active — dim everything else more
+          : 0.05 // dim unrelated synapses
 
   targetOpacityRef.current = targetOpacity
 
