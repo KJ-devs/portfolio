@@ -1,25 +1,37 @@
 'use client'
 
-import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing'
+import { Bloom, ChromaticAberration, EffectComposer, Vignette } from '@react-three/postprocessing'
+import { useMemo } from 'react'
+import * as THREE from 'three'
 
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 export function PostProcessing() {
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
 
-  // Intensify glow when a node is focused — makes selected node pop against dimmed scene
-  const bloomIntensity = selectedNeuron ? 2.4 : 1.5
-  const luminanceThreshold = selectedNeuron ? 0.45 : 0.6
-  const vignetteDarkness = selectedNeuron ? 0.88 : 0.7
+  const bloomIntensity = selectedNeuron ? 3.0 : 2.0
+  const luminanceThreshold = selectedNeuron ? 0.38 : 0.52
+  const vignetteDarkness = selectedNeuron ? 0.92 : 0.78
+
+  const chromaticOffset = useMemo(
+    () =>
+      new THREE.Vector2(
+        selectedNeuron ? 0.0007 : 0.00025,
+        selectedNeuron ? 0.001 : 0.0004,
+      ),
+    [selectedNeuron],
+  )
 
   return (
     <EffectComposer>
       <Bloom
         intensity={bloomIntensity}
         luminanceThreshold={luminanceThreshold}
-        luminanceSmoothing={0.9}
+        luminanceSmoothing={0.85}
+        mipmapBlur
       />
-      <Vignette offset={0.3} darkness={vignetteDarkness} eskil={false} />
+      <ChromaticAberration offset={chromaticOffset} />
+      <Vignette offset={0.22} darkness={vignetteDarkness} eskil={false} />
     </EffectComposer>
   )
 }

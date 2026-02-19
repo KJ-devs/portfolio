@@ -13,9 +13,9 @@ export const NEURON_DEFAULTS = {
   minSize: 0.5,
   maxSize: 2.0,
   emissiveIntensity: {
-    default: 0.4,
-    hover: 1.2,
-    selected: 1.5,
+    default: 0.5,
+    hover: 1.4,
+    selected: 2.0,
   },
 } as const
 
@@ -47,9 +47,9 @@ export const ANIMATION_CONFIG = {
 } as const
 
 export const PARTICLE_CONFIG = {
-  perSynapse: 2,
-  speed: { min: 0.003, max: 0.008 },
-  size: 0.3,
+  perSynapse: 3,
+  speed: { min: 0.004, max: 0.01 },
+  size: 0.45,
 } as const
 
 // Level of Detail — segments per sphere based on node size (static LOD)
