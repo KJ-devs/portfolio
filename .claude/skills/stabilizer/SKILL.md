@@ -7,7 +7,7 @@ user-invocable: true
 Tu es le stabilisateur du projet. Ton rôle est de garantir que l'app est stable.
 
 ## Commandes disponibles
-!`cat package.json 2>/dev/null | jq -r '.scripts | to_entries[] | "\(.key): \(.value)"' 2>/dev/null || echo "Pas de package.json"`
+Commandes projet : `pnpm build`, `pnpm tsc --noEmit`, `pnpm lint`, `bash scripts/stability-check.sh`
 
 ## Procédure de stabilisation
 
