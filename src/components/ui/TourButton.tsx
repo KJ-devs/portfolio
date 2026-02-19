@@ -24,6 +24,7 @@ export function TourButton() {
   const [step, setStep] = useState(0)
   const setSelectedNeuron = usePortfolioStore((s) => s.setSelectedNeuron)
   const closePanel = usePortfolioStore((s) => s.closePanel)
+  const setTourActive = usePortfolioStore((s) => s.setTourActive)
   const isIntroComplete = usePortfolioStore((s) => s.isIntroComplete)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -40,6 +41,7 @@ export function TourButton() {
       } else {
         setIsActive(false)
         setStep(0)
+        setTourActive(false)
         closePanel()
       }
     }, STEP_DURATION_MS)
@@ -47,9 +49,10 @@ export function TourButton() {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current)
     }
-  }, [isActive, step, setSelectedNeuron, closePanel])
+  }, [isActive, step, setSelectedNeuron, closePanel, setTourActive])
 
   const startTour = () => {
+    setTourActive(true)
     setStep(0)
     setIsActive(true)
   }
@@ -58,6 +61,7 @@ export function TourButton() {
     if (timerRef.current) clearTimeout(timerRef.current)
     setIsActive(false)
     setStep(0)
+    setTourActive(false)
     closePanel()
   }
 
