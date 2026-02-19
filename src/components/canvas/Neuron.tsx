@@ -26,6 +26,7 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
   const worldPosVec = useRef(new THREE.Vector3())
   const scaleRef = useRef(0)
   const opacityRef = useRef(0)
+  const pulseTimeRef = useRef(0) // Used only for 'brain' easter egg
 
   const setHoveredNeuron = usePortfolioStore((s) => s.setHoveredNeuron)
   const setSelectedNeuron = usePortfolioStore((s) => s.setSelectedNeuron)
@@ -84,16 +85,23 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
     }
     if (materialRef.current) {
       materialRef.current.opacity = opacityRef.current
-      const target = isSelected
-        ? NEURON_DEFAULTS.emissiveIntensity.selected
-        : isHovered
-          ? NEURON_DEFAULTS.emissiveIntensity.hover
-          : NEURON_DEFAULTS.emissiveIntensity.default
-      materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
-        materialRef.current.emissiveIntensity,
-        target,
-        delta * 8,
-      )
+      if (node.id === 'brain') {
+        // Distinct golden pulse for the easter egg neuron
+        pulseTimeRef.current += delta
+        materialRef.current.emissiveIntensity =
+          0.5 + Math.sin(pulseTimeRef.current * 3) * 0.45
+      } else {
+        const target = isSelected
+          ? NEURON_DEFAULTS.emissiveIntensity.selected
+          : isHovered
+            ? NEURON_DEFAULTS.emissiveIntensity.hover
+            : NEURON_DEFAULTS.emissiveIntensity.default
+        materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
+          materialRef.current.emissiveIntensity,
+          target,
+          delta * 8,
+        )
+      }
     }
     // Distance-based label opacity — labels fade out when far from camera
     if (labelRef.current && groupRef.current) {

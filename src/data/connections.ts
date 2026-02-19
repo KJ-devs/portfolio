@@ -89,4 +89,6 @@ export const CONNECTIONS: ConnectionData[] = [
   { source: 'machine-learning', target: 'big-data',   strength: 0.65 },
   { source: 'git',        target: 'ci-cd',            strength: 0.7 },
   { source: 'docker',     target: 'ci-cd',            strength: 0.65 },
+  // Easter egg — weak link to keep brain node in the network but at the periphery
+  { source: 'me',         target: 'brain',            strength: 0.15 },
 ]
