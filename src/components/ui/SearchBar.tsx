@@ -89,7 +89,7 @@ export function SearchBar() {
             <path d="M9.5 9.5L12 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
           </svg>
           <span>Rechercher…</span>
-          <kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-white/30">
+          <kbd className="hidden rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-white/30 md:inline">
             ⌘K
           </kbd>
         </button>

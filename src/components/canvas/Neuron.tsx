@@ -22,6 +22,8 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
   const materialRef = useRef<THREE.MeshStandardMaterial>(null)
   const meshRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
+  const labelRef = useRef<HTMLSpanElement>(null)
+  const worldPosVec = useRef(new THREE.Vector3())
   const scaleRef = useRef(0)
   const opacityRef = useRef(0)
 
@@ -71,8 +73,8 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
     return () => { tween.kill() }
   }, [isActive, isIntroComplete])
 
-  // Apply transforms and animate emissive glow each frame
-  useFrame((_, delta) => {
+  // Apply transforms, emissive glow, and distance-based label opacity each frame
+  useFrame(({ camera }, delta) => {
     if (groupRef.current) {
       groupRef.current.scale.setScalar(scaleRef.current)
     }
@@ -80,18 +82,26 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
       // Disable pointer interaction when fully faded out
       meshRef.current.visible = opacityRef.current > 0.02
     }
-    if (!materialRef.current) return
-    materialRef.current.opacity = opacityRef.current
-    const target = isSelected
-      ? NEURON_DEFAULTS.emissiveIntensity.selected
-      : isHovered
-        ? NEURON_DEFAULTS.emissiveIntensity.hover
-        : NEURON_DEFAULTS.emissiveIntensity.default
-    materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
-      materialRef.current.emissiveIntensity,
-      target,
-      delta * 8,
-    )
+    if (materialRef.current) {
+      materialRef.current.opacity = opacityRef.current
+      const target = isSelected
+        ? NEURON_DEFAULTS.emissiveIntensity.selected
+        : isHovered
+          ? NEURON_DEFAULTS.emissiveIntensity.hover
+          : NEURON_DEFAULTS.emissiveIntensity.default
+      materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
+        materialRef.current.emissiveIntensity,
+        target,
+        delta * 8,
+      )
+    }
+    // Distance-based label opacity — labels fade out when far from camera
+    if (labelRef.current && groupRef.current) {
+      groupRef.current.getWorldPosition(worldPosVec.current)
+      const dist = camera.position.distanceTo(worldPosVec.current)
+      const base = dist < 25 ? (isHovered || isSelected ? 1 : 0.7) : dist < 40 ? 0.35 : 0
+      labelRef.current.style.opacity = String(base * opacityRef.current)
+    }
   })
 
   return (
@@ -138,14 +148,14 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
           style={{ pointerEvents: 'none', userSelect: 'none' }}
         >
           <span
+            ref={labelRef}
             style={{
               fontFamily: '"JetBrains Mono", monospace',
               fontSize: '10px',
               color: '#ffffff',
-              opacity: isHovered || isSelected ? 1 : 0.7,
+              opacity: 0,
               whiteSpace: 'nowrap',
               textShadow: `0 0 8px ${color}`,
-              transition: 'opacity 0.2s ease',
             }}
           >
             {node.label}

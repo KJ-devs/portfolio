@@ -55,7 +55,7 @@ export function MiniMap() {
   if (nodes.length === 0) return null
 
   return (
-    <div className="fixed bottom-4 right-4 z-40 rounded-xl border border-white/10 bg-black/30 backdrop-blur-md">
+    <div className="fixed bottom-4 right-4 z-40 hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-md md:block">
       <p className="px-2 pt-1.5 text-center font-mono text-[9px] uppercase tracking-widest text-white/25">
         Map
       </p>

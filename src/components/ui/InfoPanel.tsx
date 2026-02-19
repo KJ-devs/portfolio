@@ -57,19 +57,30 @@ export function InfoPanel() {
 
   const connectedNeurons = useConnectedNeurons(displayedNeuron)
 
-  // Set initial off-screen position via GSAP (avoids inline style prop)
+  // Set initial off-screen position based on viewport (mobile = bottom, desktop = right)
   useLayoutEffect(() => {
-    if (panelRef.current) gsap.set(panelRef.current, { x: '100%' })
+    if (!panelRef.current) return
+    if (window.innerWidth < 768) {
+      gsap.set(panelRef.current, { y: '100%', x: 0 })
+    } else {
+      gsap.set(panelRef.current, { x: '100%', y: 0 })
+    }
   }, [])
 
-  // Slide in/out animation with proper cleanup
+  // Slide in/out — direction depends on viewport
   useEffect(() => {
     if (!panelRef.current) return
+    const el = panelRef.current
+    const mobile = window.innerWidth < 768
     if (isPanelOpen) {
-      const tween = gsap.fromTo(panelRef.current, { x: '100%' }, { x: '0%', duration: 0.6, ease: 'power2.out' })
+      const tween = mobile
+        ? gsap.fromTo(el, { y: '100%' }, { y: '0%', duration: 0.4, ease: 'power2.out' })
+        : gsap.fromTo(el, { x: '100%' }, { x: '0%', duration: 0.6, ease: 'power2.out' })
       return () => { tween.kill() }
     } else {
-      const tween = gsap.to(panelRef.current, { x: '100%', duration: 0.3, ease: 'power2.in' })
+      const tween = mobile
+        ? gsap.to(el, { y: '100%', duration: 0.3, ease: 'power2.in' })
+        : gsap.to(el, { x: '100%', duration: 0.3, ease: 'power2.in' })
       return () => { tween.kill() }
     }
   }, [isPanelOpen])
@@ -84,7 +95,7 @@ export function InfoPanel() {
       {/* Panel */}
       <div
         ref={panelRef}
-        className="fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-l border-white/10 bg-black/40 shadow-2xl backdrop-blur-xl"
+        className="fixed bottom-0 left-0 right-0 z-50 flex max-h-[80vh] flex-col rounded-t-2xl border-t border-white/10 bg-black/40 backdrop-blur-xl md:bottom-auto md:left-auto md:right-0 md:top-0 md:h-full md:max-h-none md:w-full md:max-w-sm md:rounded-none md:border-l md:border-t-0 md:shadow-2xl"
       >
         {/* Header */}
         <div className="flex items-start justify-between border-b border-white/10 p-6">
