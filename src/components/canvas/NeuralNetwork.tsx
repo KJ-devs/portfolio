@@ -10,7 +10,6 @@ import { Neuron } from './Neuron'
 import { Particles } from './Particles'
 import { Synapse } from './Synapse'
 
-/** Delay between each neuron's scale-in during intro (seconds) */
 const INTRO_STAGGER = 0.05
 
 export function NeuralNetwork() {
@@ -27,29 +26,27 @@ export function NeuralNetwork() {
 
   if (!isReady) return null
 
-  const visibleNodeIds = new Set(
+  const activeNodeIds = new Set(
     nodes.filter((n) => activeCategories.includes(n.category)).map((n) => n.id),
   )
 
-  const visibleNodes = nodes.filter((n) => visibleNodeIds.has(n.id))
-
-  // Only render synapses where both endpoints are visible
+  // Synapses only render between two active nodes
   const visibleLinks = links.filter(
-    (link) => visibleNodeIds.has(link.source.id) && visibleNodeIds.has(link.target.id),
+    (link) => activeNodeIds.has(link.source.id) && activeNodeIds.has(link.target.id),
   )
 
   return (
     <group>
-      {/* Render synapses first (behind neurons) */}
+      {/* Synapses behind neurons */}
       {visibleLinks.map((link, i) => (
         <Synapse key={`${link.source.id}-${link.target.id}-${i}`} link={link} />
       ))}
 
-      {/* Particles travel along synapses */}
+      {/* Particles on active synapses */}
       <Particles links={visibleLinks} />
 
-      {/* Render neurons on top */}
-      {visibleNodes.map((node) => (
+      {/* All neurons — each handles its own active/opacity state */}
+      {nodes.map((node) => (
         <Neuron
           key={node.id}
           node={node}

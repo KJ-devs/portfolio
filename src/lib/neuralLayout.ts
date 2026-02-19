@@ -57,6 +57,11 @@ export function getNodeById(id: string): LayoutNode | undefined {
   return layoutCache?.nodes.find((n) => n.id === id)
 }
 
+/** Returns the full layout result after the first createNeuralLayout() call. */
+export function getLayoutResult(): LayoutResult | null {
+  return layoutCache
+}
+
 export function createNeuralLayout(): LayoutResult {
   // Build nodes — scatter them near origin so simulation has room to work
   const nodes: LayoutNode[] = NEURONS.map((neuron) => ({
