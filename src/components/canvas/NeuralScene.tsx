@@ -6,6 +6,7 @@ import { Suspense } from 'react'
 import { CAMERA_CONFIG } from '@/lib/constants'
 
 import { BackgroundEffects } from './BackgroundEffects'
+import { CameraController } from './CameraController'
 import { NeuralNetwork } from './NeuralNetwork'
 import { PostProcessing } from './PostProcessing'
 
@@ -43,6 +44,7 @@ export function NeuralScene() {
             distance={150}
           />
 
+          <CameraController />
           <NeuralNetwork />
           <BackgroundEffects />
           <PostProcessing />

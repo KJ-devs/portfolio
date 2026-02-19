@@ -49,6 +49,14 @@ export interface LayoutResult {
   links: LayoutLink[]
 }
 
+// Module-level cache — populated after the first call to createNeuralLayout()
+let layoutCache: LayoutResult | null = null
+
+/** Fast lookup of a node by id after the layout has been computed. */
+export function getNodeById(id: string): LayoutNode | undefined {
+  return layoutCache?.nodes.find((n) => n.id === id)
+}
+
 export function createNeuralLayout(): LayoutResult {
   // Build nodes — scatter them near origin so simulation has room to work
   const nodes: LayoutNode[] = NEURONS.map((neuron) => ({
@@ -126,5 +134,6 @@ export function createNeuralLayout(): LayoutResult {
   // After tick(), d3-force has resolved link source/target strings → node refs
   const links = rawLinks as unknown as LayoutLink[]
 
-  return { nodes, links }
+  layoutCache = { nodes, links }
+  return layoutCache
 }
