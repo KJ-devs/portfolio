@@ -93,11 +93,6 @@ export function InfoPanel() {
 
   return (
     <>
-      {/* Backdrop — click outside to close */}
-      {isPanelOpen && (
-        <div className="fixed inset-0 z-[45]" onClick={closePanel} aria-hidden="true" />
-      )}
-
       {/* Panel */}
       <div
         ref={panelRef}
