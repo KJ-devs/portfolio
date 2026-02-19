@@ -12,6 +12,7 @@ interface PortfolioStore {
   isIntroComplete: boolean
   isPanelOpen: boolean
   highlightedPath: string[] | null
+  activeView: 'hr' | 'neural'
 
   // Actions
   setSelectedNeuron: (neuron: NeuronData | null) => void
@@ -22,6 +23,7 @@ interface PortfolioStore {
   setPanelOpen: (open: boolean) => void
   closePanel: () => void
   setHighlightedPath: (path: string[] | null) => void
+  setActiveView: (view: 'hr' | 'neural') => void
 }
 
 export const usePortfolioStore = create<PortfolioStore>((set) => ({
@@ -33,6 +35,7 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
   isIntroComplete: false,
   isPanelOpen: false,
   highlightedPath: null,
+  activeView: 'hr',
 
   // Actions
   setSelectedNeuron: (neuron) =>
@@ -62,4 +65,7 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
 
   setHighlightedPath: (path) =>
     set({ highlightedPath: path }),
+
+  setActiveView: (view) =>
+    set({ activeView: view }),
 }))
