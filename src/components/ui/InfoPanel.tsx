@@ -1,0 +1,141 @@
+'use client'
+
+import { gsap } from 'gsap'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+
+import { useConnectedNeurons } from '@/hooks/useConnectedNeurons'
+import { usePortfolioStore } from '@/stores/usePortfolioStore'
+import type { NeuronData } from '@/types/neuron'
+
+import { ContactPanel } from './panels/ContactPanel'
+import { CorePanel } from './panels/CorePanel'
+import { ExperiencePanel } from './panels/ExperiencePanel'
+import { ProjectPanel } from './panels/ProjectPanel'
+import { SkillPanel } from './panels/SkillPanel'
+
+// ─── Dispatch content per neuron type ────────────────────────────────────────
+
+function NeuronContent({ neuron }: { neuron: NeuronData }) {
+  const { metadata } = neuron
+  switch (metadata.type) {
+    case 'skill':
+      return <SkillPanel meta={metadata} description={neuron.description} />
+    case 'project':
+      return <ProjectPanel meta={metadata} description={neuron.description} />
+    case 'experience':
+      return <ExperiencePanel meta={metadata} description={neuron.description} />
+    case 'contact':
+      return <ContactPanel meta={metadata} label={neuron.label} />
+    case 'core':
+      return <CorePanel meta={metadata} description={neuron.description} />
+  }
+}
+
+const CATEGORY_LABEL: Record<string, string> = {
+  core: 'Core',
+  skill: 'Compétence',
+  project: 'Projet',
+  experience: 'Expérience',
+  contact: 'Contact',
+}
+
+// ─── Main Panel ──────────────────────────────────────────────────────────────
+
+export function InfoPanel() {
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
+  const isPanelOpen = usePortfolioStore((s) => s.isPanelOpen)
+  const closePanel = usePortfolioStore((s) => s.closePanel)
+  const setSelectedNeuron = usePortfolioStore((s) => s.setSelectedNeuron)
+
+  // Preserve content during exit animation
+  const [displayedNeuron, setDisplayedNeuron] = useState<NeuronData | null>(null)
+  useEffect(() => {
+    if (selectedNeuron) setDisplayedNeuron(selectedNeuron)
+  }, [selectedNeuron])
+
+  const connectedNeurons = useConnectedNeurons(displayedNeuron)
+
+  // Set initial off-screen position via GSAP (avoids inline style prop)
+  useLayoutEffect(() => {
+    if (panelRef.current) gsap.set(panelRef.current, { x: '100%' })
+  }, [])
+
+  // Slide in/out animation with proper cleanup
+  useEffect(() => {
+    if (!panelRef.current) return
+    if (isPanelOpen) {
+      const tween = gsap.fromTo(panelRef.current, { x: '100%' }, { x: '0%', duration: 0.6, ease: 'power2.out' })
+      return () => { tween.kill() }
+    } else {
+      const tween = gsap.to(panelRef.current, { x: '100%', duration: 0.3, ease: 'power2.in' })
+      return () => { tween.kill() }
+    }
+  }, [isPanelOpen])
+
+  return (
+    <>
+      {/* Backdrop — click outside to close */}
+      {isPanelOpen && (
+        <div className="fixed inset-0 z-40" onClick={closePanel} aria-hidden="true" />
+      )}
+
+      {/* Panel */}
+      <div
+        ref={panelRef}
+        className="fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-l border-white/10 bg-black/40 shadow-2xl backdrop-blur-xl"
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between border-b border-white/10 p-6">
+          <div className="min-w-0 flex-1">
+            <span className="font-mono text-xs uppercase tracking-widest text-white/40">
+              {displayedNeuron ? (CATEGORY_LABEL[displayedNeuron.category] ?? '') : ''}
+            </span>
+            <h2 className="mt-1 truncate text-xl font-semibold text-white">
+              {displayedNeuron?.label}
+            </h2>
+          </div>
+          <button
+            onClick={closePanel}
+            className="ml-4 flex-shrink-0 rounded-lg p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+            aria-label="Fermer le panel"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M2 2l12 12M14 2L2 14"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 space-y-6 overflow-y-auto p-6">
+          {displayedNeuron && <NeuronContent neuron={displayedNeuron} />}
+
+          {connectedNeurons.length > 0 && (
+            <div>
+              <h3 className="mb-3 font-mono text-xs uppercase tracking-widest text-white/40">
+                Connexions ({connectedNeurons.length})
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {connectedNeurons.map((n) => (
+                  <button
+                    key={n.id}
+                    onClick={() => setSelectedNeuron(n)}
+                    className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/60 transition-all hover:border-white/20 hover:bg-white/15 hover:text-white"
+                  >
+                    {n.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  )
+}
