@@ -40,7 +40,7 @@ export function OnboardingHint() {
   return (
     <div
       ref={divRef}
-      className="pointer-events-none fixed bottom-24 left-1/2 z-20 -translate-x-1/2"
+      className="pointer-events-none fixed bottom-[4.5rem] left-1/2 z-30 -translate-x-1/2"
       style={{ opacity: 0 }}
     >
       <div className="flex items-center gap-2.5 rounded-full border border-white/10 bg-black/50 px-5 py-2.5 backdrop-blur-sm">

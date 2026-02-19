@@ -95,7 +95,7 @@ export function InfoPanel() {
     <>
       {/* Backdrop — click outside to close */}
       {isPanelOpen && (
-        <div className="fixed inset-0 z-40" onClick={closePanel} aria-hidden="true" />
+        <div className="fixed inset-0 z-[45]" onClick={closePanel} aria-hidden="true" />
       )}
 
       {/* Panel */}
