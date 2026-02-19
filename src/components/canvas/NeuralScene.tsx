@@ -21,7 +21,8 @@ export function NeuralScene() {
           position: CAMERA_CONFIG.initialPosition,
         }}
         gl={{ antialias: true, alpha: false }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
+        performance={{ min: 0.5 }}
         style={{ background: '#0A0A0F' }}
       >
         <Suspense fallback={null}>

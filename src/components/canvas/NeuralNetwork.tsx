@@ -24,16 +24,18 @@ export function NeuralNetwork() {
     return map
   }, [])
 
-  if (!isReady) return null
-
-  const activeNodeIds = new Set(
-    nodes.filter((n) => activeCategories.includes(n.category)).map((n) => n.id),
+  const activeNodeIds = useMemo(
+    () => new Set(nodes.filter((n) => activeCategories.includes(n.category)).map((n) => n.id)),
+    [nodes, activeCategories],
   )
 
   // Synapses only render between two active nodes
-  const visibleLinks = links.filter(
-    (link) => activeNodeIds.has(link.source.id) && activeNodeIds.has(link.target.id),
+  const visibleLinks = useMemo(
+    () => links.filter((link) => activeNodeIds.has(link.source.id) && activeNodeIds.has(link.target.id)),
+    [links, activeNodeIds],
   )
+
+  if (!isReady) return null
 
   return (
     <group>

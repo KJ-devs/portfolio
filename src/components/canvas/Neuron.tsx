@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 import { NEURONS_BY_ID } from '@/data/neurons'
-import { NEURON_DEFAULTS } from '@/lib/constants'
+import { LOD_CONFIG, NEURON_DEFAULTS } from '@/lib/constants'
 import type { LayoutNode } from '@/lib/neuralLayout'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
@@ -39,6 +39,14 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
   const isActive = activeCategories.includes(node.category)
   const color = node.color ?? '#ffffff'
   const radius = node.size * 0.8
+
+  // Static LOD: fewer segments for small/peripheral nodes
+  const segments =
+    node.size >= LOD_CONFIG.high.minSize
+      ? LOD_CONFIG.high.segments
+      : node.size >= LOD_CONFIG.mid.minSize
+        ? LOD_CONFIG.mid.segments
+        : LOD_CONFIG.low.segments
 
   // Intro scale-in when intro completes
   useEffect(() => {
@@ -111,7 +119,7 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
             if (neuronData) setSelectedNeuron(neuronData)
           }}
         >
-          <sphereGeometry args={[radius, NEURON_DEFAULTS.segments, NEURON_DEFAULTS.segments]} />
+          <sphereGeometry args={[radius, segments, segments]} />
           <meshStandardMaterial
             ref={materialRef}
             color={color}
