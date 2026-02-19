@@ -51,3 +51,10 @@ export const PARTICLE_CONFIG = {
   speed: { min: 0.003, max: 0.008 },
   size: 0.3,
 } as const
+
+// Level of Detail — segments per sphere based on node size (static LOD)
+export const LOD_CONFIG = {
+  high: { minSize: 1.5, segments: 32 }, // Core + large nodes
+  mid:  { minSize: 1.0, segments: 16 }, // Medium nodes
+  low:  { minSize: 0,   segments: 8  }, // Small peripheral nodes
+} as const
