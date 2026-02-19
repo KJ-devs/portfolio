@@ -6,6 +6,7 @@ import { useNeuralNetwork } from '@/hooks/useNeuralNetwork'
 import { getBFSOrder } from '@/lib/pathfinding'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
+import { ClusterLabels } from './ClusterLabels'
 import { Neuron } from './Neuron'
 import { Particles } from './Particles'
 import { Synapse } from './Synapse'
@@ -55,6 +56,9 @@ export function NeuralNetwork() {
           introDelay={introDelayMap.get(node.id) ?? 0}
         />
       ))}
+
+      {/* Cluster orientation labels — fade based on distance and selection state */}
+      <ClusterLabels />
     </group>
   )
 }
