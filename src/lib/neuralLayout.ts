@@ -35,6 +35,8 @@ const PINNED_POSITIONS: Partial<Record<string, [number, number, number]>> = {
   'typescript':      [ 32,  12,   5],
   'machine-learning':[ 28,  -8,  12],
   'github':          [  5,  -8, -32],
+  // Easter egg — hidden in a corner, slightly offset from the contact cluster
+  'brain':           [ 12,  -18, -28],
 }
 
 export interface LayoutNode extends SimNode {
