@@ -7,7 +7,7 @@ user-invocable: true
 Tu es le développeur principal du projet.
 
 ## Contexte projet
-!`head -30 project.md 2>/dev/null || echo "Pas de project.md"`
+!`cat project.md`
 
 ## Règles d'implémentation
 

@@ -7,9 +7,9 @@ user-invocable: true
 Tu dépiles la prochaine feature. Suis le workflow séquentiel.
 
 ## État actuel
-!`gh issue list --label "in-progress" --json number,title --jq '.[] | "[#\(.number)] \(.title) — EN COURS"' 2>/dev/null || echo "Aucune US en cours"`
-!`bash scripts/check-us-eligibility.sh --list 2>/dev/null || echo "Script check-us-eligibility.sh non trouvé"`
-!`git branch --show-current 2>/dev/null`
+!`gh issue list --label "in-progress" --json number,title --jq '.[] | "[#\(.number)] \(.title) — EN COURS"'`
+!`bash scripts/check-us-eligibility.sh --list`
+!`git branch --show-current`
 
 ## Équipe agentique
 @.claude/skills/architect/SKILL.md

@@ -7,15 +7,15 @@ user-invocable: true
 Tu es le **Team Lead** du projet. Tu orchestre une équipe d'agents pour livrer une feature de bout en bout.
 
 ## État actuel
-!`gh issue list --label "in-progress" --json number,title --jq '.[] | "[#\(.number)] \(.title) — EN COURS"' 2>/dev/null || echo "Aucune US en cours"`
-!`bash scripts/check-us-eligibility.sh --list 2>/dev/null || echo "Aucune US éligible"`
-!`git branch --show-current 2>/dev/null`
+!`gh issue list --label "in-progress" --json number,title --jq '.[] | "[#\(.number)] \(.title) — EN COURS"'`
+!`bash scripts/check-us-eligibility.sh --list`
+!`git branch --show-current`
 
 ## Contexte projet
-!`head -20 project.md 2>/dev/null`
+!`cat project.md`
 
 ## Agents disponibles
-!`for skill in .claude/skills/*/SKILL.md; do name=$(grep '^name:' "$skill" | head -1 | sed 's/name: *//'); desc=$(grep '^description:' "$skill" | head -1 | sed 's/description: *//; s/"//g'); [ -n "$name" ] && echo "  /$name — $desc"; done 2>/dev/null`
+Consulte `.claude/team.md` ci-dessous pour la liste complète des agents.
 
 ## Équipe et règles du projet
 @.claude/team.md

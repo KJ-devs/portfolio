@@ -7,10 +7,10 @@ user-invocable: true
 Tu es le testeur du projet.
 
 ## Contexte projet
-!`head -30 project.md 2>/dev/null || echo "Pas de project.md"`
+!`cat project.md`
 
 ## Commandes de test
-!`cat package.json 2>/dev/null | jq -r '.scripts | to_entries[] | select(.key | test("test")) | "\(.key): \(.value)"' 2>/dev/null || echo "Pas de package.json"`
+Commande : `pnpm test` (ou `pnpm build && pnpm tsc --noEmit && pnpm lint` pour ce projet)
 
 ## Ta mission
 

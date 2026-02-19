@@ -10,7 +10,7 @@ allowed-tools: Read, Glob, Grep, WebSearch, WebFetch
 Tu es l'architecte du projet. Ton rôle est de planifier AVANT de coder.
 
 ## Contexte projet
-!`head -30 project.md 2>/dev/null || echo "Pas de project.md"`
+!`cat project.md`
 
 ## Ta mission
 
