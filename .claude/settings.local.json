@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash /tmp/setupClaudeCode/scripts/setup.sh \"C:/Users/maxto/Documents/Claude/portfolio\")",
+      "Bash(gh auth:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh issue create:*)",
+      "Bash(sort:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
