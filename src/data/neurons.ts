@@ -340,7 +340,7 @@ export const NEURONS: NeuronData[] = [
     color: CATEGORY_COLORS.contact,
     metadata: {
       type: 'contact',
-      link: '#',
+      link: 'https://www.linkedin.com/in/jeremie-krebs/',
       action: 'url',
     },
   },

@@ -4,7 +4,7 @@ export const EXPERIENCES: Experience[] = [
   {
     id: 'alternance',
     title: 'Alternance Développeur Fullstack',
-    period: '2023 - Present',
+    period: '2024 - Present',
     description:
       "Développeur fullstack en alternance — conception et développement d'applications web métier",
     skills: ['React', 'TypeScript', 'Node.js', 'NestJS', 'PostgreSQL', 'Git', 'Docker'],
@@ -12,7 +12,7 @@ export const EXPERIENCES: Experience[] = [
   {
     id: 'master-ia',
     title: 'Master IA / Big Data',
-    period: '2023 - 2025',
+    period: '2024 - Present',
     description:
       'Master spécialisé Intelligence Artificielle et Big Data — apprentissage automatique, NLP, traitement de données massives',
     skills: ['Machine Learning', 'Python', 'TensorFlow', 'Big Data', 'NLP'],
