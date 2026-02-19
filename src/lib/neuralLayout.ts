@@ -140,5 +140,6 @@ export function createNeuralLayout(): LayoutResult {
   const links = rawLinks as unknown as LayoutLink[]
 
   layoutCache = { nodes, links }
+
   return layoutCache
 }
