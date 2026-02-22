@@ -8,6 +8,11 @@ import * as THREE from 'three'
 import { useTheme } from '@/hooks/useTheme'
 import type { ThemeId } from '@/lib/themes'
 
+import { CosmosBackground } from './themes/cosmos/CosmosBackground'
+import { CyberpunkBackground } from './themes/cyberpunk/CyberpunkBackground'
+import { OceanBackground } from './themes/ocean/OceanBackground'
+import { CrystalBackground } from './themes/crystal/CrystalBackground'
+
 /** Distant colored nebula particles — deep space atmosphere */
 function NebulaParticles() {
   const pointsRef = useRef<THREE.Points>(null)
@@ -85,7 +90,6 @@ function BrainAmbientDust() {
     const basPos = new Float32Array(count * 3)
     const col = new Float32Array(count * 3)
 
-    // Use theme accent colors for dust tint
     const bgColor = new THREE.Color(theme.colors.ambientLight)
 
     for (let i = 0; i < count; i++) {
@@ -160,232 +164,17 @@ function BrainAmbientDust() {
   )
 }
 
-/** Cyberpunk infinite grid plane */
-function CyberpunkGrid() {
-  const gridRef = useRef<THREE.Group>(null)
-  const timeRef = useRef(0)
-  const theme = useTheme()
-
-  const gridColor = new THREE.Color(theme.colors.categories.project)
-
-  useFrame((_, delta) => {
-    timeRef.current += delta
-    if (gridRef.current) {
-      // Subtle scroll effect
-      gridRef.current.position.z = (timeRef.current * 0.5) % 2
-    }
-  })
-
-  return (
-    <group ref={gridRef} position={[0, -25, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <gridHelper
-        args={[400, 80, gridColor, gridColor]}
-        rotation={[Math.PI / 2, 0, 0]}
-        material-transparent
-        material-opacity={0.08}
-      />
-      <gridHelper
-        args={[400, 20, gridColor, gridColor]}
-        rotation={[Math.PI / 2, 0, 0]}
-        material-transparent
-        material-opacity={0.15}
-      />
-    </group>
-  )
-}
-
-/** Ocean caustic light columns */
-function OceanCaustics() {
-  const pointsRef = useRef<THREE.Points>(null)
-  const geoRef = useRef<THREE.BufferGeometry>(null)
-  const timeRef = useRef(0)
-  const count = 200
-
-  const { positions, basePositions, colors } = useMemo(() => {
-    const pos = new Float32Array(count * 3)
-    const basPos = new Float32Array(count * 3)
-    const col = new Float32Array(count * 3)
-
-    for (let i = 0; i < count; i++) {
-      // Scattered throughout the scene — rising like bubbles
-      const x = (Math.random() - 0.5) * 120
-      const y = (Math.random() - 0.5) * 80
-      const z = (Math.random() - 0.5) * 120
-
-      pos[i * 3] = x
-      pos[i * 3 + 1] = y
-      pos[i * 3 + 2] = z
-      basPos[i * 3] = x
-      basPos[i * 3 + 1] = y
-      basPos[i * 3 + 2] = z
-
-      // Bioluminescent teal/green tints
-      const r = 0.0 + Math.random() * 0.1
-      const g = 0.4 + Math.random() * 0.4
-      const b = 0.5 + Math.random() * 0.3
-      col[i * 3] = r
-      col[i * 3 + 1] = g
-      col[i * 3 + 2] = b
-    }
-
-    return { positions: pos, basePositions: basPos, colors: col }
-  }, [])
-
-  useFrame((_, delta) => {
-    if (!geoRef.current) return
-    timeRef.current += delta
-
-    const attr = geoRef.current.getAttribute('position') as THREE.BufferAttribute | undefined
-    if (!attr) return
-
-    const t = timeRef.current
-    for (let i = 0; i < count; i++) {
-      const idx = i * 3
-      const bx = basePositions[idx] ?? 0
-      const by = basePositions[idx + 1] ?? 0
-      const bz = basePositions[idx + 2] ?? 0
-
-      // Slow upward drift (bubbles)
-      const rise = (t * 0.3 + i * 0.7) % 80 - 40
-      // Horizontal wobble
-      const wobX = Math.sin(t * 0.2 + i * 0.4) * 1.5
-      const wobZ = Math.cos(t * 0.15 + i * 0.3) * 1.5
-
-      positions[idx] = bx + wobX
-      positions[idx + 1] = by + rise
-      positions[idx + 2] = bz + wobZ
-    }
-
-    attr.needsUpdate = true
-  })
-
-  useFrame((_, delta) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y += delta * 0.002
-    }
-  })
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry
-        ref={geoRef}
-        onUpdate={(geo) => {
-          geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-          geo.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-        }}
-      />
-      <pointsMaterial
-        size={0.4}
-        vertexColors
-        transparent
-        opacity={0.25}
-        sizeAttenuation
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </points>
-  )
-}
-
-/** Crystal aurora borealis light curtains */
-function CrystalAurora() {
-  const pointsRef = useRef<THREE.Points>(null)
-  const geoRef = useRef<THREE.BufferGeometry>(null)
-  const timeRef = useRef(0)
-  const count = 500
-
-  const { positions, basePositions, colors } = useMemo(() => {
-    const pos = new Float32Array(count * 3)
-    const basPos = new Float32Array(count * 3)
-    const col = new Float32Array(count * 3)
-
-    const palette: THREE.Color[] = [
-      new THREE.Color('#88CCFF'),
-      new THREE.Color('#CC88FF'),
-      new THREE.Color('#88FFCC'),
-      new THREE.Color('#AABBFF'),
-      new THREE.Color('#FFFFFF'),
-    ]
-
-    for (let i = 0; i < count; i++) {
-      // Curtain-like — spread wide on X, vertical on Y, thin on Z
-      const x = (Math.random() - 0.5) * 200
-      const y = 30 + Math.random() * 60
-      const z = -40 + (Math.random() - 0.5) * 30
-
-      pos[i * 3] = x
-      pos[i * 3 + 1] = y
-      pos[i * 3 + 2] = z
-      basPos[i * 3] = x
-      basPos[i * 3 + 1] = y
-      basPos[i * 3 + 2] = z
-
-      const c = palette[Math.floor(Math.random() * palette.length)] ?? palette[0]!
-      col[i * 3] = c.r
-      col[i * 3 + 1] = c.g
-      col[i * 3 + 2] = c.b
-    }
-
-    return { positions: pos, basePositions: basPos, colors: col }
-  }, [])
-
-  useFrame((_, delta) => {
-    if (!geoRef.current) return
-    timeRef.current += delta
-
-    const attr = geoRef.current.getAttribute('position') as THREE.BufferAttribute | undefined
-    if (!attr) return
-
-    const t = timeRef.current
-    for (let i = 0; i < count; i++) {
-      const idx = i * 3
-      const bx = basePositions[idx] ?? 0
-      const by = basePositions[idx + 1] ?? 0
-      const bz = basePositions[idx + 2] ?? 0
-
-      // Gentle wave motion
-      const wave = Math.sin(t * 0.3 + bx * 0.02) * 3
-      const shimmer = Math.sin(t * 0.8 + i * 0.1) * 0.5
-
-      positions[idx] = bx + shimmer
-      positions[idx + 1] = by + wave
-      positions[idx + 2] = bz + Math.cos(t * 0.2 + bx * 0.01) * 2
-    }
-
-    attr.needsUpdate = true
-  })
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry
-        ref={geoRef}
-        onUpdate={(geo) => {
-          geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-          geo.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-        }}
-      />
-      <pointsMaterial
-        size={0.8}
-        vertexColors
-        transparent
-        opacity={0.12}
-        sizeAttenuation
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </points>
-  )
-}
-
-/** Theme-specific background helper */
+/** Theme-specific shader backgrounds */
 function ThemeBackground({ themeId }: { themeId: ThemeId }) {
   switch (themeId) {
+    case 'cosmos':
+      return <CosmosBackground />
     case 'cyberpunk':
-      return <CyberpunkGrid />
+      return <CyberpunkBackground />
     case 'ocean':
-      return <OceanCaustics />
+      return <OceanBackground />
     case 'crystal':
-      return <CrystalAurora />
+      return <CrystalBackground />
     default:
       return null
   }

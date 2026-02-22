@@ -6,17 +6,63 @@ import { gsap } from 'gsap'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
+import { NOISE_3D, FRESNEL } from '@/components/shaders/common.glsl'
 import { NEURONS_BY_ID } from '@/data/neurons'
-import { LOD_CONFIG } from '@/lib/constants'
 import { useTheme } from '@/hooks/useTheme'
+import { LOD_CONFIG } from '@/lib/constants'
 import type { LayoutNode } from '@/lib/neuralLayout'
+import type { ThemeId } from '@/lib/themes'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 import { Tooltip } from './Tooltip'
+import { cosmosNeuronVertex, cosmosNeuronFragment } from './themes/cosmos/cosmos.shaders'
+import { cyberpunkNeuronVertex, cyberpunkNeuronFragment } from './themes/cyberpunk/cyberpunk.shaders'
+import { oceanNeuronVertex, oceanNeuronFragment } from './themes/ocean/ocean.shaders'
+import { crystalNeuronVertex, crystalNeuronFragment } from './themes/crystal/crystal.shaders'
 
 interface NeuronProps {
   node: LayoutNode
   introDelay?: number
+}
+
+interface ShaderConfig {
+  vertex: string
+  fragment: string
+  side: THREE.Side
+  depthWrite: boolean
+}
+
+function getThemeNeuronShaders(themeId: ThemeId): ShaderConfig {
+  switch (themeId) {
+    case 'cosmos':
+      return {
+        vertex: cosmosNeuronVertex,
+        fragment: NOISE_3D + FRESNEL + cosmosNeuronFragment,
+        side: THREE.FrontSide,
+        depthWrite: true,
+      }
+    case 'cyberpunk':
+      return {
+        vertex: cyberpunkNeuronVertex,
+        fragment: FRESNEL + '\n' + cyberpunkNeuronFragment,
+        side: THREE.FrontSide,
+        depthWrite: false,
+      }
+    case 'ocean':
+      return {
+        vertex: oceanNeuronVertex,
+        fragment: FRESNEL + '\n' + oceanNeuronFragment,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      }
+    case 'crystal':
+      return {
+        vertex: crystalNeuronVertex,
+        fragment: FRESNEL + '\n' + crystalNeuronFragment,
+        side: THREE.FrontSide,
+        depthWrite: true,
+      }
+  }
 }
 
 function NeuronGeometry({ radius, segments, wireframe }: {
@@ -38,7 +84,6 @@ function NeuronGeometry({ radius, segments, wireframe }: {
 }
 
 export function Neuron({ node, introDelay = 0 }: NeuronProps) {
-  const materialRef = useRef<THREE.MeshStandardMaterial>(null)
   const meshRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
   const ringRef = useRef<THREE.Mesh>(null)
@@ -51,6 +96,7 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
   const opacityRef = useRef(0)
   const pulseTimeRef = useRef(0)
   const ringOpacityRef = useRef(0)
+  const hoverAmountRef = useRef(0)
 
   const setHoveredNeuron = usePortfolioStore((s) => s.setHoveredNeuron)
   const setSelectedNeuron = usePortfolioStore((s) => s.setSelectedNeuron)
@@ -65,14 +111,12 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
   const isSelected = selectedNeuron?.id === node.id
   const isActive = activeCategories.includes(node.category)
 
-  // Resolve color from theme — special nodes keep their custom color
   const color = useMemo(() => {
     if (node.id === 'brain') return '#F5A623'
     return theme.colors.categories[node.category]
   }, [theme, node.category, node.id])
 
   const radius = node.size * 0.8
-
   const segments =
     node.size >= LOD_CONFIG.high.minSize
       ? LOD_CONFIG.high.segments
@@ -84,7 +128,17 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
     ? theme.neuron.ringFixedColor
     : color
 
-  // Intro scale-in when intro completes
+  const shaderConfig = useMemo(() => getThemeNeuronShaders(theme.id), [theme.id])
+
+  const shaderUniforms = useMemo(() => ({
+    uTime: { value: 0 },
+    uColor: { value: new THREE.Color(color) },
+    uEmissiveIntensity: { value: theme.neuron.emissiveIntensity.default },
+    uHover: { value: 0 },
+    uOpacity: { value: opacityRef.current * theme.neuron.opacity },
+    uAmplitude: { value: 0.15 },
+  }), [theme.id]) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (!isIntroComplete) return
     const tween = gsap.to(scaleRef, {
@@ -96,7 +150,6 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
     return () => { tween.kill() }
   }, [isIntroComplete, introDelay])
 
-  // Opacity fade when category is toggled
   useEffect(() => {
     if (!isIntroComplete) return
     const tween = gsap.to(opacityRef, {
@@ -107,7 +160,6 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
     return () => { tween.kill() }
   }, [isActive, isIntroComplete])
 
-  // Selection ring fade in/out
   useEffect(() => {
     const tween = gsap.to(ringOpacityRef, {
       current: isSelected ? 1 : 0,
@@ -117,56 +169,62 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
     return () => { tween.kill() }
   }, [isSelected])
 
-  useFrame(({ camera }, delta) => {
+  useFrame(({ camera, clock }, delta) => {
     if (groupRef.current) {
       groupRef.current.scale.setScalar(scaleRef.current)
     }
     if (meshRef.current) {
       meshRef.current.visible = opacityRef.current > 0.02
     }
-    if (materialRef.current) {
-      materialRef.current.opacity = opacityRef.current * theme.neuron.opacity
-      if (node.id === 'brain') {
-        pulseTimeRef.current += delta
-        materialRef.current.emissiveIntensity =
-          0.6 + Math.sin(pulseTimeRef.current * 3) * 0.5
-      } else {
-        const target = isSelected
-          ? theme.neuron.emissiveIntensity.selected
-          : isHovered
-            ? theme.neuron.emissiveIntensity.hover
-            : theme.neuron.emissiveIntensity.default
-        materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
-          materialRef.current.emissiveIntensity,
-          target,
-          delta * 8,
-        )
-      }
+
+    // Lerp hover amount for smooth shader transitions
+    const hoverTarget = isSelected ? 1.0 : isHovered ? 0.7 : 0
+    hoverAmountRef.current = THREE.MathUtils.lerp(
+      hoverAmountRef.current, hoverTarget, delta * 8,
+    )
+
+    // Update shader uniforms directly
+    shaderUniforms.uTime.value = clock.getElapsedTime()
+    shaderUniforms.uColor.value.set(color)
+    shaderUniforms.uOpacity.value = opacityRef.current * theme.neuron.opacity
+    shaderUniforms.uHover.value = hoverAmountRef.current
+
+    if (node.id === 'brain') {
+      pulseTimeRef.current += delta
+      shaderUniforms.uEmissiveIntensity.value =
+        0.6 + Math.sin(pulseTimeRef.current * 3) * 0.5
+    } else {
+      const emTarget = isSelected
+        ? theme.neuron.emissiveIntensity.selected
+        : isHovered
+          ? theme.neuron.emissiveIntensity.hover
+          : theme.neuron.emissiveIntensity.default
+      shaderUniforms.uEmissiveIntensity.value = THREE.MathUtils.lerp(
+        shaderUniforms.uEmissiveIntensity.value, emTarget, delta * 8,
+      )
     }
 
-    // Spin and fade selection rings
+    // Ocean jellyfish amplitude
+    const ampTarget = hoverAmountRef.current > 0.5 ? 0.35 : 0.15
+    shaderUniforms.uAmplitude.value = THREE.MathUtils.lerp(
+      shaderUniforms.uAmplitude.value, ampTarget, 0.05,
+    )
+
+    // Selection rings
     const ringOpacity = ringOpacityRef.current
-    if (ringRef.current) {
+    if (ringRef.current && ringMatRef.current) {
       ringRef.current.rotation.z += delta * 0.6
       ringRef.current.rotation.x += delta * 0.2
-      if (ringMatRef.current) {
-        ringMatRef.current.opacity = THREE.MathUtils.lerp(
-          ringMatRef.current.opacity,
-          ringOpacity * 0.55,
-          delta * 6,
-        )
-      }
+      ringMatRef.current.opacity = THREE.MathUtils.lerp(
+        ringMatRef.current.opacity, ringOpacity * 0.55, delta * 6,
+      )
     }
-    if (ring2Ref.current) {
+    if (ring2Ref.current && ring2MatRef.current) {
       ring2Ref.current.rotation.z -= delta * 0.4
       ring2Ref.current.rotation.y += delta * 0.3
-      if (ring2MatRef.current) {
-        ring2MatRef.current.opacity = THREE.MathUtils.lerp(
-          ring2MatRef.current.opacity,
-          ringOpacity * 0.3,
-          delta * 6,
-        )
-      }
+      ring2MatRef.current.opacity = THREE.MathUtils.lerp(
+        ring2MatRef.current.opacity, ringOpacity * 0.3, delta * 6,
+      )
     }
 
     // Distance-based label opacity
@@ -186,7 +244,6 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
       position={[node.x, node.y, node.z]}
     >
       <group ref={groupRef}>
-        {/* Outer selection ring */}
         <mesh ref={ringRef} rotation={[Math.PI / 3, 0, 0]}>
           <torusGeometry args={[radius * 2.4, 0.035, 6, 64]} />
           <meshStandardMaterial
@@ -200,7 +257,6 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
           />
         </mesh>
 
-        {/* Inner selection ring */}
         <mesh ref={ring2Ref} rotation={[Math.PI / 6, Math.PI / 4, 0]}>
           <torusGeometry args={[radius * 1.8, 0.025, 6, 48]} />
           <meshStandardMaterial
@@ -231,21 +287,15 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
             if (neuronData) setSelectedNeuron(neuronData)
           }}
         >
-          <NeuronGeometry
-            radius={radius}
-            segments={segments}
-            wireframe={theme.neuron.wireframe}
-          />
-          <meshStandardMaterial
-            ref={materialRef}
-            color={color}
-            emissive={color}
-            emissiveIntensity={theme.neuron.emissiveIntensity.default}
-            roughness={theme.neuron.roughness}
-            metalness={theme.neuron.metalness}
-            wireframe={theme.neuron.wireframe}
+          <NeuronGeometry radius={radius} segments={segments} wireframe={theme.neuron.wireframe} />
+          <shaderMaterial
+            key={theme.id}
+            vertexShader={shaderConfig.vertex}
+            fragmentShader={shaderConfig.fragment}
+            uniforms={shaderUniforms}
             transparent
-            opacity={0}
+            depthWrite={shaderConfig.depthWrite}
+            side={shaderConfig.side}
           />
         </mesh>
 
