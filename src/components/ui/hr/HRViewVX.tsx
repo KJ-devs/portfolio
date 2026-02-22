@@ -9,7 +9,7 @@
  * i18n    : FR / DE via Zustand store + translations.
  */
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { EXPERIENCES } from '@/data/experiences'
@@ -31,6 +31,14 @@ const COLORS = {
 
 type Domain = 'frontend' | 'backend' | 'ai' | 'devops'
 
+type ProjectFilter = 'all' | 'frontend' | 'ia'
+
+const PROJECT_FILTERS: { id: ProjectFilter; label: string; color: string; matchTechs: string[] }[] = [
+  { id: 'all', label: 'Tous', color: '#ffffff', matchTechs: [] },
+  { id: 'frontend', label: 'Web', color: '#06B6D4', matchTechs: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'HTML/CSS', 'JavaScript', 'Three.js', 'GSAP', 'React Three Fiber'] },
+  { id: 'ia', label: 'IA', color: '#A855F7', matchTechs: ['AI APIs', 'pgvector', 'Machine Learning', 'TensorFlow', 'NLP'] },
+]
+
 const BANDS: { key: Domain; label: string; color: string }[] = [
   { key: 'frontend', label: 'Frontend',  color: '#06B6D4' },
   { key: 'backend',  label: 'Backend',   color: '#22C55E' },
@@ -42,8 +50,41 @@ export function HRViewVX() {
   const setActiveView = usePortfolioStore((s) => s.setActiveView)
   const language = usePortfolioStore((s) => s.language)
   const containerRef = useRef<HTMLDivElement>(null)
+  const projectGridRef = useRef<HTMLDivElement>(null)
+  const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all')
 
   const t = translations[language]
+
+  const filteredProjects = activeFilter === 'all'
+    ? PROJECTS
+    : PROJECTS.filter((p) => {
+        const filterDef = PROJECT_FILTERS.find((f) => f.id === activeFilter)
+        if (!filterDef) return true
+        return p.stack.some((tech) => filterDef.matchTechs.includes(tech))
+      })
+
+  const handleFilterChange = useCallback((filter: ProjectFilter) => {
+    if (filter === activeFilter) return
+    const grid = projectGridRef.current
+    if (grid) {
+      gsap.to(grid.children, {
+        opacity: 0, y: 20, duration: 0.25, stagger: 0.03, ease: 'power2.in',
+        onComplete: () => {
+          setActiveFilter(filter)
+          requestAnimationFrame(() => {
+            if (projectGridRef.current) {
+              gsap.fromTo(projectGridRef.current.children,
+                { opacity: 0, y: 30, scale: 0.95 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.06, ease: 'power3.out' },
+              )
+            }
+          })
+        },
+      })
+    } else {
+      setActiveFilter(filter)
+    }
+  }, [activeFilter])
 
   const skills = NEURONS.filter(
     (n): n is typeof n & { metadata: SkillMeta } =>
@@ -187,11 +228,32 @@ export function HRViewVX() {
               </h2>
             </div>
           </div>
-          <span className="font-mono text-sm text-white/22">{(t.realizations as (n: number) => string)(PROJECTS.length)}</span>
+          <span className="font-mono text-sm text-white/22">{(t.realizations as (n: number) => string)(filteredProjects.length)}</span>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((project, i) => (
+        {/* Filtres projets */}
+        <div className="mb-10 flex flex-wrap gap-2">
+          {PROJECT_FILTERS.map((f) => {
+            const isActive = activeFilter === f.id
+            return (
+              <button
+                key={f.id}
+                onClick={() => handleFilterChange(f.id)}
+                className="rounded-full px-4 py-1.5 font-mono text-xs transition-all duration-200 hover:scale-105"
+                style={
+                  isActive
+                    ? { background: `${f.color}18`, border: `1px solid ${f.color}55`, color: f.color, boxShadow: `0 0 12px ${f.color}15` }
+                    : { background: 'transparent', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.35)' }
+                }
+              >
+                {f.label}
+              </button>
+            )
+          })}
+        </div>
+
+        <div ref={projectGridRef} className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {filteredProjects.map((project, i) => (
             <article key={project.id}
               className="vx-project group relative flex flex-col overflow-hidden rounded-2xl p-7 transition-all duration-300 hover:scale-[1.02]"
               style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
