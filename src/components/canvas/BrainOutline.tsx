@@ -7,7 +7,9 @@ import * as THREE from 'three'
 import {
   generateBrainInnerPoints,
   generateBrainSurfacePoints,
+  getBrainRegionColorsFromTheme,
 } from '@/lib/brainGeometry'
+import { useTheme } from '@/hooks/useTheme'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 const SURFACE_COUNT = 300
@@ -19,9 +21,15 @@ export function BrainOutline() {
   const timeRef = useRef(0)
   const isIntroComplete = usePortfolioStore((s) => s.isIntroComplete)
   const fadeRef = useRef(0)
+  const theme = useTheme()
+
+  const regionColors = useMemo(
+    () => getBrainRegionColorsFromTheme(theme.colors.categories),
+    [theme.colors.categories],
+  )
 
   const surface = useMemo(() => {
-    const pts = generateBrainSurfacePoints(SURFACE_COUNT)
+    const pts = generateBrainSurfacePoints(SURFACE_COUNT, regionColors)
     const positions = new Float32Array(SURFACE_COUNT * 3)
     const basePositions = new Float32Array(SURFACE_COUNT * 3)
     const colors = new Float32Array(SURFACE_COUNT * 3)
@@ -41,10 +49,10 @@ export function BrainOutline() {
     })
 
     return { positions, basePositions, colors }
-  }, [])
+  }, [regionColors])
 
   const inner = useMemo(() => {
-    const pts = generateBrainInnerPoints(INNER_COUNT)
+    const pts = generateBrainInnerPoints(INNER_COUNT, regionColors)
     const positions = new Float32Array(INNER_COUNT * 3)
     const basePositions = new Float32Array(INNER_COUNT * 3)
     const colors = new Float32Array(INNER_COUNT * 3)
@@ -64,7 +72,7 @@ export function BrainOutline() {
     })
 
     return { positions, basePositions, colors }
-  }, [])
+  }, [regionColors])
 
   // Subtle breathing animation + fade in after intro
   useFrame((_, delta) => {

@@ -3,6 +3,8 @@
  * Generates surface points and region classifications for brain visualization.
  */
 
+import type { NeuronCategory } from '@/types/neuron'
+
 export type BrainRegion =
   | 'frontal'
   | 'parietal'
@@ -13,7 +15,7 @@ export type BrainRegion =
   | 'brainstem'
   | 'central'
 
-/** Colors for each brain region — creates the characteristic gradient effect */
+/** Default (cosmos) colors for each brain region */
 export const BRAIN_REGION_COLORS: Record<BrainRegion, string> = {
   frontal:        '#00D4FF',
   parietal:       '#4ADE80',
@@ -25,20 +27,56 @@ export const BRAIN_REGION_COLORS: Record<BrainRegion, string> = {
   central:        '#F5E6CC',
 }
 
+/**
+ * Map brain regions to neuron categories so region colors follow the active theme.
+ * Regions containing skills use the skill color; projects, experience, contact, core each map directly.
+ * For variety, parietal/occipital/cerebellum blend skill with a neighbouring category color.
+ */
+export function getBrainRegionColorsFromTheme(
+  categories: Record<NeuronCategory, string>,
+): Record<BrainRegion, string> {
+  return {
+    frontal:        categories.skill,
+    parietal:       blendHex(categories.skill, categories.experience, 0.35),
+    temporal_left:  categories.project,
+    temporal_right: categories.experience,
+    occipital:      blendHex(categories.skill, categories.project, 0.4),
+    cerebellum:     blendHex(categories.skill, categories.contact, 0.35),
+    brainstem:      categories.contact,
+    central:        categories.core,
+  }
+}
+
+/** Linear blend between two hex colours (0 = a, 1 = b) */
+function blendHex(a: string, b: string, t: number): string {
+  const parse = (h: string) => {
+    const c = h.replace('#', '')
+    return [parseInt(c.slice(0, 2), 16), parseInt(c.slice(2, 4), 16), parseInt(c.slice(4, 6), 16)]
+  }
+  const ca = parse(a)
+  const cb = parse(b)
+  const r = Math.round(ca[0]! * (1 - t) + cb[0]! * t)
+  const g = Math.round(ca[1]! * (1 - t) + cb[1]! * t)
+  const b2 = Math.round(ca[2]! * (1 - t) + cb[2]! * t)
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b2.toString(16).padStart(2, '0')}`
+}
+
 /** Brain region label definitions for ClusterLabels */
-export const BRAIN_REGION_LABELS: {
+export interface BrainRegionLabelDef {
   label: string
   sublabel: string
   position: [number, number, number]
-  color: string
-}[] = [
-  { label: 'FRONTAL',   sublabel: 'Frontend',   position: [0, 14, 14],   color: '#00D4FF' },
-  { label: 'PARIETAL',  sublabel: 'Backend',    position: [0, 17, -2],   color: '#4ADE80' },
-  { label: 'OCCIPITAL', sublabel: 'AI / Data',  position: [0, 10, -17],  color: '#818CF8' },
-  { label: 'TEMPORAL',  sublabel: 'Projects',   position: [-17, 5, 0],   color: '#A855F7' },
-  { label: 'TEMPORAL',  sublabel: 'Experience',  position: [17, 5, 0],   color: '#10B981' },
-  { label: 'CEREBELLUM', sublabel: 'DevOps',    position: [0, -7, -14],  color: '#F97316' },
-  { label: 'BRAIN STEM', sublabel: 'Contact',   position: [0, -15, 0],   color: '#F472B6' },
+  region: BrainRegion
+}
+
+export const BRAIN_REGION_LABELS: BrainRegionLabelDef[] = [
+  { label: 'FRONTAL',    sublabel: 'Frontend',   position: [0, 14, 14],   region: 'frontal' },
+  { label: 'PARIETAL',   sublabel: 'Backend',    position: [0, 17, -2],   region: 'parietal' },
+  { label: 'OCCIPITAL',  sublabel: 'AI / Data',  position: [0, 10, -17],  region: 'occipital' },
+  { label: 'TEMPORAL',   sublabel: 'Projects',   position: [-17, 5, 0],   region: 'temporal_left' },
+  { label: 'TEMPORAL',   sublabel: 'Experience',  position: [17, 5, 0],   region: 'temporal_right' },
+  { label: 'CEREBELLUM', sublabel: 'DevOps',     position: [0, -7, -14],  region: 'cerebellum' },
+  { label: 'BRAIN STEM', sublabel: 'Contact',    position: [0, -15, 0],   region: 'brainstem' },
 ]
 
 /** Determine which brain region a 3D point belongs to */
@@ -120,8 +158,13 @@ export interface BrainSurfacePoint {
 /**
  * Generate points on a brain-shaped surface.
  * Uses Fibonacci sphere distribution with brain-specific deformations.
+ * Pass regionColors to override the default palette (for theme support).
  */
-export function generateBrainSurfacePoints(count: number): BrainSurfacePoint[] {
+export function generateBrainSurfacePoints(
+  count: number,
+  regionColors?: Record<BrainRegion, string>,
+): BrainSurfacePoint[] {
+  const palette = regionColors ?? BRAIN_REGION_COLORS
   const points: BrainSurfacePoint[] = []
   const goldenRatio = (1 + Math.sqrt(5)) / 2
 
@@ -180,7 +223,7 @@ export function generateBrainSurfacePoints(count: number): BrainSurfacePoint[] {
     z += 0.6 * Math.cos(theta * 4 + phi * 5)
 
     const region = getBrainRegion(x, y, z)
-    const color = BRAIN_REGION_COLORS[region]
+    const color = palette[region]
 
     points.push({ position: [x, y, z], region, color })
   }
@@ -191,8 +234,13 @@ export function generateBrainSurfacePoints(count: number): BrainSurfacePoint[] {
 /**
  * Generate inner brain structure points (fewer, scattered inside the brain).
  * Creates depth perception when the brain rotates.
+ * Pass regionColors to override the default palette (for theme support).
  */
-export function generateBrainInnerPoints(count: number): BrainSurfacePoint[] {
+export function generateBrainInnerPoints(
+  count: number,
+  regionColors?: Record<BrainRegion, string>,
+): BrainSurfacePoint[] {
+  const palette = regionColors ?? BRAIN_REGION_COLORS
   const points: BrainSurfacePoint[] = []
   const goldenRatio = (1 + Math.sqrt(5)) / 2
 
@@ -211,7 +259,7 @@ export function generateBrainInnerPoints(count: number): BrainSurfacePoint[] {
     const y = baseY - fissure
 
     const region = getBrainRegion(x, y, z)
-    const color = BRAIN_REGION_COLORS[region]
+    const color = palette[region]
 
     points.push({ position: [x, y, z], region, color })
   }
