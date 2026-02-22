@@ -32,10 +32,10 @@ export const CAMERA_CONFIG = {
   fov: 60,
   near: 0.1,
   far: 1000,
-  initialPosition: [10, 8, 46] as [number, number, number],
+  initialPosition: [12, 8, 38] as [number, number, number],
   minDistance: 5,
-  maxDistance: 200,
-  autoRotateSpeed: 0.3,
+  maxDistance: 150,
+  autoRotateSpeed: 0.2,
 } as const
 
 export const ANIMATION_CONFIG = {
