@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 
-import { CATEGORY_COLORS } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
 import { getLayoutResult, type LayoutNode } from '@/lib/neuralLayout'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
@@ -24,6 +24,7 @@ function toSVG(
 export function MiniMap() {
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
   const activeCategories = usePortfolioStore((s) => s.activeCategories)
+  const theme = useTheme()
 
   const [nodes, setNodes] = useState<LayoutNode[]>(() => getLayoutResult()?.nodes ?? [])
 
@@ -71,7 +72,7 @@ export function MiniMap() {
               cx={cx}
               cy={cy}
               r={r}
-              fill={node.color ?? CATEGORY_COLORS[node.category]}
+              fill={theme.colors.categories[node.category]}
               opacity={isActive ? (isSelected ? 1 : 0.55) : 0.15}
               style={isSelected ? { filter: `drop-shadow(0 0 4px ${node.color ?? '#fff'})` } : undefined}
             />

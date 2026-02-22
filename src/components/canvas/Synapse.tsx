@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
+import { useTheme } from '@/hooks/useTheme'
 import type { LayoutLink } from '@/lib/neuralLayout'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
@@ -13,38 +14,34 @@ interface SynapseProps {
 }
 
 export function Synapse({ link }: SynapseProps) {
-  // Callback ref pattern: Line2 extends Object3D, safely storable as Object3D
   const lineRef = useRef<THREE.Object3D | null>(null)
   const targetOpacityRef = useRef(0.2)
 
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
   const highlightedPath = usePortfolioStore((s) => s.highlightedPath)
+  const theme = useTheme()
 
   const { source: sourceNode, target: targetNode } = link
 
-  // Path takes visual priority over selection
   const isOnPath =
     highlightedPath !== null &&
     highlightedPath.includes(sourceNode.id) &&
     highlightedPath.includes(targetNode.id)
 
-  // Compute target opacity from current selection state
   const targetOpacity = isOnPath
-    ? 0.95 // path glow
+    ? 0.95
     : !selectedNeuron
-      ? 0.15 + link.strength * 0.25 // 0.15–0.40 proportional to strength
+      ? theme.synapse.baseOpacity * (0.6 + link.strength * 0.4)
       : selectedNeuron.id === sourceNode.id || selectedNeuron.id === targetNode.id
-        ? 0.8 // highlight connected synapses
+        ? theme.synapse.selectedOpacity
         : highlightedPath !== null
-          ? 0.02 // path active — dim everything else more
-          : 0.05 // dim unrelated synapses
+          ? 0.02
+          : theme.synapse.dimmedOpacity
 
   targetOpacityRef.current = targetOpacity
 
-  // Lerp material opacity toward target on every frame
   useFrame((_, delta) => {
     if (!lineRef.current) return
-    // Line2 extends Mesh — access material safely via duck typing
     const obj = lineRef.current as THREE.Object3D & {
       material?: THREE.Material & { opacity?: number }
     }
@@ -66,17 +63,14 @@ export function Synapse({ link }: SynapseProps) {
     [],
   )
 
-  const vertexColors = useMemo(
-    () => [
-      new THREE.Color(sourceNode.color ?? '#ffffff'),
-      new THREE.Color(targetNode.color ?? '#ffffff'),
-    ],
+  const vertexColors = useMemo(() => {
+    const srcColor = theme.colors.categories[sourceNode.category] ?? '#ffffff'
+    const tgtColor = theme.colors.categories[targetNode.category] ?? '#ffffff'
+    return [new THREE.Color(srcColor), new THREE.Color(tgtColor)]
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  )
+  }, [theme.id])
 
-  // Line width in world units: 0.5px for weak connections, up to 3px for strong
-  const lineWidth = 0.5 + link.strength * 2.5
+  const lineWidth = (0.5 + link.strength * 2.5) * theme.synapse.widthMultiplier
 
   return (
     <Line

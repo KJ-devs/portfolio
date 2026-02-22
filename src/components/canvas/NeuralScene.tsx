@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 
 import { CAMERA_CONFIG } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 import { BackgroundEffects } from './BackgroundEffects'
@@ -16,6 +17,7 @@ export function NeuralScene() {
   const closePanel = usePortfolioStore((s) => s.closePanel)
   const isPanelOpen = usePortfolioStore((s) => s.isPanelOpen)
   const isTourActive = usePortfolioStore((s) => s.isTourActive)
+  const theme = useTheme()
 
   return (
     <div className="fixed inset-0 w-screen h-screen">
@@ -24,71 +26,34 @@ export function NeuralScene() {
           fov: CAMERA_CONFIG.fov,
           near: CAMERA_CONFIG.near,
           far: CAMERA_CONFIG.far,
-          position: CAMERA_CONFIG.initialPosition,
+          position: theme.camera.initialPosition,
         }}
         gl={{ antialias: true, alpha: false }}
         dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
-        style={{ background: '#050510' }}
+        style={{ background: theme.colors.background }}
         onPointerMissed={() => { if (isPanelOpen && !isTourActive) closePanel() }}
       >
         <Suspense fallback={null}>
-          {/* Deep space fog — slightly denser for brain depth */}
-          <fogExp2 attach="fog" args={['#050510', 0.004]} />
+          <fogExp2 attach="fog" args={[theme.colors.fog, theme.colors.fogDensity]} />
 
-          {/* Ambient base illumination — cool blue */}
-          <ambientLight intensity={0.35} color="#6677cc" />
-
-          {/* Main overhead light — brain highlight */}
-          <pointLight
-            position={[0, 40, 10]}
-            intensity={2.0}
-            color="#ffffff"
-            distance={200}
+          <ambientLight
+            intensity={theme.colors.ambientIntensity}
+            color={theme.colors.ambientLight}
           />
 
-          {/* Cyan accent — frontal lobe area */}
-          <pointLight
-            position={[0, 10, 40]}
-            intensity={1.5}
-            color="#00D4FF"
-            distance={120}
-          />
-
-          {/* Purple accent — temporal/project area */}
-          <pointLight
-            position={[-40, -5, 0]}
-            intensity={0.8}
-            color="#A855F7"
-            distance={120}
-          />
-
-          {/* Emerald accent — experience area */}
-          <pointLight
-            position={[40, -5, 0]}
-            intensity={0.6}
-            color="#10B981"
-            distance={120}
-          />
-
-          {/* Indigo backlight — occipital lobe depth */}
-          <pointLight
-            position={[0, 5, -35]}
-            intensity={1.0}
-            color="#818CF8"
-            distance={100}
-          />
-
-          {/* Warm underlight — brain stem warmth */}
-          <pointLight
-            position={[0, -30, 0]}
-            intensity={0.4}
-            color="#F472B6"
-            distance={100}
-          />
+          {theme.lights.map((light, i) => (
+            <pointLight
+              key={`${theme.id}-light-${i}`}
+              position={light.position}
+              intensity={light.intensity}
+              color={light.color}
+              distance={light.distance}
+            />
+          ))}
 
           <CameraController />
-          <BrainOutline />
+          {theme.background.showBrainOutline && <BrainOutline />}
           <NeuralNetwork />
           <BackgroundEffects />
           <PostProcessing />

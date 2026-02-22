@@ -1,6 +1,6 @@
 'use client'
 
-import { CATEGORY_COLORS } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { NeuronCategory } from '@/types/neuron'
 
@@ -15,6 +15,7 @@ const CATEGORIES: { id: NeuronCategory; label: string }[] = [
 export function CategoryLegend() {
   const activeCategories = usePortfolioStore((s) => s.activeCategories)
   const toggleCategory = usePortfolioStore((s) => s.toggleCategory)
+  const theme = useTheme()
 
   return (
     <div className="fixed bottom-4 left-4 z-40 flex flex-col gap-1.5 rounded-xl border border-white/10 bg-black/30 p-3 backdrop-blur-md">
@@ -23,6 +24,7 @@ export function CategoryLegend() {
       </p>
       {CATEGORIES.map(({ id, label }) => {
         const isActive = activeCategories.includes(id)
+        const color = theme.colors.categories[id]
         return (
           <button
             key={id}
@@ -33,8 +35,8 @@ export function CategoryLegend() {
             <span
               className="h-2 w-2 flex-shrink-0 rounded-full transition-all"
               style={{
-                backgroundColor: CATEGORY_COLORS[id],
-                boxShadow: isActive ? `0 0 6px ${CATEGORY_COLORS[id]}` : 'none',
+                backgroundColor: color,
+                boxShadow: isActive ? `0 0 6px ${color}` : 'none',
               }}
             />
             <span className="font-mono text-xs text-white/70">{label}</span>

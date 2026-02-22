@@ -3,11 +3,12 @@
 import { Float, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { gsap } from 'gsap'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
 import { NEURONS_BY_ID } from '@/data/neurons'
-import { LOD_CONFIG, NEURON_DEFAULTS } from '@/lib/constants'
+import { LOD_CONFIG } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
 import type { LayoutNode } from '@/lib/neuralLayout'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
@@ -16,6 +17,24 @@ import { Tooltip } from './Tooltip'
 interface NeuronProps {
   node: LayoutNode
   introDelay?: number
+}
+
+function NeuronGeometry({ radius, segments, wireframe }: {
+  radius: number
+  segments: number
+  wireframe: boolean
+}) {
+  const theme = useTheme()
+
+  if (theme.neuron.shape === 'octahedron') {
+    return <octahedronGeometry args={[radius, wireframe ? 0 : 1]} />
+  }
+
+  if (theme.neuron.shape === 'icosahedron') {
+    return <icosahedronGeometry args={[radius, 1]} />
+  }
+
+  return <sphereGeometry args={[radius, segments, segments]} />
 }
 
 export function Neuron({ node, introDelay = 0 }: NeuronProps) {
@@ -40,11 +59,18 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
   const isIntroComplete = usePortfolioStore((s) => s.isIntroComplete)
   const activeCategories = usePortfolioStore((s) => s.activeCategories)
   const isPanelOpen = usePortfolioStore((s) => s.isPanelOpen)
+  const theme = useTheme()
 
   const isHovered = hoveredNeuron === node.id
   const isSelected = selectedNeuron?.id === node.id
   const isActive = activeCategories.includes(node.category)
-  const color = node.color ?? '#ffffff'
+
+  // Resolve color from theme — special nodes keep their custom color
+  const color = useMemo(() => {
+    if (node.id === 'brain') return '#F5A623'
+    return theme.colors.categories[node.category]
+  }, [theme, node.category, node.id])
+
   const radius = node.size * 0.8
 
   const segments =
@@ -53,6 +79,10 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
       : node.size >= LOD_CONFIG.mid.minSize
         ? LOD_CONFIG.mid.segments
         : LOD_CONFIG.low.segments
+
+  const ringColor = theme.neuron.ringColor === 'fixed' && theme.neuron.ringFixedColor
+    ? theme.neuron.ringFixedColor
+    : color
 
   // Intro scale-in when intro completes
   useEffect(() => {
@@ -95,17 +125,17 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
       meshRef.current.visible = opacityRef.current > 0.02
     }
     if (materialRef.current) {
-      materialRef.current.opacity = opacityRef.current
+      materialRef.current.opacity = opacityRef.current * theme.neuron.opacity
       if (node.id === 'brain') {
         pulseTimeRef.current += delta
         materialRef.current.emissiveIntensity =
           0.6 + Math.sin(pulseTimeRef.current * 3) * 0.5
       } else {
         const target = isSelected
-          ? NEURON_DEFAULTS.emissiveIntensity.selected
+          ? theme.neuron.emissiveIntensity.selected
           : isHovered
-            ? NEURON_DEFAULTS.emissiveIntensity.hover
-            : NEURON_DEFAULTS.emissiveIntensity.default
+            ? theme.neuron.emissiveIntensity.hover
+            : theme.neuron.emissiveIntensity.default
         materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
           materialRef.current.emissiveIntensity,
           target,
@@ -161,8 +191,8 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
           <torusGeometry args={[radius * 2.4, 0.035, 6, 64]} />
           <meshStandardMaterial
             ref={ringMatRef}
-            color={color}
-            emissive={color}
+            color={ringColor}
+            emissive={ringColor}
             emissiveIntensity={2.0}
             transparent
             opacity={0}
@@ -175,8 +205,8 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
           <torusGeometry args={[radius * 1.8, 0.025, 6, 48]} />
           <meshStandardMaterial
             ref={ring2MatRef}
-            color={color}
-            emissive={color}
+            color={ringColor}
+            emissive={ringColor}
             emissiveIntensity={1.5}
             transparent
             opacity={0}
@@ -201,14 +231,19 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
             if (neuronData) setSelectedNeuron(neuronData)
           }}
         >
-          <sphereGeometry args={[radius, segments, segments]} />
+          <NeuronGeometry
+            radius={radius}
+            segments={segments}
+            wireframe={theme.neuron.wireframe}
+          />
           <meshStandardMaterial
             ref={materialRef}
             color={color}
             emissive={color}
-            emissiveIntensity={NEURON_DEFAULTS.emissiveIntensity.default}
-            roughness={0.2}
-            metalness={0.15}
+            emissiveIntensity={theme.neuron.emissiveIntensity.default}
+            roughness={theme.neuron.roughness}
+            metalness={theme.neuron.metalness}
+            wireframe={theme.neuron.wireframe}
             transparent
             opacity={0}
           />
