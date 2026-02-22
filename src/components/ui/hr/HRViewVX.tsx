@@ -31,12 +31,13 @@ const COLORS = {
 
 type Domain = 'frontend' | 'backend' | 'ai' | 'devops'
 
-type ProjectFilter = 'all' | 'frontend' | 'ia'
+type ProjectFilter = 'all' | 'frontend' | 'ia' | 'iot'
 
 const PROJECT_FILTERS: { id: ProjectFilter; label: string; color: string; matchTechs: string[] }[] = [
   { id: 'all', label: 'Tous', color: '#ffffff', matchTechs: [] },
   { id: 'frontend', label: 'Web', color: '#06B6D4', matchTechs: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'HTML/CSS', 'JavaScript', 'Three.js', 'GSAP', 'React Three Fiber'] },
   { id: 'ia', label: 'IA', color: '#A855F7', matchTechs: ['AI APIs', 'pgvector', 'Machine Learning', 'TensorFlow', 'NLP'] },
+  { id: 'iot', label: 'IoT', color: '#22C55E', matchTechs: ['Python', 'API REST', 'IoT'] },
 ]
 
 const BANDS: { key: Domain; label: string; color: string }[] = [
@@ -63,23 +64,43 @@ export function HRViewVX() {
         return p.stack.some((tech) => filterDef.matchTechs.includes(tech))
       })
 
+  const getProjectTags = useCallback((stack: string[]): { label: string; color: string }[] => {
+    const tags: { label: string; color: string }[] = []
+    const iaFilter = PROJECT_FILTERS.find((f) => f.id === 'ia')
+    const iotFilter = PROJECT_FILTERS.find((f) => f.id === 'iot')
+    if (iaFilter && stack.some((t) => iaFilter.matchTechs.includes(t))) {
+      tags.push({ label: 'IA', color: iaFilter.color })
+    }
+    if (iotFilter && stack.some((t) => iotFilter.matchTechs.includes(t))) {
+      tags.push({ label: 'IoT', color: iotFilter.color })
+    }
+    const webFilter = PROJECT_FILTERS.find((f) => f.id === 'frontend')
+    if (webFilter && stack.some((t) => webFilter.matchTechs.includes(t))) {
+      tags.push({ label: 'Web', color: webFilter.color })
+    }
+    return tags
+  }, [])
+
   const handleFilterChange = useCallback((filter: ProjectFilter) => {
     if (filter === activeFilter) return
     const grid = projectGridRef.current
     if (grid) {
-      gsap.to(grid.children, {
-        opacity: 0, y: 20, duration: 0.25, stagger: 0.03, ease: 'power2.in',
-        onComplete: () => {
-          setActiveFilter(filter)
+      const tl = gsap.timeline()
+      tl.to(grid.children, {
+        opacity: 0, y: -15, scale: 0.97, duration: 0.35, stagger: 0.04, ease: 'power2.inOut',
+      })
+      tl.call(() => {
+        setActiveFilter(filter)
+        requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             if (projectGridRef.current) {
               gsap.fromTo(projectGridRef.current.children,
-                { opacity: 0, y: 30, scale: 0.95 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.06, ease: 'power3.out' },
+                { opacity: 0, y: 40, scale: 0.92 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.08, ease: 'power3.out', clearProps: 'transform' },
               )
             }
           })
-        },
+        })
       })
     } else {
       setActiveFilter(filter)
@@ -232,58 +253,131 @@ export function HRViewVX() {
         </div>
 
         {/* Filtres projets */}
-        <div className="mb-10 flex flex-wrap gap-2">
+        <div className="mb-12 flex flex-wrap gap-2">
           {PROJECT_FILTERS.map((f) => {
             const isActive = activeFilter === f.id
             return (
               <button
                 key={f.id}
                 onClick={() => handleFilterChange(f.id)}
-                className="rounded-full px-4 py-1.5 font-mono text-xs transition-all duration-200 hover:scale-105"
+                className="relative overflow-hidden rounded-full px-5 py-2 font-mono text-xs font-medium transition-all duration-300 hover:scale-[1.04]"
                 style={
                   isActive
-                    ? { background: `${f.color}18`, border: `1px solid ${f.color}55`, color: f.color, boxShadow: `0 0 12px ${f.color}15` }
-                    : { background: 'transparent', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.35)' }
+                    ? { background: `${f.color}15`, border: `1px solid ${f.color}45`, color: f.color, boxShadow: `0 0 20px ${f.color}12` }
+                    : { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.4)' }
                 }
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    (e.currentTarget as HTMLElement).style.borderColor = `${f.color}30`
+                    ;(e.currentTarget as HTMLElement).style.color = `${f.color}cc`
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)'
+                    ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)'
+                  }
+                }}
               >
-                {f.label}
+                {isActive && (
+                  <span className="absolute left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full"
+                    style={{ background: f.color, boxShadow: `0 0 8px ${f.color}` }} />
+                )}
+                <span className={isActive ? 'pl-3' : ''}>{f.label}</span>
               </button>
             )
           })}
         </div>
 
-        <div ref={projectGridRef} className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project, i) => (
-            <article key={project.id}
-              className="vx-project group relative flex flex-col overflow-hidden rounded-2xl p-7 transition-all duration-300 hover:scale-[1.02]"
-              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = `${COLORS.projects}45` }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.06)' }}>
-              <div className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: COLORS.projects }} />
-              <span className="mb-5 font-mono text-3xl font-black" style={{ color: `${COLORS.projects}30` }}>
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 className="mb-2 text-lg font-bold text-white/88">{project.title}</h3>
-              <p className="mb-5 flex-1 text-sm leading-relaxed text-white/42">
-                {PROJECT_DESCRIPTIONS[project.id]?.[language] ?? project.description}
-              </p>
-              <div className="mb-4 flex flex-wrap gap-1.5">
-                {project.stack.map((tech) => (
-                  <span key={tech} className="rounded-full px-2.5 py-0.5 font-mono text-xs text-white/48"
-                    style={{ background: `${COLORS.projects}10`, border: `1px solid ${COLORS.projects}22` }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              {project.links.github && project.links.github !== '#' && (
-                <a href={project.links.github} target="_blank" rel="noreferrer"
-                  className="font-mono text-xs text-white/28 transition-colors hover:text-white/70">
-                  {t.github_link}
-                </a>
-              )}
-            </article>
-          ))}
+        <div ref={projectGridRef} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {filteredProjects.map((project, i) => {
+            const tags = getProjectTags(project.stack)
+            const mainTag = tags[0]
+            const accentColor = mainTag?.color ?? COLORS.projects
+            return (
+              <article key={project.id}
+                className="vx-project group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1"
+                style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.borderColor = `${accentColor}40`
+                  el.style.boxShadow = `0 8px 40px ${accentColor}12, 0 0 0 1px ${accentColor}15`
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.borderColor = 'rgba(255,255,255,0.06)'
+                  el.style.boxShadow = 'none'
+                }}>
+                {/* Top accent bar */}
+                <div className="h-[2px] w-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{ background: `linear-gradient(90deg, ${accentColor}, ${accentColor}40, transparent)` }} />
+
+                {/* Gradient glow background on hover */}
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{ background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${accentColor}08, transparent 70%)` }} />
+
+                <div className="relative flex flex-1 flex-col p-7">
+                  {/* Header: number + tags */}
+                  <div className="mb-5 flex items-start justify-between">
+                    <span className="font-mono text-3xl font-black transition-colors duration-300"
+                      style={{ color: `${accentColor}25` }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div className="flex gap-1.5">
+                      {tags.map((tag) => (
+                        <span key={tag.label}
+                          className="flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider"
+                          style={{ background: `${tag.color}15`, border: `1px solid ${tag.color}30`, color: tag.color }}>
+                          <span className="h-1.5 w-1.5 rounded-full"
+                            style={{ background: tag.color, boxShadow: `0 0 6px ${tag.color}80` }} />
+                          {tag.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <h3 className="mb-2 text-lg font-bold text-white/90 transition-colors duration-300 group-hover:text-white">
+                    {project.title}
+                  </h3>
+                  <p className="mb-5 flex-1 text-sm leading-relaxed text-white/40 transition-colors duration-300 group-hover:text-white/55">
+                    {PROJECT_DESCRIPTIONS[project.id]?.[language] ?? project.description}
+                  </p>
+
+                  {/* Stack badges */}
+                  <div className="mb-5 flex flex-wrap gap-1.5">
+                    {project.stack.map((tech) => (
+                      <span key={tech} className="rounded-full px-2.5 py-0.5 font-mono text-[11px] text-white/40 transition-colors duration-300 group-hover:text-white/55"
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Footer: links */}
+                  <div className="flex items-center gap-3">
+                    {project.links.github && project.links.github !== '#' && (
+                      <a href={project.links.github} target="_blank" rel="noreferrer"
+                        className="flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-xs text-white/30 transition-all duration-200 hover:text-white/70"
+                        style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}40` }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)' }}>
+                        {t.github_link}
+                      </a>
+                    )}
+                    {project.links.live && project.links.live !== '#' && (
+                      <a href={project.links.live} target="_blank" rel="noreferrer"
+                        className="flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-xs transition-all duration-200"
+                        style={{ background: `${accentColor}15`, border: `1px solid ${accentColor}30`, color: `${accentColor}cc` }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = `${accentColor}25` }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = `${accentColor}15` }}>
+                        Live ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </section>
 

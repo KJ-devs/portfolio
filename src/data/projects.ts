@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
     title: 'TravelBuddy',
     description:
       'Application Python de planification de voyages — itinéraires intelligents, suggestions de destinations et gestion de budget',
-    stack: ['Python', 'API REST'],
+    stack: ['Python', 'API REST', 'IoT'],
     highlights: [
       'Génération automatique d\'itinéraires',
       'Suggestions de destinations personnalisées',
