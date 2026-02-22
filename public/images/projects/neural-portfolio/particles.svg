@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0a0a0f"/>
+  <!-- Synapses (connections) -->
+  <line x1="400" y1="250" x2="200" y2="130" stroke="#00d4ff" stroke-opacity="0.2" stroke-width="2"/>
+  <line x1="400" y1="250" x2="600" y2="120" stroke="#a855f7" stroke-opacity="0.2" stroke-width="2"/>
+  <line x1="400" y1="250" x2="150" y2="350" stroke="#10b981" stroke-opacity="0.2" stroke-width="1.5"/>
+  <line x1="400" y1="250" x2="650" y2="380" stroke="#f472b6" stroke-opacity="0.15" stroke-width="1.5"/>
+  <line x1="400" y1="250" x2="300" y2="420" stroke="#00d4ff" stroke-opacity="0.15" stroke-width="1.5"/>
+  <line x1="400" y1="250" x2="550" y2="50" stroke="#10b981" stroke-opacity="0.15" stroke-width="1"/>
+  <line x1="200" y1="130" x2="100" y2="60" stroke="#00d4ff" stroke-opacity="0.1" stroke-width="1"/>
+  <line x1="600" y1="120" x2="700" y2="50" stroke="#a855f7" stroke-opacity="0.1" stroke-width="1"/>
+  <!-- Neurons -->
+  <circle cx="400" cy="250" r="20" fill="#F5E6CC" opacity="0.2"/>
+  <circle cx="400" cy="250" r="10" fill="#F5E6CC" opacity="0.4"/>
+  <circle cx="200" cy="130" r="12" fill="#00d4ff" opacity="0.25"/>
+  <circle cx="600" cy="120" r="14" fill="#a855f7" opacity="0.25"/>
+  <circle cx="150" cy="350" r="10" fill="#10b981" opacity="0.25"/>
+  <circle cx="650" cy="380" r="8" fill="#f472b6" opacity="0.25"/>
+  <circle cx="300" cy="420" r="9" fill="#00d4ff" opacity="0.2"/>
+  <circle cx="550" cy="50" r="8" fill="#10b981" opacity="0.2"/>
+  <circle cx="100" cy="60" r="6" fill="#00d4ff" opacity="0.15"/>
+  <circle cx="700" cy="50" r="7" fill="#a855f7" opacity="0.15"/>
+  <!-- Particles traveling on synapses (glowing dots) -->
+  <circle cx="320" cy="200" r="4" fill="#00d4ff" opacity="0.8"/>
+  <circle cx="315" cy="197" r="8" fill="#00d4ff" opacity="0.15"/>
+  <circle cx="490" cy="195" r="4" fill="#a855f7" opacity="0.8"/>
+  <circle cx="485" cy="192" r="8" fill="#a855f7" opacity="0.15"/>
+  <circle cx="280" cy="295" r="3.5" fill="#10b981" opacity="0.8"/>
+  <circle cx="277" cy="293" r="7" fill="#10b981" opacity="0.15"/>
+  <circle cx="520" cy="310" r="3" fill="#f472b6" opacity="0.7"/>
+  <circle cx="518" cy="308" r="6" fill="#f472b6" opacity="0.12"/>
+  <circle cx="350" cy="335" r="3.5" fill="#00d4ff" opacity="0.7"/>
+  <circle cx="348" cy="333" r="7" fill="#00d4ff" opacity="0.12"/>
+  <circle cx="470" cy="160" r="3" fill="#10b981" opacity="0.7"/>
+  <circle cx="468" cy="158" r="6" fill="#10b981" opacity="0.12"/>
+  <!-- Extra glow particles -->
+  <circle cx="240" cy="155" r="2.5" fill="#00d4ff" opacity="0.6"/>
+  <circle cx="560" cy="145" r="2.5" fill="#a855f7" opacity="0.6"/>
+  <circle cx="180" cy="340" r="2" fill="#10b981" opacity="0.5"/>
+  <circle cx="625" cy="360" r="2" fill="#f472b6" opacity="0.5"/>
+  <!-- Stars -->
+  <circle cx="50" cy="30" r="0.8" fill="#ffffff" opacity="0.3"/>
+  <circle cx="750" cy="470" r="0.8" fill="#ffffff" opacity="0.2"/>
+  <circle cx="720" cy="25" r="0.8" fill="#ffffff" opacity="0.25"/>
+  <circle cx="80" cy="460" r="0.8" fill="#ffffff" opacity="0.2"/>
+  <text x="400" y="490" font-family="monospace" font-size="11" fill="#00d4ff" opacity="0.4" text-anchor="middle">Neural Portfolio — Particules Synaptiques</text>
+</svg>

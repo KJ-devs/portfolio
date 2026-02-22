@@ -1,3 +1,5 @@
+import type { MediaItem } from '@/types/neuron'
+
 export interface Project {
   id: string
   title: string
@@ -8,6 +10,7 @@ export interface Project {
     github?: string
     live?: string
   }
+  media?: MediaItem[]
 }
 
 export interface Experience {

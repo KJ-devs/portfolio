@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0a0a0f"/>
+  <!-- Path visualization -->
+  <line x1="400" y1="60" x2="400" y2="440" stroke="#a855f7" stroke-opacity="0.15" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- Node 1 (completed) -->
+  <circle cx="400" cy="80" r="18" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-opacity="0.5" stroke-width="2"/>
+  <rect x="430" y="60" width="250" height="50" rx="8" fill="#1e1535" stroke="#10b981" stroke-opacity="0.2"/>
+  <rect x="445" y="72" width="120" height="10" rx="2" fill="#ffffff" opacity="0.3"/>
+  <rect x="445" y="90" width="200" height="6" rx="2" fill="#ffffff" opacity="0.1"/>
+  <rect x="650" y="75" width="20" height="20" rx="10" fill="#10b981" opacity="0.4"/>
+  <!-- Node 2 (completed) -->
+  <circle cx="400" cy="170" r="18" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-opacity="0.5" stroke-width="2"/>
+  <rect x="120" y="150" width="250" height="50" rx="8" fill="#1e1535" stroke="#10b981" stroke-opacity="0.2"/>
+  <rect x="135" y="162" width="140" height="10" rx="2" fill="#ffffff" opacity="0.3"/>
+  <rect x="135" y="180" width="180" height="6" rx="2" fill="#ffffff" opacity="0.1"/>
+  <rect x="340" y="165" width="20" height="20" rx="10" fill="#10b981" opacity="0.4"/>
+  <!-- Node 3 (active) -->
+  <circle cx="400" cy="260" r="22" fill="#a855f7" opacity="0.2" stroke="#a855f7" stroke-opacity="0.6" stroke-width="2"/>
+  <circle cx="400" cy="260" r="8" fill="#a855f7" opacity="0.5"/>
+  <rect x="430" y="238" width="280" height="55" rx="8" fill="#1e1535" stroke="#a855f7" stroke-opacity="0.3" stroke-width="1"/>
+  <rect x="445" y="250" width="160" height="10" rx="2" fill="#a855f7" opacity="0.4"/>
+  <rect x="445" y="268" width="240" height="6" rx="2" fill="#ffffff" opacity="0.15"/>
+  <rect x="445" y="280" width="80" height="4" rx="1" fill="#a855f7" opacity="0.3"/>
+  <!-- Node 4 (locked) -->
+  <circle cx="400" cy="350" r="18" fill="#ffffff" opacity="0.05" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/>
+  <rect x="120" y="330" width="250" height="50" rx="8" fill="#1e1535" opacity="0.5" stroke="#ffffff" stroke-opacity="0.08"/>
+  <rect x="135" y="342" width="120" height="10" rx="2" fill="#ffffff" opacity="0.1"/>
+  <rect x="135" y="360" width="160" height="6" rx="2" fill="#ffffff" opacity="0.05"/>
+  <!-- Node 5 (locked) -->
+  <circle cx="400" cy="430" r="18" fill="#ffffff" opacity="0.05" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/>
+  <rect x="430" y="410" width="250" height="50" rx="8" fill="#1e1535" opacity="0.5" stroke="#ffffff" stroke-opacity="0.08"/>
+  <rect x="445" y="422" width="100" height="10" rx="2" fill="#ffffff" opacity="0.1"/>
+  <rect x="445" y="440" width="180" height="6" rx="2" fill="#ffffff" opacity="0.05"/>
+  <text x="400" y="490" font-family="monospace" font-size="11" fill="#a855f7" opacity="0.4" text-anchor="middle">EduFeed — Parcours Personnalisé</text>
+</svg>
