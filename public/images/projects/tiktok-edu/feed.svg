@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0a0a0f"/>
+  <!-- Phone frame -->
+  <rect x="280" y="20" width="240" height="460" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/>
+  <rect x="290" y="40" width="220" height="420" rx="14" fill="#111118"/>
+  <!-- Video card 1 (active) -->
+  <rect x="295" y="45" width="210" height="370" rx="10" fill="#1a1030"/>
+  <rect x="310" y="60" width="60" height="12" rx="3" fill="#a855f7" opacity="0.5"/>
+  <rect x="310" y="80" width="180" height="80" rx="6" fill="#00d4ff" opacity="0.08" stroke="#00d4ff" stroke-opacity="0.2"/>
+  <rect x="325" y="100" width="150" height="8" rx="2" fill="#ffffff" opacity="0.2"/>
+  <rect x="325" y="115" width="130" height="8" rx="2" fill="#ffffff" opacity="0.15"/>
+  <rect x="325" y="130" width="100" height="8" rx="2" fill="#ffffff" opacity="0.1"/>
+  <!-- Concept cards -->
+  <rect x="310" y="175" width="80" height="90" rx="6" fill="#a855f7" opacity="0.15" stroke="#a855f7" stroke-opacity="0.2"/>
+  <rect x="320" y="190" width="60" height="6" rx="2" fill="#a855f7" opacity="0.4"/>
+  <rect x="320" y="205" width="50" height="4" rx="1" fill="#ffffff" opacity="0.1"/>
+  <rect x="320" y="215" width="55" height="4" rx="1" fill="#ffffff" opacity="0.1"/>
+  <rect x="400" y="175" width="80" height="90" rx="6" fill="#00d4ff" opacity="0.15" stroke="#00d4ff" stroke-opacity="0.2"/>
+  <rect x="410" y="190" width="60" height="6" rx="2" fill="#00d4ff" opacity="0.4"/>
+  <rect x="410" y="205" width="50" height="4" rx="1" fill="#ffffff" opacity="0.1"/>
+  <rect x="410" y="215" width="55" height="4" rx="1" fill="#ffffff" opacity="0.1"/>
+  <!-- Action buttons -->
+  <circle cx="480" cy="310" r="14" fill="#ffffff" opacity="0.1"/>
+  <circle cx="480" cy="345" r="14" fill="#ffffff" opacity="0.1"/>
+  <circle cx="480" cy="380" r="14" fill="#ffffff" opacity="0.1"/>
+  <!-- Scroll indicator -->
+  <rect x="310" y="400" width="180" height="3" rx="1.5" fill="#ffffff" opacity="0.1"/>
+  <rect x="310" y="400" width="60" height="3" rx="1.5" fill="#a855f7" opacity="0.5"/>
+  <!-- Side previews -->
+  <rect x="60" y="100" width="180" height="300" rx="14" fill="#111118" opacity="0.3" stroke="#ffffff" stroke-opacity="0.05"/>
+  <rect x="560" y="100" width="180" height="300" rx="14" fill="#111118" opacity="0.3" stroke="#ffffff" stroke-opacity="0.05"/>
+  <text x="400" y="490" font-family="monospace" font-size="11" fill="#a855f7" opacity="0.4" text-anchor="middle">EduFeed — Feed Vertical</text>
+</svg>

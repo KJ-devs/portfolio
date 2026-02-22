@@ -1,6 +1,11 @@
 'use client'
 
+import { useCallback, useState } from 'react'
+
 import type { ProjectMeta } from '@/types/neuron'
+
+import { MediaLightbox } from './MediaLightbox'
+import { MediaStrip } from './MediaStrip'
 
 interface Props {
   meta: ProjectMeta
@@ -8,9 +13,24 @@ interface Props {
 }
 
 export function ProjectPanel({ meta, description }: Props) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const openLightbox = useCallback((index: number) => {
+    setLightboxIndex(index)
+  }, [])
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null)
+  }, [])
+
   return (
     <div className="space-y-4">
       <p className="text-sm text-white/70">{description}</p>
+
+      {meta.media && meta.media.length > 0 && (
+        <MediaStrip media={meta.media} onSelect={openLightbox} />
+      )}
+
       <div className="flex flex-wrap gap-1.5">
         {meta.stack.map((tech) => (
           <span
@@ -53,6 +73,14 @@ export function ProjectPanel({ meta, description }: Props) {
           </a>
         )}
       </div>
+
+      {lightboxIndex !== null && meta.media && (
+        <MediaLightbox
+          media={meta.media}
+          initialIndex={lightboxIndex}
+          onClose={closeLightbox}
+        />
+      )}
     </div>
   )
 }

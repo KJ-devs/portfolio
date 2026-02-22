@@ -39,6 +39,12 @@ export const PROJECTS: Project[] = [
       'Auto GitHub issue generation depuis les bugs détectés',
     ],
     links: { github: 'https://github.com/KJ-devs/supportHelperv2' },
+    media: [
+      { type: 'image', src: '/images/projects/supporthelper/dashboard.svg', alt: 'Dashboard principal supportHelper', caption: 'Dashboard de gestion des tickets' },
+      { type: 'image', src: '/images/projects/supporthelper/ticket-detail.svg', alt: 'Détail ticket avec analyse IA', caption: 'Analyse IA automatique des tickets' },
+      { type: 'image', src: '/images/projects/supporthelper/github-integration.svg', alt: 'Intégration GitHub automatique', caption: 'Génération auto d\'issues GitHub' },
+      { type: 'video', src: '/images/projects/supporthelper/demo.mp4', thumbnail: '/images/projects/supporthelper/demo-thumb.svg', alt: 'Démo supportHelper v2', caption: 'Démo du workflow complet' },
+    ],
   },
   {
     id: 'tiktok-edu',
@@ -52,6 +58,11 @@ export const PROJECTS: Project[] = [
       'Apprentissage personnalisé',
     ],
     links: { github: '#' },
+    media: [
+      { type: 'image', src: '/images/projects/tiktok-edu/feed.svg', alt: 'Feed éducatif vertical', caption: 'Feed vertical style TikTok' },
+      { type: 'image', src: '/images/projects/tiktok-edu/concept-card.svg', alt: 'Carte de concept IA', caption: 'Cartes générées par IA' },
+      { type: 'image', src: '/images/projects/tiktok-edu/learning-path.svg', alt: 'Parcours personnalisé', caption: 'Apprentissage personnalisé' },
+    ],
   },
   {
     id: 'neural-portfolio',
@@ -64,6 +75,11 @@ export const PROJECTS: Project[] = [
       'Système de particules sur les synapses',
     ],
     links: { github: '#', live: '#' },
+    media: [
+      { type: 'image', src: '/images/projects/neural-portfolio/network-view.svg', alt: 'Vue réseau de neurones 3D', caption: 'Réseau de neurones navigable' },
+      { type: 'image', src: '/images/projects/neural-portfolio/panel-detail.svg', alt: 'Panel de détail projet', caption: 'Panels d\'information interactifs' },
+      { type: 'image', src: '/images/projects/neural-portfolio/particles.svg', alt: 'Système de particules', caption: 'Impulsions neuronales animées' },
+    ],
   },
 ]
 

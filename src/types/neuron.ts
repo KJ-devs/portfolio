@@ -1,5 +1,13 @@
 export type NeuronCategory = 'core' | 'skill' | 'project' | 'experience' | 'contact'
 
+export interface MediaItem {
+  type: 'image' | 'video'
+  src: string
+  thumbnail?: string
+  alt: string
+  caption?: string
+}
+
 export interface CoreMeta {
   type: 'core'
   bio: string
@@ -21,6 +29,7 @@ export interface ProjectMeta {
     github?: string
     live?: string
   }
+  media?: MediaItem[]
 }
 
 export interface ExperienceMeta {
