@@ -7,6 +7,7 @@ import { CAMERA_CONFIG } from '@/lib/constants'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 import { BackgroundEffects } from './BackgroundEffects'
+import { BrainOutline } from './BrainOutline'
 import { CameraController } from './CameraController'
 import { NeuralNetwork } from './NeuralNetwork'
 import { PostProcessing } from './PostProcessing'
@@ -28,41 +29,66 @@ export function NeuralScene() {
         gl={{ antialias: true, alpha: false }}
         dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
-        style={{ background: '#0A0A0F' }}
+        style={{ background: '#050510' }}
         onPointerMissed={() => { if (isPanelOpen && !isTourActive) closePanel() }}
       >
         <Suspense fallback={null}>
-          {/* Deep space fog for atmospheric depth */}
-          <fogExp2 attach="fog" args={['#08081a', 0.005]} />
+          {/* Deep space fog — slightly denser for brain depth */}
+          <fogExp2 attach="fog" args={['#050510', 0.004]} />
 
-          {/* Ambient light for base scene illumination */}
-          <ambientLight intensity={0.4} color="#8899ff" />
+          {/* Ambient base illumination — cool blue */}
+          <ambientLight intensity={0.35} color="#6677cc" />
 
-          {/* Main point light from above */}
+          {/* Main overhead light — brain highlight */}
           <pointLight
-            position={[0, 50, 0]}
-            intensity={2.5}
+            position={[0, 40, 10]}
+            intensity={2.0}
             color="#ffffff"
-            distance={250}
+            distance={200}
           />
 
-          {/* Secondary accent light — cyan, from the side */}
+          {/* Cyan accent — frontal lobe area */}
           <pointLight
-            position={[-50, 0, 30]}
-            intensity={1.2}
+            position={[0, 10, 40]}
+            intensity={1.5}
             color="#00D4FF"
-            distance={180}
+            distance={120}
           />
 
-          {/* Warm fill light — bottom */}
+          {/* Purple accent — temporal/project area */}
           <pointLight
-            position={[40, -40, -20]}
-            intensity={0.6}
+            position={[-40, -5, 0]}
+            intensity={0.8}
             color="#A855F7"
-            distance={150}
+            distance={120}
+          />
+
+          {/* Emerald accent — experience area */}
+          <pointLight
+            position={[40, -5, 0]}
+            intensity={0.6}
+            color="#10B981"
+            distance={120}
+          />
+
+          {/* Indigo backlight — occipital lobe depth */}
+          <pointLight
+            position={[0, 5, -35]}
+            intensity={1.0}
+            color="#818CF8"
+            distance={100}
+          />
+
+          {/* Warm underlight — brain stem warmth */}
+          <pointLight
+            position={[0, -30, 0]}
+            intensity={0.4}
+            color="#F472B6"
+            distance={100}
           />
 
           <CameraController />
+          <BrainOutline />
           <NeuralNetwork />
           <BackgroundEffects />
           <PostProcessing />
