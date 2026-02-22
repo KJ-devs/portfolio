@@ -2,10 +2,11 @@
 
 import { Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
-import { BRAIN_REGION_LABELS } from '@/lib/brainGeometry'
+import { BRAIN_REGION_LABELS, getBrainRegionColorsFromTheme } from '@/lib/brainGeometry'
+import { useTheme } from '@/hooks/useTheme'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 function BrainRegionLabel({
@@ -77,16 +78,22 @@ function BrainRegionLabel({
 
 export function ClusterLabels() {
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
+  const theme = useTheme()
+
+  const regionColors = useMemo(
+    () => getBrainRegionColorsFromTheme(theme.colors.categories),
+    [theme.colors.categories],
+  )
 
   return (
     <>
-      {BRAIN_REGION_LABELS.map(({ label, sublabel, position, color }) => (
+      {BRAIN_REGION_LABELS.map(({ label, sublabel, position, region }) => (
         <BrainRegionLabel
           key={`${label}-${sublabel}`}
           position={position}
           label={label}
           sublabel={sublabel}
-          color={color}
+          color={regionColors[region]}
           visible={!selectedNeuron}
         />
       ))}
