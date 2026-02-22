@@ -7,6 +7,7 @@ import { InfoPanel } from '@/components/ui/InfoPanel'
 import { MiniMap } from '@/components/ui/MiniMap'
 import { OnboardingHint } from '@/components/ui/OnboardingHint'
 import { SearchBar } from '@/components/ui/SearchBar'
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher'
 import { TourButton } from '@/components/ui/TourButton'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
@@ -28,6 +29,8 @@ export function ViewRouter() {
       {/* Orientation & discoverability helpers */}
       <OnboardingHint />
       <TourButton />
+      {/* Theme switcher — bottom center */}
+      <ThemeSwitcher />
     </>
   )
 }

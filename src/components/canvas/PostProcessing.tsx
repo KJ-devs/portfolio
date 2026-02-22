@@ -4,23 +4,34 @@ import { Bloom, ChromaticAberration, EffectComposer, Vignette } from '@react-thr
 import { useMemo } from 'react'
 import * as THREE from 'three'
 
+import { useTheme } from '@/hooks/useTheme'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 export function PostProcessing() {
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
+  const theme = useTheme()
 
-  // Stronger bloom for brain glow effect
-  const bloomIntensity = selectedNeuron ? 3.5 : 2.5
-  const luminanceThreshold = selectedNeuron ? 0.35 : 0.45
-  const vignetteDarkness = selectedNeuron ? 0.95 : 0.85
+  const bloomIntensity = selectedNeuron
+    ? theme.postProcessing.bloomIntensity * 1.3
+    : theme.postProcessing.bloomIntensity
+  const luminanceThreshold = selectedNeuron
+    ? theme.postProcessing.bloomThreshold * 0.8
+    : theme.postProcessing.bloomThreshold
+  const vignetteDarkness = selectedNeuron
+    ? Math.min(theme.postProcessing.vignetteDarkness + 0.1, 1.0)
+    : theme.postProcessing.vignetteDarkness
 
   const chromaticOffset = useMemo(
     () =>
       new THREE.Vector2(
-        selectedNeuron ? 0.0008 : 0.0003,
-        selectedNeuron ? 0.0012 : 0.0005,
+        selectedNeuron
+          ? theme.postProcessing.chromaticOffset * 2.5
+          : theme.postProcessing.chromaticOffset,
+        selectedNeuron
+          ? theme.postProcessing.chromaticOffset * 4
+          : theme.postProcessing.chromaticOffset * 1.6,
       ),
-    [selectedNeuron],
+    [selectedNeuron, theme.postProcessing.chromaticOffset],
   )
 
   return (

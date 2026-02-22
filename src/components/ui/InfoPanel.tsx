@@ -4,7 +4,7 @@ import { gsap } from 'gsap'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { useConnectedNeurons } from '@/hooks/useConnectedNeurons'
-import { CATEGORY_COLORS } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { NeuronData } from '@/types/neuron'
 
@@ -58,6 +58,7 @@ const CATEGORY_ICON: Record<string, string> = {
 export function InfoPanel() {
   const panelRef = useRef<HTMLDivElement>(null)
   const accentBarRef = useRef<HTMLDivElement>(null)
+  const theme = useTheme()
 
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
   const isPanelOpen = usePortfolioStore((s) => s.isPanelOpen)
@@ -72,8 +73,8 @@ export function InfoPanel() {
   const connectedNeurons = useConnectedNeurons(displayedNeuron)
 
   const accentColor = displayedNeuron
-    ? (displayedNeuron.color ?? CATEGORY_COLORS[displayedNeuron.category])
-    : '#00D4FF'
+    ? theme.colors.categories[displayedNeuron.category]
+    : theme.colors.categories.skill
 
   useLayoutEffect(() => {
     if (!panelRef.current) return
@@ -197,7 +198,7 @@ export function InfoPanel() {
             </h3>
             <div className="flex flex-wrap gap-2">
               {connectedNeurons.map((n) => {
-                const nColor = n.color ?? CATEGORY_COLORS[n.category]
+                const nColor = theme.colors.categories[n.category]
                 return (
                   <button
                     key={n.id}

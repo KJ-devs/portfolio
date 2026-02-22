@@ -6,7 +6,7 @@ import { NEURONS } from '@/data/neurons'
 import { findPath } from '@/lib/pathfinding'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { NeuronData } from '@/types/neuron'
-import { CATEGORY_COLORS } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
 
 // ─── Fuzzy filter ────────────────────────────────────────────────────────────
 
@@ -27,6 +27,7 @@ export function SearchBar() {
   const [query, setQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   const clearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const theme = useTheme()
 
   const setSelectedNeuron = usePortfolioStore((s) => s.setSelectedNeuron)
   const setHighlightedPath = usePortfolioStore((s) => s.setHighlightedPath)
@@ -136,7 +137,7 @@ export function SearchBar() {
                       {/* Category dot */}
                       <span
                         className="h-2 w-2 flex-shrink-0 rounded-full"
-                        style={{ backgroundColor: CATEGORY_COLORS[neuron.category] }}
+                        style={{ backgroundColor: theme.colors.categories[neuron.category] }}
                       />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm text-white">{neuron.label}</p>

@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 import { ANIMATION_CONFIG, CAMERA_CONFIG } from '@/lib/constants'
+import { useTheme } from '@/hooks/useTheme'
 import { getNodeById } from '@/lib/neuralLayout'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
@@ -33,6 +34,7 @@ export function CameraController() {
   // Non-null while a tween is active — useFrame reads it to override OrbitControls
   const proxyRef    = useRef<CameraProxy | null>(null)
   const { camera }  = useThree()
+  const theme = useTheme()
 
   const selectedNeuron = usePortfolioStore((s) => s.selectedNeuron)
 
@@ -153,7 +155,7 @@ export function CameraController() {
         controlsRef.current = instance as unknown as OrbitControlsHandle | null
       }}
       autoRotate
-      autoRotateSpeed={CAMERA_CONFIG.autoRotateSpeed}
+      autoRotateSpeed={theme.camera.autoRotateSpeed}
       minDistance={CAMERA_CONFIG.minDistance}
       maxDistance={CAMERA_CONFIG.maxDistance}
       enableDamping
