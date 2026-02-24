@@ -6,11 +6,11 @@ interface QA {
 const QAS: QA[] = [
   {
     keywords: ['bonjour', 'salut', 'hello', 'hi', 'coucou', 'hey'],
-    answer: "Salut ! Je suis le cerveau de Sunny 🧠 Pose-moi des questions sur ses compétences, projets ou expériences.",
+    answer: "Salut ! Je suis le cerveau de J.Krebs 🧠 Pose-moi des questions sur ses compétences, projets ou expériences.",
   },
   {
     keywords: ['stack', 'techno', 'technologie', 'utilise', 'développe', 'code', 'outil'],
-    answer: "Le stack de Sunny : TypeScript + React/Next.js côté frontend, Node.js/NestJS + PostgreSQL côté backend, et Python/TensorFlow pour l'IA. Et bien sûr Three.js pour les interfaces 3D !",
+    answer: "Le stack de J.Krebs : TypeScript + React/Next.js côté frontend, Node.js/NestJS + PostgreSQL côté backend, et Python/TensorFlow pour l'IA. Et bien sûr Three.js pour les interfaces 3D !",
   },
   {
     keywords: ['projet', 'réalisation', 'portfolio', 'créé', 'construit', 'travaux'],
@@ -18,7 +18,7 @@ const QAS: QA[] = [
   },
   {
     keywords: ['expérience', 'alternance', 'entreprise', 'travail', 'job', 'emploi', 'poste'],
-    answer: "Sunny est en alternance comme Développeur Fullstack depuis 2023. Il développe des applications web complètes avec React, TypeScript, NestJS et PostgreSQL.",
+    answer: "J.Krebs est en alternance comme Développeur Fullstack depuis 2023. Il développe des applications web complètes avec React, TypeScript, NestJS et PostgreSQL.",
   },
   {
     keywords: ['formation', 'étude', 'diplôme', 'école', 'master', 'université', 'cursus'],
@@ -30,15 +30,15 @@ const QAS: QA[] = [
   },
   {
     keywords: ['ia', 'intelligence artificielle', 'machine learning', 'ml', 'deep learning', 'nlp'],
-    answer: "Sunny est spécialisé en IA : Machine Learning avec scikit-learn, Deep Learning avec TensorFlow/Keras, NLP, et pgvector pour la recherche sémantique. Son master IA & Big Data valide cette expertise.",
+    answer: "J.Krebs est spécialisé en IA : Machine Learning avec scikit-learn, Deep Learning avec TensorFlow/Keras, NLP, et pgvector pour la recherche sémantique. Son master IA & Big Data valide cette expertise.",
   },
   {
     keywords: ['contact', 'joindre', 'email', 'mail', 'recrute', 'embauche', 'disponible'],
-    answer: "Pour contacter Sunny : clique sur les neurones roses (Contact) dans le réseau. Tu trouveras GitHub, LinkedIn, Email et son CV à télécharger.",
+    answer: "Pour contacter J.Krebs : clique sur les neurones roses (Contact) dans le réseau. Tu trouveras GitHub, LinkedIn, Email et son CV à télécharger.",
   },
   {
     keywords: ['github', 'open source', 'code source', 'dépôt', 'repo'],
-    answer: "Le GitHub de Sunny : github.com/KJ-devs — tu y trouveras supportHelper v2 et d'autres projets. Ce portfolio est aussi open source !",
+    answer: "Le GitHub de J.Krebs : github.com/KJ-devs — tu y trouveras supportHelper v2 et d'autres projets. Ce portfolio est aussi open source !",
   },
   {
     keywords: ['ce site', 'portfolio', 'comment', 'fait', 'construit', 'three', 'three.js', '3d'],
@@ -46,11 +46,11 @@ const QAS: QA[] = [
   },
   {
     keywords: ['âge', 'ans', 'né', 'nationalité', 'localisation', 'paris', 'france', 'où'],
-    answer: "Sunny est un développeur basé en France, actuellement en Master IA & Big Data tout en travaillant en alternance. Disponible pour de nouvelles opportunités en 2025 !",
+    answer: "J.Krebs est un développeur basé en France, actuellement en Master IA & Big Data tout en travaillant en alternance. Disponible pour de nouvelles opportunités en 2025 !",
   },
   {
     keywords: ['objectif', 'futur', 'ambition', 'après', 'plan', 'suite', 'cherche'],
-    answer: "Après son Master (2025), Sunny cherche un poste de Développeur Fullstack ou Ingénieur IA dans une entreprise innovante. Il adore les projets qui mêlent belle UI et IA.",
+    answer: "Après son Master (2025), J.Krebs cherche un poste de Développeur Fullstack ou Ingénieur IA dans une entreprise innovante. Il adore les projets qui mêlent belle UI et IA.",
   },
 ]
 

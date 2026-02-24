@@ -199,7 +199,7 @@ export function HRViewVX() {
 
         <h1 className="vx-hero-name mb-6 font-black text-white"
           style={{ fontSize: 'clamp(5rem, 15vw, 13rem)', lineHeight: 0.88, letterSpacing: '-0.03em', clipPath: 'inset(0 0% 0 0)' }}>
-          Sunny
+          J.Krebs
         </h1>
         <p className="vx-hero-tagline mb-3 text-xl font-light text-white/58 md:text-2xl">
           {t.tagline}
