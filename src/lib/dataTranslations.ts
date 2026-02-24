@@ -39,6 +39,11 @@ export const EXPERIENCE_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
     de: 'Masterstudium KI & Big Data — Machine Learning, NLP und Verarbeitung massiver Datensätze',
     en: 'Specialized Master in Artificial Intelligence and Big Data — machine learning, NLP, large-scale data processing',
   },
+  'licence-ecommerce': {
+    fr: 'Licence professionnelle spécialisée dans le développement web, mobile et les technologies du e-commerce',
+    de: 'Berufslizenz für Webentwicklung, Mobile und E-Commerce-Technologien',
+    en: 'Professional degree in web & mobile development and e-commerce technologies',
+  },
 }
 
 export const EXPERIENCE_TITLES: Record<string, Record<Lang, string>> = {
@@ -51,5 +56,10 @@ export const EXPERIENCE_TITLES: Record<string, Record<Lang, string>> = {
     fr: 'Master IA / Big Data',
     de: 'Master KI / Big Data',
     en: 'Master AI / Big Data',
+  },
+  'licence-ecommerce': {
+    fr: 'Licence Dev Web & Mobile E-commerce',
+    de: 'Lizenz Webentwicklung & Mobile E-Commerce',
+    en: 'Web & Mobile Development for E-commerce Degree',
   },
 }

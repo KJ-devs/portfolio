@@ -17,6 +17,14 @@ export const EXPERIENCES: Experience[] = [
       'Master spécialisé Intelligence Artificielle et Big Data — apprentissage automatique, NLP, traitement de données massives',
     skills: ['Machine Learning', 'Python', 'TensorFlow', 'Big Data', 'NLP'],
   },
+  {
+    id: 'licence-ecommerce',
+    title: 'Licence Développement Web & Mobile dans le E-commerce',
+    period: '2022 - 2023',
+    description:
+      'Licence professionnelle spécialisée dans le développement web, mobile et les technologies du e-commerce',
+    skills: ['React', 'Node.js', 'TypeScript', 'REST API', 'Git'],
+  },
 ]
 
 export const EXPERIENCES_BY_ID: Record<string, Experience> = Object.fromEntries(

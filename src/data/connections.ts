@@ -72,6 +72,16 @@ export const CONNECTIONS: ConnectionData[] = [
   { source: 'master-ia', target: 'nlp',              strength: 0.85 },
 
   // ═══════════════════════════════════════════
+  // Licence E-commerce
+  // ═══════════════════════════════════════════
+  { source: 'me',                target: 'licence-ecommerce', strength: 0.85 },
+  { source: 'licence-ecommerce', target: 'react',             strength: 0.8 },
+  { source: 'licence-ecommerce', target: 'nodejs',            strength: 0.8 },
+  { source: 'licence-ecommerce', target: 'typescript',        strength: 0.75 },
+  { source: 'licence-ecommerce', target: 'rest-api',          strength: 0.75 },
+  { source: 'licence-ecommerce', target: 'git',               strength: 0.8 },
+
+  // ═══════════════════════════════════════════
   // Connexions inter-skills (cohérence)
   // ═══════════════════════════════════════════
   { source: 'react',      target: 'nextjs',           strength: 0.7 },
