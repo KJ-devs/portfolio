@@ -31,7 +31,7 @@ export function HeroSection() {
           backgroundClip: 'text',
         }}
       >
-        Sunny
+        J.Krebs
       </h1>
 
       {/* Title */}

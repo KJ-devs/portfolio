@@ -7,7 +7,7 @@ export const NEURONS: NeuronData[] = [
   // ═══════════════════════════════════════════
   {
     id: 'me',
-    label: 'Sunny',
+    label: 'J.Krebs',
     category: 'core',
     description: 'Développeur Fullstack - Master IA & Big Data',
     size: 2.0,

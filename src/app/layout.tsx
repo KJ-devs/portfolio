@@ -16,10 +16,10 @@ const BASE_URL = 'https://neural-portfolio.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: 'Neural Portfolio — Sunny',
+  title: 'Neural Portfolio — J.Krebs',
   description:
     'Développeur Fullstack passionné par l\'IA. Explore mon parcours, compétences et projets à travers un réseau de neurones 3D interactif.',
-  authors: [{ name: 'Sunny' }],
+  authors: [{ name: 'J.Krebs' }],
   keywords: [
     'Portfolio',
     'Développeur Fullstack',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     url: BASE_URL,
-    title: 'Neural Portfolio — Sunny',
+    title: 'Neural Portfolio — J.Krebs',
     description: 'Portfolio interactif en réseau de neurones 3D navigable. Développeur Fullstack · Master IA & Big Data.',
     siteName: 'Neural Portfolio',
     images: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Neural Portfolio — Sunny',
+    title: 'Neural Portfolio — J.Krebs',
     description: 'Portfolio interactif en réseau de neurones 3D. Développeur Fullstack · Master IA & Big Data.',
     images: ['/opengraph-image'],
   },
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Sunny',
+  name: 'J.Krebs',
   jobTitle: 'Développeur Fullstack',
   description: 'Développeur Fullstack en alternance — Master IA & Big Data',
   url: BASE_URL,

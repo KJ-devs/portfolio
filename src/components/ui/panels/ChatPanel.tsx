@@ -11,7 +11,7 @@ interface Message {
 
 const INITIAL_MESSAGE: Message = {
   role: 'bot',
-  text: "Salut ! Je suis le cerveau de Sunny 🧠 Pose-moi une question sur ses compétences, projets, ou expériences !",
+  text: "Salut ! Je suis le cerveau de J.Krebs 🧠 Pose-moi une question sur ses compétences, projets, ou expériences !",
 }
 
 export function ChatPanel() {
