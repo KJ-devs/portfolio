@@ -6,12 +6,8 @@ import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
 import { useTheme } from '@/hooks/useTheme'
-import type { ThemeId } from '@/lib/themes'
 
 import { CosmosBackground } from './themes/cosmos/CosmosBackground'
-import { CyberpunkBackground } from './themes/cyberpunk/CyberpunkBackground'
-import { OceanBackground } from './themes/ocean/OceanBackground'
-import { CrystalBackground } from './themes/crystal/CrystalBackground'
 
 /** Distant colored nebula particles — deep space atmosphere */
 function NebulaParticles() {
@@ -41,7 +37,7 @@ function NebulaParticles() {
     }
 
     return { positions: pos, colors: col }
-  }, [theme.id]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useMemo(() => {
     if (!geoRef.current) return
@@ -115,7 +111,7 @@ function BrainAmbientDust() {
     }
 
     return { positions: pos, basePositions: basPos, colors: col }
-  }, [theme.id]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useFrame((_, delta) => {
     if (!geoRef.current) return
@@ -164,22 +160,6 @@ function BrainAmbientDust() {
   )
 }
 
-/** Theme-specific shader backgrounds */
-function ThemeBackground({ themeId }: { themeId: ThemeId }) {
-  switch (themeId) {
-    case 'cosmos':
-      return <CosmosBackground />
-    case 'cyberpunk':
-      return <CyberpunkBackground />
-    case 'ocean':
-      return <OceanBackground />
-    case 'crystal':
-      return <CrystalBackground />
-    default:
-      return null
-  }
-}
-
 export function BackgroundEffects() {
   const theme = useTheme()
 
@@ -190,13 +170,13 @@ export function BackgroundEffects() {
         depth={80}
         count={theme.background.starsCount}
         factor={4}
-        saturation={theme.id === 'cyberpunk' ? 0.8 : 0.1}
+        saturation={0.1}
         fade
         speed={0.3}
       />
       <NebulaParticles />
       <BrainAmbientDust />
-      <ThemeBackground themeId={theme.id} />
+      <CosmosBackground />
     </>
   )
 }

@@ -3,7 +3,6 @@
 import { create } from 'zustand'
 import type { NeuronCategory, NeuronData } from '@/types/neuron'
 import type { Lang } from '@/lib/i18n'
-import type { ThemeId } from '@/lib/themes'
 
 interface PortfolioStore {
   // State
@@ -17,7 +16,6 @@ interface PortfolioStore {
   activeView: 'hr' | 'neural'
   isTourActive: boolean
   language: Lang
-  activeTheme: ThemeId
 
   // Actions
   setSelectedNeuron: (neuron: NeuronData | null) => void
@@ -31,7 +29,6 @@ interface PortfolioStore {
   setActiveView: (view: 'hr' | 'neural') => void
   setTourActive: (active: boolean) => void
   setLanguage: (lang: Lang) => void
-  setActiveTheme: (theme: ThemeId) => void
 }
 
 export const usePortfolioStore = create<PortfolioStore>((set) => ({
@@ -46,7 +43,6 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
   activeView: 'hr',
   isTourActive: false,
   language: 'fr',
-  activeTheme: 'cosmos',
 
   // Actions
   setSelectedNeuron: (neuron) =>
@@ -85,7 +81,4 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
 
   setLanguage: (lang) =>
     set({ language: lang }),
-
-  setActiveTheme: (theme) =>
-    set({ activeTheme: theme }),
 }))

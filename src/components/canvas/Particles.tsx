@@ -16,7 +16,6 @@ export function Particles({ links }: ParticlesProps) {
   const geometryRef = useRef<THREE.BufferGeometry>(null)
   const materialRef = useRef<THREE.PointsMaterial>(null)
   const setupDone = useRef(false)
-  const prevThemeId = useRef('')
   const theme = useTheme()
 
   const { positionsRef, colorsRef, countRef, tick } = useParticleSystem(links)
@@ -25,8 +24,8 @@ export function Particles({ links }: ParticlesProps) {
     const count = countRef.current
     if (!geometryRef.current || count === 0) return
 
-    // Lazy setup or theme change: recreate buffer attributes
-    if (!setupDone.current || prevThemeId.current !== theme.id) {
+    // Lazy setup: create buffer attributes
+    if (!setupDone.current) {
       geometryRef.current.setAttribute(
         'position',
         new THREE.BufferAttribute(positionsRef.current, 3),
@@ -37,7 +36,6 @@ export function Particles({ links }: ParticlesProps) {
       )
       geometryRef.current.setDrawRange(0, count)
       setupDone.current = true
-      prevThemeId.current = theme.id
     }
 
     tick(delta)

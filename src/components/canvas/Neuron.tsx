@@ -11,76 +11,19 @@ import { NEURONS_BY_ID } from '@/data/neurons'
 import { useTheme } from '@/hooks/useTheme'
 import { LOD_CONFIG } from '@/lib/constants'
 import type { LayoutNode } from '@/lib/neuralLayout'
-import type { ThemeId } from '@/lib/themes'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
 import { Tooltip } from './Tooltip'
 import { cosmosNeuronVertex, cosmosNeuronFragment } from './themes/cosmos/cosmos.shaders'
-import { cyberpunkNeuronVertex, cyberpunkNeuronFragment } from './themes/cyberpunk/cyberpunk.shaders'
-import { oceanNeuronVertex, oceanNeuronFragment } from './themes/ocean/ocean.shaders'
-import { crystalNeuronVertex, crystalNeuronFragment } from './themes/crystal/crystal.shaders'
 
 interface NeuronProps {
   node: LayoutNode
   introDelay?: number
 }
 
-interface ShaderConfig {
-  vertex: string
-  fragment: string
-  side: THREE.Side
-  depthWrite: boolean
-}
-
-function getThemeNeuronShaders(themeId: ThemeId): ShaderConfig {
-  switch (themeId) {
-    case 'cosmos':
-      return {
-        vertex: cosmosNeuronVertex,
-        fragment: NOISE_3D + FRESNEL + cosmosNeuronFragment,
-        side: THREE.FrontSide,
-        depthWrite: true,
-      }
-    case 'cyberpunk':
-      return {
-        vertex: cyberpunkNeuronVertex,
-        fragment: FRESNEL + '\n' + cyberpunkNeuronFragment,
-        side: THREE.FrontSide,
-        depthWrite: false,
-      }
-    case 'ocean':
-      return {
-        vertex: oceanNeuronVertex,
-        fragment: FRESNEL + '\n' + oceanNeuronFragment,
-        side: THREE.DoubleSide,
-        depthWrite: false,
-      }
-    case 'crystal':
-      return {
-        vertex: crystalNeuronVertex,
-        fragment: FRESNEL + '\n' + crystalNeuronFragment,
-        side: THREE.FrontSide,
-        depthWrite: true,
-      }
-  }
-}
-
-function NeuronGeometry({ radius, segments, wireframe }: {
-  radius: number
-  segments: number
-  wireframe: boolean
-}) {
-  const theme = useTheme()
-
-  if (theme.neuron.shape === 'octahedron') {
-    return <octahedronGeometry args={[radius, wireframe ? 0 : 1]} />
-  }
-
-  if (theme.neuron.shape === 'icosahedron') {
-    return <icosahedronGeometry args={[radius, 1]} />
-  }
-
-  return <sphereGeometry args={[radius, segments, segments]} />
+const COSMOS_SHADERS = {
+  vertex: cosmosNeuronVertex,
+  fragment: NOISE_3D + FRESNEL + cosmosNeuronFragment,
 }
 
 export function Neuron({ node, introDelay = 0 }: NeuronProps) {
@@ -124,12 +67,6 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
         ? LOD_CONFIG.mid.segments
         : LOD_CONFIG.low.segments
 
-  const ringColor = theme.neuron.ringColor === 'fixed' && theme.neuron.ringFixedColor
-    ? theme.neuron.ringFixedColor
-    : color
-
-  const shaderConfig = useMemo(() => getThemeNeuronShaders(theme.id), [theme.id])
-
   const shaderUniforms = useMemo(() => ({
     uTime: { value: 0 },
     uColor: { value: new THREE.Color(color) },
@@ -137,7 +74,7 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
     uHover: { value: 0 },
     uOpacity: { value: opacityRef.current * theme.neuron.opacity },
     uAmplitude: { value: 0.15 },
-  }), [theme.id]) // eslint-disable-line react-hooks/exhaustive-deps
+  }), []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!isIntroComplete) return
@@ -204,12 +141,6 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
       )
     }
 
-    // Ocean jellyfish amplitude
-    const ampTarget = hoverAmountRef.current > 0.5 ? 0.35 : 0.15
-    shaderUniforms.uAmplitude.value = THREE.MathUtils.lerp(
-      shaderUniforms.uAmplitude.value, ampTarget, 0.05,
-    )
-
     // Selection rings
     const ringOpacity = ringOpacityRef.current
     if (ringRef.current && ringMatRef.current) {
@@ -248,8 +179,8 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
           <torusGeometry args={[radius * 2.4, 0.035, 6, 64]} />
           <meshStandardMaterial
             ref={ringMatRef}
-            color={ringColor}
-            emissive={ringColor}
+            color={color}
+            emissive={color}
             emissiveIntensity={2.0}
             transparent
             opacity={0}
@@ -261,8 +192,8 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
           <torusGeometry args={[radius * 1.8, 0.025, 6, 48]} />
           <meshStandardMaterial
             ref={ring2MatRef}
-            color={ringColor}
-            emissive={ringColor}
+            color={color}
+            emissive={color}
             emissiveIntensity={1.5}
             transparent
             opacity={0}
@@ -287,15 +218,14 @@ export function Neuron({ node, introDelay = 0 }: NeuronProps) {
             if (neuronData) setSelectedNeuron(neuronData)
           }}
         >
-          <NeuronGeometry radius={radius} segments={segments} wireframe={theme.neuron.wireframe} />
+          <sphereGeometry args={[radius, segments, segments]} />
           <shaderMaterial
-            key={theme.id}
-            vertexShader={shaderConfig.vertex}
-            fragmentShader={shaderConfig.fragment}
+            vertexShader={COSMOS_SHADERS.vertex}
+            fragmentShader={COSMOS_SHADERS.fragment}
             uniforms={shaderUniforms}
             transparent
-            depthWrite={shaderConfig.depthWrite}
-            side={shaderConfig.side}
+            depthWrite
+            side={THREE.FrontSide}
           />
         </mesh>
 
