@@ -212,7 +212,7 @@ export function HRViewVX() {
           {[
             { label: t.cta_cv, href: '/cv.pdf', primary: true },
             { label: 'GitHub', href: 'https://github.com/KJ-devs' },
-            { label: t.cta_contact, href: 'mailto:contact@sunny.dev' },
+            { label: t.cta_contact, href: 'mailto:jeremiekrebs9@gmail.com' },
           ].map(({ label, href, primary }) => (
             <a key={href} href={href}
               target={href.startsWith('mailto') || href === '/cv.pdf' ? undefined : '_blank'}
@@ -549,7 +549,7 @@ export function HRViewVX() {
         </div>
 
         <a
-          href="mailto:contact@sunny.dev"
+          href="mailto:jeremiekrebs9@gmail.com"
           className="vx-email block font-black transition-all duration-300"
           style={{
             fontSize: 'clamp(1.6rem, 4.5vw, 4rem)',
@@ -567,7 +567,7 @@ export function HRViewVX() {
             ;(e.currentTarget as HTMLElement).style.transform = 'scale(1)'
           }}
         >
-          contact@sunny.dev
+          jeremiekrebs9@gmail.com
         </a>
 
         <p className="mt-5 font-mono text-sm text-white/32">{t.available}</p>

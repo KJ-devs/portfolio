@@ -75,7 +75,7 @@ export function HeroSection() {
           LinkedIn
         </a>
         <a
-          href="mailto:contact@sunny.dev"
+          href="mailto:jeremiekrebs9@gmail.com"
           className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 font-mono text-sm text-white/60 transition-all hover:border-white/20 hover:text-white/90"
         >
           Email

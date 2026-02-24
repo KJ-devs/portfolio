@@ -15,9 +15,9 @@ const CONTACT_LINKS = [
   },
   {
     label: 'Email',
-    href: 'mailto:contact@sunny.dev',
+    href: 'mailto:jeremiekrebs9@gmail.com',
     color: '#10B981',
-    description: 'contact@sunny.dev',
+    description: 'jeremiekrebs9@gmail.com',
   },
   {
     label: 'CV PDF',
