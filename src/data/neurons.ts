@@ -369,7 +369,7 @@ export const NEURONS: NeuronData[] = [
     color: CATEGORY_COLORS.contact,
     metadata: {
       type: 'contact',
-      link: 'mailto:contact@sunny.dev',
+      link: 'mailto:jeremiekrebs9@gmail.com',
       action: 'mailto',
     },
   },
