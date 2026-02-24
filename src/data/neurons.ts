@@ -330,6 +330,19 @@ export const NEURONS: NeuronData[] = [
       skills: ['Machine Learning', 'Python', 'TensorFlow', 'Big Data', 'NLP'],
     },
   },
+  {
+    id: 'licence-ecommerce',
+    label: 'Licence Dev Web & Mobile E-commerce',
+    category: 'experience',
+    description: 'Licence professionnelle Développement Web & Mobile dans le E-commerce',
+    size: 1.2,
+    color: CATEGORY_COLORS.experience,
+    metadata: {
+      type: 'experience',
+      period: '2022 - 2023',
+      skills: ['React', 'Node.js', 'TypeScript', 'REST API', 'Git'],
+    },
+  },
 
   // ═══════════════════════════════════════════
   // CONTACTS
