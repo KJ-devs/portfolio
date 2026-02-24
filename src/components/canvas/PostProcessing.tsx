@@ -3,14 +3,10 @@
 import {
   Bloom,
   ChromaticAberration,
-  DepthOfField,
   EffectComposer,
-  Noise,
-  Scanline,
   Vignette,
 } from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing'
-import { type JSX, useMemo } from 'react'
+import { useMemo } from 'react'
 import * as THREE from 'three'
 
 import { useTheme } from '@/hooks/useTheme'
@@ -43,34 +39,16 @@ export function PostProcessing() {
     [selectedNeuron, theme.postProcessing.chromaticOffset],
   )
 
-  const effects: JSX.Element[] = [
-    <Bloom
-      key="bloom"
-      intensity={bloomIntensity}
-      luminanceThreshold={luminanceThreshold}
-      luminanceSmoothing={0.9}
-      mipmapBlur
-    />,
-    <ChromaticAberration key="chromatic" offset={chromaticOffset} />,
-    <Vignette key="vignette" offset={0.2} darkness={vignetteDarkness} eskil={false} />,
-  ]
-
-  if (theme.id === 'cyberpunk') {
-    effects.push(
-      <Scanline key="scanline" blendFunction={BlendFunction.OVERLAY} density={1.5} opacity={0.08} />,
-      <Noise key="noise" blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.15} />,
-    )
-  }
-
-  if (theme.id === 'ocean') {
-    effects.push(
-      <DepthOfField key="dof" focusDistance={0.02} focalLength={0.06} bokehScale={3} />,
-    )
-  }
-
   return (
-    <EffectComposer key={theme.id}>
-      {effects}
+    <EffectComposer>
+      <Bloom
+        intensity={bloomIntensity}
+        luminanceThreshold={luminanceThreshold}
+        luminanceSmoothing={0.9}
+        mipmapBlur
+      />
+      <ChromaticAberration offset={chromaticOffset} />
+      <Vignette offset={0.2} darkness={vignetteDarkness} eskil={false} />
     </EffectComposer>
   )
 }
