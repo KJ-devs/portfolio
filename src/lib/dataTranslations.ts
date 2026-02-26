@@ -103,6 +103,22 @@ export const CORE_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
   },
 }
 
+export const CORE_TITLES: Record<string, Record<Lang, string>> = {
+  me: {
+    fr: 'Développeur Fullstack — Master IA & Big Data',
+    de: 'Fullstack-Entwickler — Master KI & Big Data',
+    en: 'Fullstack Developer — Master AI & Big Data',
+  },
+}
+
+export const PROJECT_HIGHLIGHTS: Record<string, Record<Lang, string[]>> = {
+  'neural-portfolio': {
+    fr: ['Réseau de neurones 3D navigable', 'Animations GSAP', 'React Three Fiber'],
+    de: ['Navigierbares 3D-Neuronennetz', 'GSAP-Animationen', 'React Three Fiber'],
+    en: ['Navigable 3D neural network', 'GSAP animations', 'React Three Fiber'],
+  },
+}
+
 /** Returns the translated description for a neuron, or null if not found. */
 export function getTranslatedDescription(id: string, category: string, lang: Lang): string | null {
   switch (category) {
@@ -118,5 +134,11 @@ export function getTranslatedDescription(id: string, category: string, lang: Lan
 /** Returns the translated label/title for a neuron, or null if not applicable. */
 export function getTranslatedLabel(id: string, category: string, lang: Lang): string | null {
   if (category === 'experience') return EXPERIENCE_TITLES[id]?.[lang] ?? null
+  if (category === 'core') return CORE_TITLES[id]?.[lang] ?? null
   return null
+}
+
+/** Returns translated highlights for a project, or null if not defined. */
+export function getTranslatedHighlights(id: string, lang: Lang): string[] | null {
+  return PROJECT_HIGHLIGHTS[id]?.[lang] ?? null
 }
