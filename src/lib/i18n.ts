@@ -22,6 +22,8 @@ export const translations = {
     available: 'Disponible — alternance · CDI · freelance',
     back_neural: '← retour au réseau neural',
     built_with: 'Built with Next.js · Three.js · React Three Fiber',
+    tour_cta: 'Visite guidée',
+    tour_stop: 'Arrêt',
   },
   de: {
     // Hero
@@ -44,6 +46,8 @@ export const translations = {
     available: 'Verfügbar — Ausbildung · Festanstellung · Freelance',
     back_neural: '← zurück zum neuronalen Netz',
     built_with: 'Erstellt mit Next.js · Three.js · React Three Fiber',
+    tour_cta: 'Tour starten',
+    tour_stop: 'Stopp',
   },
   en: {
     // Hero
@@ -66,6 +70,8 @@ export const translations = {
     available: 'Available — apprenticeship · full-time · freelance',
     back_neural: '← back to neural network',
     built_with: 'Built with Next.js · Three.js · React Three Fiber',
+    tour_cta: 'Give me a tour',
+    tour_stop: 'Stop',
   },
 } satisfies Record<Lang, Record<string, string | ((n: number) => string)>>
 
