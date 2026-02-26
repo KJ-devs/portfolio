@@ -3,17 +3,17 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { NEURONS_BY_ID } from '@/data/neurons'
+import { translations } from '@/lib/i18n'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 
-// Key nodes to visit, in narrative order: identity → experience → projects → skills → contact
+// Key nodes to visit, in narrative order: identity → experience → projects → contact
 const TOUR_SEQUENCE = [
   'me',
   'alternance',
   'master-ia',
   'supporthelper',
   'tiktok-edu',
-  'typescript',
-  'machine-learning',
+  'neural-portfolio',
   'github',
 ]
 
@@ -26,6 +26,8 @@ export function TourButton() {
   const closePanel = usePortfolioStore((s) => s.closePanel)
   const setTourActive = usePortfolioStore((s) => s.setTourActive)
   const isIntroComplete = usePortfolioStore((s) => s.isIntroComplete)
+  const language = usePortfolioStore((s) => s.language)
+  const t = translations[language]
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -87,7 +89,7 @@ export function TourButton() {
               />
             ))}
           </div>
-          <span className="font-mono text-xs text-white/40">Stop</span>
+          <span className="font-mono text-xs text-white/40">{t.tour_stop}</span>
         </button>
       ) : (
         <button
@@ -98,7 +100,7 @@ export function TourButton() {
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: '#00D4FF', boxShadow: '0 0 6px #00D4FF' }}
           />
-          Give me a tour
+          {t.tour_cta}
         </button>
       )}
     </div>
