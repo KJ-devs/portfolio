@@ -130,7 +130,7 @@ export const COSMOS_THEME: NetworkTheme = {
 
   camera: {
     autoRotateSpeed: 0.2,
-    initialPosition: [12, 8, 38],
+    initialPosition: [0, 5, 55],
   },
 }
 

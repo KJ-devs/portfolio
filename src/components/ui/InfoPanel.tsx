@@ -5,6 +5,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { useConnectedNeurons } from '@/hooks/useConnectedNeurons'
 import { useTheme } from '@/hooks/useTheme'
+import { translations } from '@/lib/i18n'
+import { getTranslatedDescription } from '@/lib/dataTranslations'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { NeuronData } from '@/types/neuron'
 
@@ -18,31 +20,28 @@ import { SkillPanel } from './panels/SkillPanel'
 // ─── Dispatch content per neuron type ────────────────────────────────────────
 
 function NeuronContent({ neuron }: { neuron: NeuronData }) {
+  const language = usePortfolioStore((s) => s.language)
+
   if (neuron.id === 'brain') {
     return <ChatPanel />
   }
 
+  const description =
+    getTranslatedDescription(neuron.id, neuron.category, language) ?? neuron.description
+
   const { metadata } = neuron
   switch (metadata.type) {
     case 'skill':
-      return <SkillPanel meta={metadata} description={neuron.description} />
+      return <SkillPanel meta={metadata} description={description} lang={language} />
     case 'project':
-      return <ProjectPanel meta={metadata} description={neuron.description} />
+      return <ProjectPanel meta={metadata} description={description} />
     case 'experience':
-      return <ExperiencePanel meta={metadata} description={neuron.description} />
+      return <ExperiencePanel meta={metadata} description={description} />
     case 'contact':
       return <ContactPanel meta={metadata} label={neuron.label} />
     case 'core':
-      return <CorePanel meta={metadata} description={neuron.description} />
+      return <CorePanel meta={metadata} description={description} />
   }
-}
-
-const CATEGORY_LABEL: Record<string, string> = {
-  core: 'Core',
-  skill: 'Compétence',
-  project: 'Projet',
-  experience: 'Expérience',
-  contact: 'Contact',
 }
 
 const CATEGORY_ICON: Record<string, string> = {
@@ -64,6 +63,16 @@ export function InfoPanel() {
   const isPanelOpen = usePortfolioStore((s) => s.isPanelOpen)
   const closePanel = usePortfolioStore((s) => s.closePanel)
   const setSelectedNeuron = usePortfolioStore((s) => s.setSelectedNeuron)
+  const language = usePortfolioStore((s) => s.language)
+  const t = translations[language]
+
+  const CATEGORY_LABEL: Record<string, string> = {
+    core:       t.category_core,
+    skill:      t.category_skill,
+    project:    t.category_project,
+    experience: t.category_experience,
+    contact:    t.category_contact,
+  }
 
   const [displayedNeuron, setDisplayedNeuron] = useState<NeuronData | null>(null)
   useEffect(() => {
@@ -194,7 +203,7 @@ export function InfoPanel() {
               className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em]"
               style={{ color: `${accentColor}70` }}
             >
-              Connexions ({connectedNeurons.length})
+              {t.connections} ({connectedNeurons.length})
             </h3>
             <div className="flex flex-wrap gap-2">
               {connectedNeurons.map((n) => {

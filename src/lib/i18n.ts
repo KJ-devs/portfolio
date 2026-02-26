@@ -24,6 +24,13 @@ export const translations = {
     built_with: 'Built with Next.js · Three.js · React Three Fiber',
     tour_cta: 'Visite guidée',
     tour_stop: 'Arrêt',
+    category_core: 'Core',
+    category_skill: 'Compétence',
+    category_project: 'Projet',
+    category_experience: 'Expérience',
+    category_contact: 'Contact',
+    skill_mastery: 'Maîtrise',
+    connections: 'Connexions',
   },
   de: {
     // Hero
@@ -48,6 +55,13 @@ export const translations = {
     built_with: 'Erstellt mit Next.js · Three.js · React Three Fiber',
     tour_cta: 'Tour starten',
     tour_stop: 'Stopp',
+    category_core: 'Core',
+    category_skill: 'Kompetenz',
+    category_project: 'Projekt',
+    category_experience: 'Erfahrung',
+    category_contact: 'Kontakt',
+    skill_mastery: 'Kenntnisstand',
+    connections: 'Verbindungen',
   },
   en: {
     // Hero
@@ -72,6 +86,13 @@ export const translations = {
     built_with: 'Built with Next.js · Three.js · React Three Fiber',
     tour_cta: 'Give me a tour',
     tour_stop: 'Stop',
+    category_core: 'Core',
+    category_skill: 'Skill',
+    category_project: 'Project',
+    category_experience: 'Experience',
+    category_contact: 'Contact',
+    skill_mastery: 'Mastery',
+    connections: 'Connections',
   },
 } satisfies Record<Lang, Record<string, string | ((n: number) => string)>>
 
