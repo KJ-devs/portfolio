@@ -6,7 +6,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useConnectedNeurons } from '@/hooks/useConnectedNeurons'
 import { useTheme } from '@/hooks/useTheme'
 import { translations } from '@/lib/i18n'
-import { getTranslatedDescription } from '@/lib/dataTranslations'
+import { getTranslatedDescription, getTranslatedHighlights, getTranslatedLabel } from '@/lib/dataTranslations'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { NeuronData } from '@/types/neuron'
 
@@ -28,19 +28,22 @@ function NeuronContent({ neuron }: { neuron: NeuronData }) {
 
   const description =
     getTranslatedDescription(neuron.id, neuron.category, language) ?? neuron.description
+  const translatedTitle = getTranslatedLabel(neuron.id, neuron.category, language) ?? undefined
 
   const { metadata } = neuron
   switch (metadata.type) {
     case 'skill':
       return <SkillPanel meta={metadata} description={description} lang={language} />
-    case 'project':
-      return <ProjectPanel meta={metadata} description={description} />
+    case 'project': {
+      const highlights = getTranslatedHighlights(neuron.id, language) ?? metadata.highlights
+      return <ProjectPanel meta={{ ...metadata, highlights }} description={description} />
+    }
     case 'experience':
       return <ExperiencePanel meta={metadata} description={description} />
     case 'contact':
       return <ContactPanel meta={metadata} label={neuron.label} />
     case 'core':
-      return <CorePanel meta={metadata} description={description} />
+      return <CorePanel meta={metadata} description={description} title={translatedTitle} />
   }
 }
 
