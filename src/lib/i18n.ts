@@ -31,6 +31,8 @@ export const translations = {
     category_contact: 'Contact',
     skill_mastery: 'Maîtrise',
     connections: 'Connexions',
+    gallery: 'Galerie',
+    media_count: (n: number) => `${n} média${n > 1 ? 's' : ''}`,
   },
   de: {
     // Hero
@@ -62,6 +64,8 @@ export const translations = {
     category_contact: 'Kontakt',
     skill_mastery: 'Kenntnisstand',
     connections: 'Verbindungen',
+    gallery: 'Galerie',
+    media_count: (n: number) => `${n} Medium${n > 1 ? 'en' : ''}`,
   },
   en: {
     // Hero
@@ -93,6 +97,8 @@ export const translations = {
     category_contact: 'Contact',
     skill_mastery: 'Mastery',
     connections: 'Connections',
+    gallery: 'Gallery',
+    media_count: (n: number) => `${n} media`,
   },
 } satisfies Record<Lang, Record<string, string | ((n: number) => string)>>
 
