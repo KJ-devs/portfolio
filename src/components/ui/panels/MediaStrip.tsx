@@ -3,6 +3,8 @@
 import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
 
+import { translations } from '@/lib/i18n'
+import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { MediaItem } from '@/types/neuron'
 
 interface Props {
@@ -13,6 +15,8 @@ interface Props {
 export function MediaStrip({ media, onSelect }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const itemsRef = useRef<HTMLButtonElement[]>([])
+  const language = usePortfolioStore((s) => s.language)
+  const t = translations[language]
 
   useEffect(() => {
     const items = itemsRef.current.filter(Boolean)
@@ -29,10 +33,10 @@ export function MediaStrip({ media, onSelect }: Props) {
     <div className="space-y-2">
       <div className="flex items-center justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-          Galerie
+          {t.gallery}
         </span>
         <span className="font-mono text-[10px] text-white/30">
-          {media.length} média{media.length > 1 ? 's' : ''}
+          {(t.media_count as (n: number) => string)(media.length)}
         </span>
       </div>
 
