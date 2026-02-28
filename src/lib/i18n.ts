@@ -19,7 +19,7 @@ export const translations = {
     // Contact
     statement_1: 'Construisons quelque chose',
     statement_2: "d'ambitieux.",
-    available: 'Disponible — alternance · CDI · freelance',
+    available: 'Disponible — CDI',
     back_neural: '← retour au réseau neural',
     built_with: 'Built with Next.js · Three.js · React Three Fiber',
     tour_cta: 'Visite guidée',
@@ -85,7 +85,7 @@ export const translations = {
     // Contact
     statement_1: "Let's build something",
     statement_2: 'remarkable.',
-    available: 'Available — apprenticeship · full-time · freelance',
+    available: 'Available — full-time',
     back_neural: '← back to neural network',
     built_with: 'Built with Next.js · Three.js · React Three Fiber',
     tour_cta: 'Give me a tour',

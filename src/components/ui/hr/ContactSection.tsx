@@ -36,7 +36,7 @@ export function ContactSection() {
         </p>
         <h2 className="text-3xl font-bold text-white/80">Me contacter</h2>
         <p className="mt-3 text-sm text-white/40">
-          Ouvert aux opportunités — alternance, CDI, freelance.
+          Ouvert aux opportunités — CDI.
         </p>
       </div>
 
