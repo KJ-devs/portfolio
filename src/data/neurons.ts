@@ -300,6 +300,53 @@ export const NEURONS: NeuronData[] = [
     },
   },
 
+  {
+    id: 'nlp-pathfinding',
+    label: 'NLP Pathfinding',
+    category: 'project',
+    description:
+      'Application de recommandation de trajets ferroviaires SNCF pilotée par le NLP',
+    size: 1.3,
+    color: CATEGORY_COLORS.project,
+    metadata: {
+      type: 'project',
+      stack: ['Python', 'NLP', 'SNCF GTFS', 'Machine Learning'],
+      highlights: [
+        'Recommandation de trajets par NLP',
+        'Données SNCF Open Data (GTFS)',
+        'Pipeline IA de bout en bout',
+      ],
+      links: { github: 'https://github.com/KJ-devs/nlp-driven-pathfinding' },
+      media: [
+        { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-1.png', alt: 'Interface NLP Pathfinding', caption: 'Recommandation de trajets' },
+        { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-2.png', alt: 'Résultats de recherche', caption: 'Résultats de trajets optimisés' },
+      ],
+    },
+  },
+  {
+    id: 'pneumonia-detection',
+    label: 'Pneumonia Detection',
+    category: 'project',
+    description:
+      'Système de diagnostic de pneumonie par radiographie thoracique avec deep learning',
+    size: 1.3,
+    color: CATEGORY_COLORS.project,
+    metadata: {
+      type: 'project',
+      stack: ['Python', 'TensorFlow', 'OpenCV', 'scikit-learn'],
+      highlights: [
+        'Classification binaire et multi-classes (viral/bactérien)',
+        'Transfer learning (VGG16, ResNet50, MobileNetV2)',
+        'Class Activation Maps pour interprétabilité',
+      ],
+      links: { github: 'https://github.com/KJ-devs/pneumonia_detection_AI' },
+      media: [
+        { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-1.png', alt: 'Analyse radiographie thoracique', caption: 'Détection de pneumonie par IA' },
+        { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-2.png', alt: 'Résultats du modèle', caption: 'Métriques de performance du modèle' },
+      ],
+    },
+  },
+
   // ═══════════════════════════════════════════
   // EXPERIENCES
   // ═══════════════════════════════════════════

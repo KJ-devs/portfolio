@@ -26,6 +26,16 @@ export const PROJECT_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
     de: 'Interaktives Portfolio als navigierbares 3D-Neuronennetz — diese Website',
     en: 'Interactive portfolio as a navigable 3D neural network — this site',
   },
+  'nlp-pathfinding': {
+    fr: 'Application de recommandation de trajets ferroviaires SNCF pilotée par le NLP',
+    de: 'NLP-gesteuerte Bahnreiseempfehlungs-App mit SNCF-Daten',
+    en: 'NLP-driven train route recommendation app using SNCF data',
+  },
+  'pneumonia-detection': {
+    fr: 'Système de diagnostic de pneumonie par radiographie thoracique avec deep learning',
+    de: 'Deep-Learning-basiertes Pneumonie-Diagnosesystem aus Röntgenaufnahmen',
+    en: 'Deep learning-based pneumonia diagnosis system from chest X-ray images',
+  },
 }
 
 export const EXPERIENCE_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
@@ -116,6 +126,16 @@ export const PROJECT_HIGHLIGHTS: Record<string, Record<Lang, string[]>> = {
     fr: ['Réseau de neurones 3D navigable', 'Animations GSAP', 'React Three Fiber'],
     de: ['Navigierbares 3D-Neuronennetz', 'GSAP-Animationen', 'React Three Fiber'],
     en: ['Navigable 3D neural network', 'GSAP animations', 'React Three Fiber'],
+  },
+  'nlp-pathfinding': {
+    fr: ['Recommandation de trajets par NLP', 'Données SNCF Open Data (GTFS)', 'Pipeline IA de bout en bout'],
+    de: ['NLP-gesteuerte Routenempfehlung', 'SNCF Open Data (GTFS)', 'End-to-End-KI-Pipeline'],
+    en: ['NLP-driven route recommendation', 'SNCF Open Data (GTFS)', 'End-to-end AI pipeline'],
+  },
+  'pneumonia-detection': {
+    fr: ['Classification binaire et multi-classes (viral/bactérien)', 'Transfer learning (VGG16, ResNet50, MobileNetV2)', 'Class Activation Maps pour interprétabilité'],
+    de: ['Binäre und Mehrklassen-Klassifikation (viral/bakteriell)', 'Transfer Learning (VGG16, ResNet50, MobileNetV2)', 'Class Activation Maps für Interpretierbarkeit'],
+    en: ['Binary and multi-class classification (viral/bacterial)', 'Transfer learning (VGG16, ResNet50, MobileNetV2)', 'Class Activation Maps for interpretability'],
   },
 }
 
