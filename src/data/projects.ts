@@ -65,6 +65,40 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'nlp-pathfinding',
+    title: 'NLP Pathfinding',
+    description:
+      'Application de recommandation de trajets ferroviaires SNCF pilotée par le NLP — traitement du langage naturel pour la recherche d\'itinéraires',
+    stack: ['Python', 'NLP', 'SNCF GTFS', 'Machine Learning'],
+    highlights: [
+      'Recommandation de trajets par NLP',
+      'Données SNCF Open Data (GTFS)',
+      'Pipeline IA de bout en bout',
+    ],
+    links: { github: 'https://github.com/KJ-devs/nlp-driven-pathfinding' },
+    media: [
+      { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-1.png', alt: 'Interface NLP Pathfinding', caption: 'Recommandation de trajets' },
+      { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-2.png', alt: 'Résultats de recherche', caption: 'Résultats de trajets optimisés' },
+    ],
+  },
+  {
+    id: 'pneumonia-detection',
+    title: 'Pneumonia Detection',
+    description:
+      'Système de diagnostic de pneumonie par radiographie thoracique avec deep learning — classification binaire et multi-classes',
+    stack: ['Python', 'TensorFlow', 'OpenCV', 'scikit-learn'],
+    highlights: [
+      'Classification binaire et multi-classes (viral/bactérien)',
+      'Transfer learning (VGG16, ResNet50, MobileNetV2)',
+      'Class Activation Maps pour interprétabilité',
+    ],
+    links: { github: 'https://github.com/KJ-devs/pneumonia_detection_AI' },
+    media: [
+      { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-1.png', alt: 'Analyse radiographie thoracique', caption: 'Détection de pneumonie par IA' },
+      { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-2.png', alt: 'Résultats du modèle', caption: 'Métriques de performance du modèle' },
+    ],
+  },
+  {
     id: 'neural-portfolio',
     title: 'Neural Portfolio',
     description: 'Portfolio interactif en réseau de neurones 3D navigable — ce site',

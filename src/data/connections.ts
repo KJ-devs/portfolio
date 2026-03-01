@@ -52,6 +52,22 @@ export const CONNECTIONS: ConnectionData[] = [
   { source: 'neural-portfolio', target: 'tailwind',   strength: 0.8 },
 
   // ═══════════════════════════════════════════
+  // NLP Pathfinding
+  // ═══════════════════════════════════════════
+  { source: 'me',              target: 'nlp-pathfinding',     strength: 0.85 },
+  { source: 'nlp-pathfinding', target: 'python',              strength: 0.9 },
+  { source: 'nlp-pathfinding', target: 'nlp',                 strength: 0.95 },
+  { source: 'nlp-pathfinding', target: 'machine-learning',    strength: 0.8 },
+
+  // ═══════════════════════════════════════════
+  // Pneumonia Detection
+  // ═══════════════════════════════════════════
+  { source: 'me',                  target: 'pneumonia-detection',  strength: 0.85 },
+  { source: 'pneumonia-detection', target: 'python',               strength: 0.9 },
+  { source: 'pneumonia-detection', target: 'tensorflow',           strength: 0.95 },
+  { source: 'pneumonia-detection', target: 'machine-learning',     strength: 0.9 },
+
+  // ═══════════════════════════════════════════
   // Alternance
   // ═══════════════════════════════════════════
   { source: 'alternance', target: 'react',      strength: 0.85 },
