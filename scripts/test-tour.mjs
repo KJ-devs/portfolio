@@ -13,18 +13,18 @@ import { existsSync, mkdirSync, readFileSync } from 'fs'
 import { chromium } from 'playwright'
 
 const TOUR_SEQUENCE = [
-  { id: 'me',              label: 'Sunny' },
-  { id: 'alternance',      label: 'Alternance Fullstack' },
-  { id: 'master-ia',       label: 'Master IA / Big Data' },
-  { id: 'supporthelper',   label: 'supportHelper v2' },
-  { id: 'tiktok-edu',      label: 'EduFeed' },
-  { id: 'typescript',      label: 'TypeScript' },
-  { id: 'machine-learning',label: 'Machine Learning' },
-  { id: 'github',          label: 'GitHub' },
+  { id: 'me', label: 'J.KREBS' },
+  { id: 'alternance', label: 'Alternance Fullstack' },
+  { id: 'master-ia', label: 'Master IA / Big Data' },
+  { id: 'supporthelper', label: 'supportHelper v2' },
+  { id: 'tiktok-edu', label: 'EduFeed' },
+  { id: 'typescript', label: 'TypeScript' },
+  { id: 'machine-learning', label: 'Machine Learning' },
+  { id: 'github', label: 'GitHub' },
 ]
 
 const STEP_DURATION_MS = 3800
-const SCREENSHOT_DIR   = 'screenshots'
+const SCREENSHOT_DIR = 'screenshots'
 
 function hashFile(path) {
   return createHash('md5').update(readFileSync(path)).digest('hex')
@@ -39,13 +39,17 @@ async function runTourTest() {
 
   const browser = await chromium.launch({ headless: false, slowMo: 30 })
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } })
-  const page    = await context.newPage()
+  const page = await context.newPage()
 
   const consoleErrors = []
-  const notFound404s  = []
-  page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()) })
-  page.on('pageerror', err => consoleErrors.push(err.message))
-  page.on('response',  res => { if (res.status() === 404) notFound404s.push(res.url()) })
+  const notFound404s = []
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') consoleErrors.push(msg.text())
+  })
+  page.on('pageerror', (err) => consoleErrors.push(err.message))
+  page.on('response', (res) => {
+    if (res.status() === 404) notFound404s.push(res.url())
+  })
 
   // ── Open app ────────────────────────────────────────────────────────────────
   console.log('\n🌐  http://localhost:3000')
@@ -69,7 +73,7 @@ async function runTourTest() {
   await tourBtn.click()
   console.log('🚀  Tour started\n')
 
-  const results  = []
+  const results = []
   let prevScreenshot = null
 
   for (let i = 0; i < TOUR_SEQUENCE.length; i++) {
@@ -83,9 +87,9 @@ async function runTourTest() {
     const panelState = await page.evaluate(() => {
       // The InfoPanel root: fixed, z-50, backdrop-blur
       const panels = [...document.querySelectorAll('.fixed.z-50')]
-      const panel  = panels.find(el => el.querySelector('h2'))
+      const panel = panels.find((el) => el.querySelector('h2'))
       if (!panel) return { open: false, title: null, pointerEvents: 'none' }
-      const style  = window.getComputedStyle(panel)
+      const style = window.getComputedStyle(panel)
       return {
         open: style.pointerEvents === 'auto',
         title: panel.querySelector('h2')?.textContent?.trim() ?? null,
@@ -104,21 +108,30 @@ async function runTourTest() {
     // ── Assertions ────────────────────────────────────────────────────────────
     const pass = panelState.open && cameraMoved
     const note = []
-    if (!panelState.open)  note.push(`panel not open (pointerEvents: ${panelState.pointerEvents})`)
-    if (!cameraMoved)      note.push('camera did not move from previous step')
+    if (!panelState.open) note.push(`panel not open (pointerEvents: ${panelState.pointerEvents})`)
+    if (!cameraMoved) note.push('camera did not move from previous step')
     if (panelState.title && !panelState.title.toLowerCase().includes(label.toLowerCase()))
       note.push(`wrong label — got "${panelState.title}", expected "${label}"`)
 
-    results.push({ step: i + 1, id, label, pass, panelOpen: panelState.open, panelTitle: panelState.title, cameraMoved, note })
+    results.push({
+      step: i + 1,
+      id,
+      label,
+      pass,
+      panelOpen: panelState.open,
+      panelTitle: panelState.title,
+      cameraMoved,
+      note,
+    })
 
     const icon = pass ? '✓' : '✗'
     console.log(`  ${icon}  Step ${i + 1}/${TOUR_SEQUENCE.length} — "${id}"`)
     if (panelState.title) console.log(`     Panel : "${panelState.title}"`)
-    if (note.length)      console.log(`     Issues: ${note.join(' | ')}`)
+    if (note.length) console.log(`     Issues: ${note.join(' | ')}`)
     console.log(`     📸  ${ssPath}`)
 
     // Wait the true remaining time for this step (using actual elapsed)
-    const elapsed   = Date.now() - stepStart
+    const elapsed = Date.now() - stepStart
     const remaining = STEP_DURATION_MS - elapsed
     if (remaining > 0) await page.waitForTimeout(remaining)
   }
@@ -126,20 +139,20 @@ async function runTourTest() {
   // ── Wait for last-step timer to fire (tour auto-ends after STEP_DURATION_MS) ─
   await page.waitForTimeout(STEP_DURATION_MS + 500)
 
-  const tourEnded = await page.locator('button', { hasText: /give me a tour/i })
-    .isVisible({ timeout: 3000 }).catch(() => false)
+  const tourEnded = await page
+    .locator('button', { hasText: /give me a tour/i })
+    .isVisible({ timeout: 3000 })
+    .catch(() => false)
   await page.screenshot({ path: `${SCREENSHOT_DIR}/tour-final.png` })
 
   await browser.close()
 
   // ── Summary ─────────────────────────────────────────────────────────────────
-  const passed   = results.filter(r => r.pass).length
-  const failed   = results.filter(r => !r.pass)
+  const passed = results.filter((r) => r.pass).length
+  const failed = results.filter((r) => !r.pass)
   // Filter out known pre-existing 404s (favicon, missing assets) — not tour-related
-  const tourErrors = consoleErrors.filter(e =>
-    !e.includes('favicon') &&
-    !e.includes('.ico') &&
-    !e.includes('404 (Not Found)')
+  const tourErrors = consoleErrors.filter(
+    (e) => !e.includes('favicon') && !e.includes('.ico') && !e.includes('404 (Not Found)')
   )
   const allPassed = passed === TOUR_SEQUENCE.length && tourEnded && tourErrors.length === 0
 
@@ -154,11 +167,11 @@ async function runTourTest() {
 
   if (failed.length) {
     console.log('\n  Failed steps:')
-    failed.forEach(r => console.log(`    Step ${r.step} (${r.id}) — ${r.note.join(', ')}`))
+    failed.forEach((r) => console.log(`    Step ${r.step} (${r.id}) — ${r.note.join(', ')}`))
   }
   if (tourErrors.length) {
     console.log('\n  Console errors:')
-    tourErrors.forEach(e => console.log(`    ${e}`))
+    tourErrors.forEach((e) => console.log(`    ${e}`))
   }
   console.log('═══════════════════════════════════════════\n')
 
@@ -166,7 +179,7 @@ async function runTourTest() {
   process.exit(0)
 }
 
-runTourTest().catch(err => {
+runTourTest().catch((err) => {
   console.error('\nTest crashed:', err.message)
   process.exit(1)
 })

@@ -16,6 +16,7 @@ interface PortfolioStore {
   activeView: 'hr' | 'neural'
   isTourActive: boolean
   language: Lang
+  isCvPreviewOpen: boolean
 
   // Actions
   setSelectedNeuron: (neuron: NeuronData | null) => void
@@ -29,6 +30,7 @@ interface PortfolioStore {
   setActiveView: (view: 'hr' | 'neural') => void
   setTourActive: (active: boolean) => void
   setLanguage: (lang: Lang) => void
+  setCvPreviewOpen: (open: boolean) => void
 }
 
 export const usePortfolioStore = create<PortfolioStore>((set) => ({
@@ -43,6 +45,7 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
   activeView: 'hr',
   isTourActive: false,
   language: 'fr',
+  isCvPreviewOpen: false,
 
   // Actions
   setSelectedNeuron: (neuron) =>
@@ -81,4 +84,7 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
 
   setLanguage: (lang) =>
     set({ language: lang }),
+
+  setCvPreviewOpen: (open) =>
+    set({ isCvPreviewOpen: open }),
 }))

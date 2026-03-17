@@ -1,4 +1,5 @@
 import { SceneLoader } from '@/components/canvas/SceneLoader'
+import { CvPreview } from '@/components/ui/CvPreview'
 import { LoadingScreen } from '@/components/ui/LoadingScreen'
 import { Navbar } from '@/components/ui/Navbar'
 import { ViewRouter } from '@/components/ui/ViewRouter'
@@ -14,6 +15,8 @@ export default function Home() {
       <LoadingScreen />
       {/* Conditional: HR overlay or Neural UI controls */}
       <ViewRouter />
+      {/* CV preview modal */}
+      <CvPreview />
     </main>
   )
 }

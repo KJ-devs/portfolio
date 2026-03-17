@@ -10,13 +10,14 @@ export function Navbar() {
   const setActiveView = usePortfolioStore((s) => s.setActiveView)
   const language = usePortfolioStore((s) => s.language)
   const setLanguage = usePortfolioStore((s) => s.setLanguage)
+  const openCv = usePortfolioStore((s) => s.setCvPreviewOpen)
 
   return (
     <nav className="fixed left-0 right-0 top-0 z-40 border-b border-white/5 bg-black/20 backdrop-blur-md">
       <div className="flex items-center justify-between px-6 py-3">
         {/* Name */}
         <span className="font-mono text-sm font-semibold tracking-widest text-white/80">
-          SUNNY
+          J.KREBS
         </span>
 
         {/* View switcher — center */}
@@ -86,14 +87,12 @@ export function Navbar() {
           >
             LinkedIn
           </a>
-          <a
-            href="/cv.pdf"
-            target="_blank"
-            rel="noreferrer"
+          <button
+            onClick={() => openCv(true)}
             className="rounded-md border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-white/60 transition-colors hover:border-white/20 hover:text-white/90"
           >
             CV ↓
-          </a>
+          </button>
         </div>
 
         {/* Mobile hamburger */}
@@ -153,15 +152,12 @@ export function Navbar() {
           >
             LinkedIn
           </a>
-          <a
-            href="/cv.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="font-mono text-sm text-white/50 transition-colors hover:text-white/90"
-            onClick={() => setMenuOpen(false)}
+          <button
+            className="font-mono text-sm text-white/50 transition-colors hover:text-white/90 text-left"
+            onClick={() => { openCv(true); setMenuOpen(false) }}
           >
             CV ↓
-          </a>
+          </button>
         </div>
       )}
     </nav>

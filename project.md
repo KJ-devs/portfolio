@@ -138,7 +138,7 @@ interface ConnectionData {
 
 ### Neurone Central (`core`)
 - **id**: `"me"`
-- **label**: `"Sunny"`
+- **label**: `"J.Krebs"`
 - **description**: `"Developpeur Fullstack - Master IA & Big Data"`
 - **size**: `2.0`
 
@@ -226,7 +226,7 @@ interface ConnectionData {
 
 - **GitHub** : id: `"github"`, label: `"GitHub"`, link: `"https://github.com/KJ-devs"`, size: 0.8
 - **LinkedIn** : id: `"linkedin"`, label: `"LinkedIn"`, link: `"#"`, size: 0.8
-- **Email** : id: `"email"`, label: `"Email"`, link: `"mailto:contact@sunny.dev"`, size: 0.8
+- **Email** : id: `"email"`, label: `"Email"`, link: `"mailto:jeremiekrebs9@gmail.com"`, size: 0.8
 - **CV** : id: `"cv"`, label: `"Telecharger CV"`, link: `"/cv.pdf"`, size: 0.8
 - Tous connectes a : me
 
@@ -416,7 +416,7 @@ Le panel a un bouton de fermeture (croix) et se ferme aussi en cliquant dans le 
 #### US-12 : Navbar overlay + legende + mini-map
 **Priorite** : MOYENNE
 **Equipe** : developer, stabilizer
-**Description** : Creer `Navbar.tsx` : barre fixe en haut, semi-transparente, avec le nom "Sunny" a gauche et les liens rapides a droite (GitHub, LinkedIn, CV). Creer `CategoryLegend.tsx` : petite legende en bas a gauche montrant les 5 categories avec leur couleur (cliquable pour filtrer). Creer `MiniMap.tsx` : vue 2D simplifiee du reseau en bas a droite (canvas 2D ou SVG), montrant la position actuelle de la camera.
+**Description** : Creer `Navbar.tsx` : barre fixe en haut, semi-transparente, avec le nom "J.KREBS" a gauche et les liens rapides a droite (GitHub, LinkedIn, CV). Creer `CategoryLegend.tsx` : petite legende en bas a gauche montrant les 5 categories avec leur couleur (cliquable pour filtrer). Creer `MiniMap.tsx` : vue 2D simplifiee du reseau en bas a droite (canvas 2D ou SVG), montrant la position actuelle de la camera.
 **Criteres d'acceptation** :
 - La navbar est visible et non intrusive
 - La legende des categories est cliquable et filtre les neurones
@@ -487,7 +487,7 @@ Le panel a un bouton de fermeture (croix) et se ferme aussi en cliquant dans le 
 #### US-17 : Easter egg "Ask my brain"
 **Priorite** : BASSE
 **Equipe** : developer, stabilizer
-**Description** : Ajouter un neurone cache dans le reseau (categorie speciale) qui, au clic, ouvre un mini-chatbot. Le chatbot repond aux questions sur Sunny en se basant sur les donnees du portfolio (pas d'API IA, juste des reponses pre-programmees avec fuzzy matching sur des mots-cles). Le neurone est legerement cache (petite taille, dans un coin du reseau) et pulse avec une couleur differente (dore).
+**Description** : Ajouter un neurone cache dans le reseau (categorie speciale) qui, au clic, ouvre un mini-chatbot. Le chatbot repond aux questions sur J.KREBS en se basant sur les donnees du portfolio (pas d'API IA, juste des reponses pre-programmees avec fuzzy matching sur des mots-cles). Le neurone est legerement cache (petite taille, dans un coin du reseau) et pulse avec une couleur differente (dore).
 **Criteres d'acceptation** :
 - Le neurone cache est difficile mais pas impossible a trouver
 - Le chatbot repond a au moins 10 questions typiques
