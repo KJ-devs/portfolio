@@ -6,8 +6,8 @@ export const EXPERIENCES: Experience[] = [
     title: 'Alternance Développeur Fullstack',
     period: '2024 - Present',
     description:
-      "Développeur fullstack en alternance — conception et développement d'applications web métier",
-    skills: ['React', 'TypeScript', 'Node.js', 'NestJS', 'PostgreSQL', 'Git', 'Docker'],
+      "Développeur fullstack en alternance — plateforme de community building & intégration outils agentiques",
+    skills: ['Angular', 'C#', 'TypeScript', 'PostgreSQL', 'Git', 'Docker', 'Intégration agentique'],
   },
   {
     id: 'master-ia',

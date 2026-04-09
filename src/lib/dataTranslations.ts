@@ -1,10 +1,10 @@
 import type { Lang } from '@/lib/i18n'
 
 export const PROJECT_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
-  hiking: {
-    fr: 'Application de réseau social dédié à la randonnée — partage de trails, profils de randonneurs et communauté outdoor',
-    de: 'Social-Network-App für Wanderer — Trail-Sharing, Wandlerprofile und Outdoor-Community',
-    en: 'Social network app for hiking — trail sharing, hiker profiles and outdoor community',
+  'focus-shield': {
+    fr: 'Application de productivité qui bloque sites web et apps distrayantes pendant des sessions Pomodoro — focus garanti, analytics inclus',
+    de: 'Produktivitäts-App, die ablenkende Websites und Apps während Pomodoro-Sitzungen blockiert — garantierter Fokus mit Analytics',
+    en: 'Productivity app that blocks distracting websites and apps during Pomodoro sessions — guaranteed focus with analytics',
   },
   travelbuddy: {
     fr: 'Application Python de planification de voyages — itinéraires intelligents, suggestions de destinations et gestion de budget',
@@ -36,13 +36,18 @@ export const PROJECT_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
     de: 'Deep-Learning-basiertes Pneumonie-Diagnosesystem aus Röntgenaufnahmen',
     en: 'Deep learning-based pneumonia diagnosis system from chest X-ray images',
   },
+  'dofus-forge': {
+    fr: 'Outil communautaire de création de stuff pour Dofus — simulateur d\'équipement avec calcul de statistiques',
+    de: 'Community-Tool zur Ausrüstungserstellung für Dofus — Ausrüstungssimulator mit Statistikberechnung',
+    en: 'Community tool for Dofus equipment building — gear simulator with stats calculation',
+  },
 }
 
 export const EXPERIENCE_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
   alternance: {
-    fr: "Développeur fullstack en alternance — conception et développement d'applications web métier",
-    de: 'Fullstack-Entwickler im dualen Studium — Konzeption und Entwicklung von Business-Webanwendungen',
-    en: 'Fullstack developer apprenticeship — design and development of business web applications',
+    fr: "Développeur fullstack en alternance — plateforme de community building & intégration outils agentiques",
+    de: 'Fullstack-Entwickler im dualen Studium — Community-Building-Plattform & Integration agentischer Tools',
+    en: 'Fullstack developer apprenticeship — community building platform & agentic tools integration',
   },
   'master-ia': {
     fr: 'Master spécialisé Intelligence Artificielle et Big Data — apprentissage automatique, NLP, traitement de données massives',

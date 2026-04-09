@@ -52,6 +52,16 @@ export const CONNECTIONS: ConnectionData[] = [
   { source: 'neural-portfolio', target: 'tailwind',   strength: 0.8 },
 
   // ═══════════════════════════════════════════
+  // DofusForge
+  // ═══════════════════════════════════════════
+  { source: 'me',          target: 'dofus-forge',  strength: 0.85 },
+  { source: 'dofus-forge', target: 'angular',      strength: 0.9 },
+  { source: 'dofus-forge', target: 'typescript',   strength: 0.85 },
+  { source: 'dofus-forge', target: 'tailwind',     strength: 0.8 },
+  { source: 'dofus-forge', target: 'postgresql',   strength: 0.8 },
+  { source: 'dofus-forge', target: 'docker',       strength: 0.7 },
+
+  // ═══════════════════════════════════════════
   // NLP Pathfinding
   // ═══════════════════════════════════════════
   { source: 'me',              target: 'nlp-pathfinding',     strength: 0.85 },
@@ -70,10 +80,9 @@ export const CONNECTIONS: ConnectionData[] = [
   // ═══════════════════════════════════════════
   // Alternance
   // ═══════════════════════════════════════════
-  { source: 'alternance', target: 'react',      strength: 0.85 },
+  { source: 'alternance', target: 'angular',     strength: 0.85 },
+  { source: 'alternance', target: 'csharp',     strength: 0.85 },
   { source: 'alternance', target: 'typescript', strength: 0.85 },
-  { source: 'alternance', target: 'nodejs',     strength: 0.8 },
-  { source: 'alternance', target: 'nestjs',     strength: 0.8 },
   { source: 'alternance', target: 'postgresql', strength: 0.75 },
   { source: 'alternance', target: 'git',        strength: 0.9 },
   { source: 'alternance', target: 'docker',     strength: 0.7 },

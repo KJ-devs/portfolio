@@ -11,6 +11,7 @@ export interface Project {
     live?: string
   }
   media?: MediaItem[]
+  wip?: boolean
 }
 
 export interface Experience {

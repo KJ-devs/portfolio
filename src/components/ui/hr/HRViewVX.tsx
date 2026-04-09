@@ -23,6 +23,7 @@ import {
   EXPERIENCE_TITLES,
 } from '@/lib/dataTranslations'
 import type { SkillMeta } from '@/types/neuron'
+import { ProjectImageSlider } from './ProjectImageSlider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -62,7 +63,7 @@ const PROJECT_FILTERS: { id: ProjectFilter; label: string; color: string; matchT
       color: '#A855F7',
       matchTechs: ['AI APIs', 'pgvector', 'Machine Learning', 'TensorFlow', 'NLP'],
     },
-    { id: 'iot', label: 'IoT', color: '#22C55E', matchTechs: ['Python', 'API REST', 'IoT'] },
+    { id: 'iot', label: 'IoT', color: '#22C55E', matchTechs: ['API REST', 'IoT'] },
   ]
 
 const BANDS: { key: Domain; label: string; color: string }[] = [
@@ -484,6 +485,22 @@ export function HRViewVX() {
                           {tag.label}
                         </span>
                       ))}
+                      {project.wip && (
+                        <span
+                          className="flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider"
+                          style={{
+                            background: 'rgba(234,179,8,0.15)',
+                            border: '1px solid rgba(234,179,8,0.3)',
+                            color: '#EAB308',
+                          }}
+                        >
+                          <span
+                            className="h-1.5 w-1.5 rounded-full"
+                            style={{ background: '#EAB308', boxShadow: '0 0 6px rgba(234,179,8,0.8)' }}
+                          />
+                          WIP
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -493,6 +510,11 @@ export function HRViewVX() {
                   <p className="mb-5 flex-1 text-sm leading-relaxed text-white/40 transition-colors duration-300 group-hover:text-white/55">
                     {PROJECT_DESCRIPTIONS[project.id]?.[language] ?? project.description}
                   </p>
+
+                  {/* Image slider */}
+                  {project.media && project.media.length > 0 && (
+                    <ProjectImageSlider media={project.media} accentColor={accentColor} />
+                  )}
 
                   {/* Stack badges */}
                   <div className="mb-5 flex flex-wrap gap-1.5">

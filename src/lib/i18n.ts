@@ -4,7 +4,7 @@ export const translations = {
   fr: {
     // Hero
     tagline: 'Développeur Fullstack · Master IA & Big Data',
-    period: 'Alternance 2023 – Présent',
+    period: 'Alternance 2024 – Présent',
     cta_cv: 'CV ↓',
     cta_contact: 'Contact',
     scroll: 'Scroll',
@@ -37,7 +37,7 @@ export const translations = {
   de: {
     // Hero
     tagline: 'Fullstack-Entwickler · Master KI & Big Data',
-    period: 'Duales Studium 2023 – heute',
+    period: 'Duales Studium 2024 – heute',
     cta_cv: 'Lebenslauf ↓',
     cta_contact: 'Kontakt',
     scroll: 'Scrollen',
@@ -70,7 +70,7 @@ export const translations = {
   en: {
     // Hero
     tagline: 'Fullstack Developer · Master AI & Big Data',
-    period: 'Apprenticeship 2023 – Present',
+    period: 'Apprenticeship 2024 – Present',
     cta_cv: 'Resume ↓',
     cta_contact: 'Contact',
     scroll: 'Scroll',

@@ -39,7 +39,7 @@ export function HeroSection() {
         Développeur Fullstack
       </p>
       <p className="mb-8 font-mono text-sm text-white/40">
-        Master IA &amp; Big Data · Alternance 2023 – Présent
+        Master IA &amp; Big Data · Alternance 2024 – Présent
       </p>
 
       {/* Bio */}

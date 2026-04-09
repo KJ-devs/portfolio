@@ -2,32 +2,6 @@ import type { Project } from '@/types/portfolio'
 
 export const PROJECTS: Project[] = [
   {
-    id: 'hiking',
-    title: 'HikingProject',
-    description:
-      'Application de réseau social dédié à la randonnée — partage de trails, profils de randonneurs et communauté outdoor',
-    stack: ['JavaScript', 'HTML/CSS', 'Node.js'],
-    highlights: [
-      'Feed social de trails avec géolocalisation',
-      'Profils randonneurs avec statistiques',
-      'Communauté et système de partage',
-    ],
-    links: { github: 'https://github.com/KJ-devs/HikingProject' },
-  },
-  {
-    id: 'travelbuddy',
-    title: 'TravelBuddy',
-    description:
-      'Application Python de planification de voyages — itinéraires intelligents, suggestions de destinations et gestion de budget',
-    stack: ['Python', 'API REST', 'IoT'],
-    highlights: [
-      'Génération automatique d\'itinéraires',
-      'Suggestions de destinations personnalisées',
-      'Gestion de budget voyage',
-    ],
-    links: { github: 'https://github.com/KJ-devs/travelbuddy' },
-  },
-  {
     id: 'supporthelper',
     title: 'supportHelper v2',
     description:
@@ -38,30 +12,32 @@ export const PROJECTS: Project[] = [
       'AI-powered analysis des tickets de support',
       'Auto GitHub issue generation depuis les bugs détectés',
     ],
-    links: { github: 'https://github.com/KJ-devs/supportHelperv2' },
+    links: {},
     media: [
-      { type: 'image', src: '/images/projects/supporthelper/dashboard.svg', alt: 'Dashboard principal supportHelper', caption: 'Dashboard de gestion des tickets' },
-      { type: 'image', src: '/images/projects/supporthelper/ticket-detail.svg', alt: 'Détail ticket avec analyse IA', caption: 'Analyse IA automatique des tickets' },
-      { type: 'image', src: '/images/projects/supporthelper/github-integration.svg', alt: 'Intégration GitHub automatique', caption: 'Génération auto d\'issues GitHub' },
-      { type: 'video', src: '/images/projects/supporthelper/demo.mp4', thumbnail: '/images/projects/supporthelper/demo-thumb.svg', alt: 'Démo supportHelper v2', caption: 'Démo du workflow complet' },
+      { type: 'image', src: '/images/projects/supporthelper/dashboard.png', alt: 'Dashboard principal supportHelper', caption: 'Dashboard de gestion des tickets avec filtres' },
+      { type: 'image', src: '/images/projects/supporthelper/ai-analysis.png', alt: 'Détail ticket avec analyse IA', caption: 'Analyse IA automatique des tickets' },
+      { type: 'image', src: '/images/projects/supporthelper/applications.png', alt: 'Gestion multi-applications', caption: 'Plateforme multi-applications B2B' },
+      { type: 'image', src: '/images/projects/supporthelper/integrations.png', alt: 'Intégrations tierces', caption: 'Intégrations Slack, Discord, Notion, Jira' },
+      { type: 'image', src: '/images/projects/supporthelper/github-integration.png', alt: 'Intégration GitHub connectée', caption: 'Connexion GitHub pour la sync automatique' },
+      { type: 'image', src: '/images/projects/supporthelper/ai-config.png', alt: 'Configuration IA multi-providers', caption: 'BYOK — Choix du provider IA (OpenAI, Anthropic, Gemini...)' },
     ],
   },
   {
-    id: 'tiktok-edu',
-    title: 'EduFeed',
+    id: 'dofus-forge',
+    title: 'DofusForge',
     description:
-      'Application de feed éducatif vertical style TikTok avec cartes de concepts générées par IA',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'AI APIs'],
+      'Outil communautaire de création de stuff pour Dofus — simulateur d\'équipement avec calcul de statistiques',
+    stack: ['Angular', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker'],
     highlights: [
-      'AI-powered concept cards générées dynamiquement',
-      'Infinite scroll optimisé',
-      'Apprentissage personnalisé',
+      'Simulateur d\'équipement complet (tous slots)',
+      'Calcul de statistiques agrégées en temps réel',
+      'Authentification et profils utilisateurs',
     ],
-    links: { github: '#' },
+    links: {},
     media: [
-      { type: 'image', src: '/images/projects/tiktok-edu/feed.svg', alt: 'Feed éducatif vertical', caption: 'Feed vertical style TikTok' },
-      { type: 'image', src: '/images/projects/tiktok-edu/concept-card.svg', alt: 'Carte de concept IA', caption: 'Cartes générées par IA' },
-      { type: 'image', src: '/images/projects/tiktok-edu/learning-path.svg', alt: 'Parcours personnalisé', caption: 'Apprentissage personnalisé' },
+      { type: 'image', src: '/images/projects/dofus-forge/landing.png', alt: 'Page d\'accueil DofusForge', caption: 'Forgez votre Légende — Landing page' },
+      { type: 'image', src: '/images/projects/dofus-forge/stuff-builder.png', alt: 'Simulateur d\'équipement', caption: 'Stuff builder avec stats en temps réel' },
+      { type: 'image', src: '/images/projects/dofus-forge/equipment-list.png', alt: 'Liste des équipements', caption: 'Sélection d\'équipements avec filtres' },
     ],
   },
   {
@@ -75,7 +51,7 @@ export const PROJECTS: Project[] = [
       'Données SNCF Open Data (GTFS)',
       'Pipeline IA de bout en bout',
     ],
-    links: { github: 'https://github.com/KJ-devs/nlp-driven-pathfinding' },
+    links: {},
     media: [
       { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-1.png', alt: 'Interface NLP Pathfinding', caption: 'Recommandation de trajets' },
       { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-2.png', alt: 'Résultats de recherche', caption: 'Résultats de trajets optimisés' },
@@ -92,11 +68,45 @@ export const PROJECTS: Project[] = [
       'Transfer learning (VGG16, ResNet50, MobileNetV2)',
       'Class Activation Maps pour interprétabilité',
     ],
-    links: { github: 'https://github.com/KJ-devs/pneumonia_detection_AI' },
+    links: {},
     media: [
       { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-1.png', alt: 'Analyse radiographie thoracique', caption: 'Détection de pneumonie par IA' },
       { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-2.png', alt: 'Résultats du modèle', caption: 'Métriques de performance du modèle' },
     ],
+  },
+  {
+    id: 'focus-shield',
+    title: 'Focus Shield',
+    description:
+      'Application de productivité qui bloque sites web et apps distrayantes pendant des sessions Pomodoro — focus garanti, analytics inclus',
+    stack: ['TypeScript', 'Rust', 'Turborepo', 'pnpm'],
+    highlights: [
+      'Verrouillage cryptographique des sessions',
+      'Analytics de productivité en temps réel',
+      'Architecture monorepo TypeScript + Rust',
+    ],
+    links: {},
+    media: [
+      { type: 'image', src: '/images/projects/focus-shield/dashboard.png', alt: 'Dashboard Focus Shield', caption: 'Quick Start — Pomodoro, Deep Work, Quick Focus' },
+      { type: 'image', src: '/images/projects/focus-shield/session.png', alt: 'Session Pomodoro active', caption: 'Timer Pomodoro avec blocage actif' },
+      { type: 'image', src: '/images/projects/focus-shield/blocklists.png', alt: 'Listes de blocage', caption: 'Catégories de sites et apps à bloquer' },
+      { type: 'image', src: '/images/projects/focus-shield/achievements.png', alt: 'Achievements', caption: 'Système de gamification' },
+      { type: 'image', src: '/images/projects/focus-shield/study.png', alt: 'Mode étude flashcards', caption: 'Flashcards intégrées pour réviser' },
+      { type: 'image', src: '/images/projects/focus-shield/settings.png', alt: 'Paramètres', caption: 'Multi-langue et extensions navigateur' },
+    ],
+  },
+  {
+    id: 'travelbuddy',
+    title: 'TravelBuddy',
+    description:
+      'Application Python de planification de voyages — itinéraires intelligents, suggestions de destinations et gestion de budget',
+    stack: ['Python', 'API REST', 'IoT'],
+    highlights: [
+      'Génération automatique d\'itinéraires',
+      'Suggestions de destinations personnalisées',
+      'Gestion de budget voyage',
+    ],
+    links: {},
   },
   {
     id: 'neural-portfolio',
@@ -108,12 +118,21 @@ export const PROJECTS: Project[] = [
       'Animations GSAP pour les transitions caméra',
       'Système de particules sur les synapses',
     ],
-    links: { github: '#', live: '#' },
-    media: [
-      { type: 'image', src: '/images/projects/neural-portfolio/network-view.svg', alt: 'Vue réseau de neurones 3D', caption: 'Réseau de neurones navigable' },
-      { type: 'image', src: '/images/projects/neural-portfolio/panel-detail.svg', alt: 'Panel de détail projet', caption: 'Panels d\'information interactifs' },
-      { type: 'image', src: '/images/projects/neural-portfolio/particles.svg', alt: 'Système de particules', caption: 'Impulsions neuronales animées' },
+    links: {},
+  },
+  {
+    id: 'tiktok-edu',
+    title: 'EduFeed',
+    description:
+      'Application de feed éducatif vertical style TikTok avec cartes de concepts générées par IA',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'AI APIs'],
+    highlights: [
+      'AI-powered concept cards générées dynamiquement',
+      'Infinite scroll optimisé',
+      'Apprentissage personnalisé',
     ],
+    links: {},
+    wip: true,
   },
 ]
 

@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
-  <rect width="800" height="500" fill="#0f0a1e"/>
-  <rect x="100" y="50" width="600" height="350" rx="12" fill="#1e1535" stroke="#a855f7" stroke-opacity="0.2" stroke-width="1"/>
-  <circle cx="400" cy="200" r="50" fill="#a855f7" opacity="0.15" stroke="#a855f7" stroke-opacity="0.4" stroke-width="2"/>
-  <polygon points="385,175 385,225 425,200" fill="#a855f7" opacity="0.6"/>
-  <rect x="250" y="320" width="300" height="12" rx="3" fill="#ffffff" opacity="0.2"/>
-  <rect x="300" y="345" width="200" height="8" rx="2" fill="#ffffff" opacity="0.1"/>
-  <text x="400" y="450" font-family="monospace" font-size="11" fill="#a855f7" opacity="0.4" text-anchor="middle">supportHelper v2 — Demo Video</text>
-</svg>

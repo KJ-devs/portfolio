@@ -18,7 +18,7 @@ const QAS: QA[] = [
   },
   {
     keywords: ['expérience', 'alternance', 'entreprise', 'travail', 'job', 'emploi', 'poste'],
-    answer: "J.Krebs est en alternance comme Développeur Fullstack depuis 2023. Il développe des applications web complètes avec React, TypeScript, NestJS et PostgreSQL.",
+    answer: "J.Krebs est en alternance comme Développeur Fullstack depuis 2024. Il travaille sur une plateforme de community building avec Angular, C#, TypeScript et PostgreSQL, et intègre des outils agentiques.",
   },
   {
     keywords: ['formation', 'étude', 'diplôme', 'école', 'master', 'université', 'cursus'],

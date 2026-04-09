@@ -76,6 +76,15 @@ export const NEURONS: NeuronData[] = [
     color: CATEGORY_COLORS.skill,
     metadata: { type: 'skill', level: 78, domain: 'frontend' },
   },
+  {
+    id: 'angular',
+    label: 'Angular',
+    category: 'skill',
+    description: 'Framework frontend structuré par Google',
+    size: 1.3,
+    color: CATEGORY_COLORS.skill,
+    metadata: { type: 'skill', level: 80, domain: 'frontend' },
+  },
 
   // ═══════════════════════════════════════════
   // SKILLS — Backend
@@ -97,6 +106,15 @@ export const NEURONS: NeuronData[] = [
     size: 1.3,
     color: CATEGORY_COLORS.skill,
     metadata: { type: 'skill', level: 82, domain: 'backend' },
+  },
+  {
+    id: 'csharp',
+    label: 'C#',
+    category: 'skill',
+    description: 'Langage orienté objet pour le développement .NET',
+    size: 1.2,
+    color: CATEGORY_COLORS.skill,
+    metadata: { type: 'skill', level: 78, domain: 'backend' },
   },
   {
     id: 'python',
@@ -243,12 +261,14 @@ export const NEURONS: NeuronData[] = [
         'AI-powered analysis',
         'Auto GitHub issue generation',
       ],
-      links: { github: 'https://github.com/KJ-devs/supportHelperv2' },
+      links: {},
       media: [
-        { type: 'image', src: '/images/projects/supporthelper/dashboard.svg', alt: 'Dashboard principal supportHelper', caption: 'Dashboard de gestion des tickets' },
-        { type: 'image', src: '/images/projects/supporthelper/ticket-detail.svg', alt: 'Détail ticket avec analyse IA', caption: 'Analyse IA automatique des tickets' },
-        { type: 'image', src: '/images/projects/supporthelper/github-integration.svg', alt: 'Intégration GitHub automatique', caption: 'Génération auto d\'issues GitHub' },
-        { type: 'video', src: '/images/projects/supporthelper/demo.mp4', thumbnail: '/images/projects/supporthelper/demo-thumb.svg', alt: 'Démo supportHelper v2', caption: 'Démo du workflow complet' },
+        { type: 'image', src: '/images/projects/supporthelper/dashboard.png', alt: 'Dashboard principal supportHelper', caption: 'Dashboard de gestion des tickets avec filtres' },
+        { type: 'image', src: '/images/projects/supporthelper/ai-analysis.png', alt: 'Détail ticket avec analyse IA', caption: 'Analyse IA automatique des tickets' },
+        { type: 'image', src: '/images/projects/supporthelper/applications.png', alt: 'Gestion multi-applications', caption: 'Plateforme multi-applications B2B' },
+        { type: 'image', src: '/images/projects/supporthelper/integrations.png', alt: 'Intégrations tierces', caption: 'Intégrations Slack, Discord, Notion, Jira' },
+        { type: 'image', src: '/images/projects/supporthelper/github-integration.png', alt: 'Intégration GitHub connectée', caption: 'Connexion GitHub pour la sync automatique' },
+        { type: 'image', src: '/images/projects/supporthelper/ai-config.png', alt: 'Configuration IA multi-providers', caption: 'BYOK — Choix du provider IA (OpenAI, Anthropic, Gemini...)' },
       ],
     },
   },
@@ -268,11 +288,34 @@ export const NEURONS: NeuronData[] = [
         'Infinite scroll',
         'Personalized learning',
       ],
-      links: { github: '#' },
+      links: {},
       media: [
         { type: 'image', src: '/images/projects/tiktok-edu/feed.svg', alt: 'Feed éducatif vertical', caption: 'Feed vertical style TikTok' },
         { type: 'image', src: '/images/projects/tiktok-edu/concept-card.svg', alt: 'Carte de concept IA', caption: 'Cartes générées par IA' },
         { type: 'image', src: '/images/projects/tiktok-edu/learning-path.svg', alt: 'Parcours personnalisé', caption: 'Apprentissage personnalisé' },
+      ],
+    },
+  },
+  {
+    id: 'dofus-forge',
+    label: 'DofusForge',
+    category: 'project',
+    description: 'Outil communautaire de création de stuff Dofus — simulateur d\'équipement',
+    size: 1.2,
+    color: CATEGORY_COLORS.project,
+    metadata: {
+      type: 'project',
+      stack: ['Angular', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker'],
+      highlights: [
+        'Simulateur d\'équipement complet',
+        'Calcul de stats en temps réel',
+        'Communauté et profils',
+      ],
+      links: {},
+      media: [
+        { type: 'image', src: '/images/projects/dofus-forge/landing.png', alt: 'Page d\'accueil DofusForge', caption: 'Forgez votre Légende — Landing page' },
+        { type: 'image', src: '/images/projects/dofus-forge/stuff-builder.png', alt: 'Simulateur d\'équipement', caption: 'Stuff builder avec stats en temps réel' },
+        { type: 'image', src: '/images/projects/dofus-forge/equipment-list.png', alt: 'Liste des équipements', caption: 'Sélection d\'équipements avec filtres' },
       ],
     },
   },
@@ -291,12 +334,7 @@ export const NEURONS: NeuronData[] = [
         'Animations GSAP',
         'React Three Fiber',
       ],
-      links: { github: '#', live: '#' },
-      media: [
-        { type: 'image', src: '/images/projects/neural-portfolio/network-view.svg', alt: 'Vue réseau de neurones 3D', caption: 'Réseau de neurones navigable' },
-        { type: 'image', src: '/images/projects/neural-portfolio/panel-detail.svg', alt: 'Panel de détail projet', caption: 'Panels d\'information interactifs' },
-        { type: 'image', src: '/images/projects/neural-portfolio/particles.svg', alt: 'Système de particules', caption: 'Impulsions neuronales animées' },
-      ],
+      links: {},
     },
   },
 
@@ -316,7 +354,7 @@ export const NEURONS: NeuronData[] = [
         'Données SNCF Open Data (GTFS)',
         'Pipeline IA de bout en bout',
       ],
-      links: { github: 'https://github.com/KJ-devs/nlp-driven-pathfinding' },
+      links: {},
       media: [
         { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-1.png', alt: 'Interface NLP Pathfinding', caption: 'Recommandation de trajets' },
         { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-2.png', alt: 'Résultats de recherche', caption: 'Résultats de trajets optimisés' },
@@ -339,7 +377,7 @@ export const NEURONS: NeuronData[] = [
         'Transfer learning (VGG16, ResNet50, MobileNetV2)',
         'Class Activation Maps pour interprétabilité',
       ],
-      links: { github: 'https://github.com/KJ-devs/pneumonia_detection_AI' },
+      links: {},
       media: [
         { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-1.png', alt: 'Analyse radiographie thoracique', caption: 'Détection de pneumonie par IA' },
         { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-2.png', alt: 'Résultats du modèle', caption: 'Métriques de performance du modèle' },
@@ -355,13 +393,13 @@ export const NEURONS: NeuronData[] = [
     label: 'Alternance Fullstack',
     category: 'experience',
     description:
-      "Développeur fullstack en alternance — conception et développement d'applications web",
+      "Développeur fullstack en alternance — plateforme de community building & intégration outils agentiques",
     size: 1.4,
     color: CATEGORY_COLORS.experience,
     metadata: {
       type: 'experience',
-      period: '2023 - Present',
-      skills: ['React', 'TypeScript', 'Node.js', 'NestJS', 'PostgreSQL', 'Git', 'Docker'],
+      period: '2024 - Present',
+      skills: ['Angular', 'C#', 'TypeScript', 'PostgreSQL', 'Git', 'Docker', 'Intégration agentique'],
     },
   },
   {

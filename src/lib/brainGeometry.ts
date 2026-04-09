@@ -108,11 +108,13 @@ export const BRAIN_NEURON_POSITIONS: Record<string, [number, number, number]> = 
   'tailwind':   [-7, 3, 12],
   'threejs':    [8, 3, 12],
   'gsap':       [0, 1, 14],
+  'angular':    [-3, 5, 13],
 
   // ══ BACKEND SKILLS → Parietal Lobe (top, z near 0) ══
   'python':     [-2, 13, -1],
   'nodejs':     [-6, 11, 1],
   'nestjs':     [5, 12, -2],
+  'csharp':     [7, 11, -1],
   'postgresql': [8, 10, -4],
   'rest-api':   [-5, 9, 3],
 
@@ -134,6 +136,7 @@ export const BRAIN_NEURON_POSITIONS: Record<string, [number, number, number]> = 
   'supporthelper':    [-13, -1, 3],
   'tiktok-edu':       [-12, 3, -2],
   'neural-portfolio': [-14, -4, 0],
+  'dofus-forge':      [-11, -5, 5],
 
   // ══ EXPERIENCE → Right Temporal Lobe ══
   'alternance': [13, -1, 2],
