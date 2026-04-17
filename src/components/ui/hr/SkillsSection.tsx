@@ -4,16 +4,17 @@ import { useEffect, useRef, useState } from 'react'
 import { NEURONS } from '@/data/neurons'
 import type { SkillMeta } from '@/types/neuron'
 
-type Domain = 'frontend' | 'backend' | 'ai' | 'devops'
+type Domain = 'frontend' | 'backend' | 'ai' | 'devops' | 'ai-tools'
 
 const DOMAIN_CONFIG: Record<Domain, { label: string; color: string; glow: string }> = {
-  frontend: { label: 'Frontend',   color: '#00D4FF', glow: 'rgba(0,212,255,0.15)' },
-  backend:  { label: 'Backend',    color: '#10B981', glow: 'rgba(16,185,129,0.15)' },
-  ai:       { label: 'IA / Data',  color: '#A855F7', glow: 'rgba(168,85,247,0.15)' },
-  devops:   { label: 'DevOps',     color: '#F472B6', glow: 'rgba(244,114,182,0.15)' },
+  frontend:  { label: 'Frontend',   color: '#00D4FF', glow: 'rgba(0,212,255,0.15)' },
+  backend:   { label: 'Backend',    color: '#10B981', glow: 'rgba(16,185,129,0.15)' },
+  ai:        { label: 'IA / Data',  color: '#A855F7', glow: 'rgba(168,85,247,0.15)' },
+  'ai-tools': { label: 'AI Tools',  color: '#F59E0B', glow: 'rgba(245,158,11,0.15)' },
+  devops:    { label: 'DevOps',     color: '#F472B6', glow: 'rgba(244,114,182,0.15)' },
 }
 
-const DOMAIN_ORDER: Domain[] = ['frontend', 'backend', 'ai', 'devops']
+const DOMAIN_ORDER: Domain[] = ['frontend', 'backend', 'ai', 'ai-tools', 'devops']
 
 interface SkillItem {
   id: string

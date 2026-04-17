@@ -26,5 +26,5 @@ export interface Skill {
   id: string
   name: string
   level: number
-  domain: 'frontend' | 'backend' | 'ai' | 'devops'
+  domain: 'frontend' | 'backend' | 'ai' | 'devops' | 'ai-tools'
 }

@@ -20,11 +20,16 @@ export const SKILLS: Skill[] = [
   { id: 'big-data',   name: 'Big Data',     level: 72, domain: 'ai' },
   { id: 'nlp',        name: 'NLP',          level: 70, domain: 'ai' },
   { id: 'pgvector',   name: 'pgvector',     level: 65, domain: 'ai' },
+  // AI Tools
+  { id: 'claude-code',       name: 'Claude Code',       level: 90, domain: 'ai-tools' },
+  { id: 'github-copilot',    name: 'GitHub Copilot',    level: 85, domain: 'ai-tools' },
+  { id: 'ai-agents',         name: 'AI Agents',         level: 82, domain: 'ai-tools' },
+  { id: 'prompt-engineering', name: 'Prompt Engineering', level: 85, domain: 'ai-tools' },
+  { id: 'mcp',               name: 'MCP',               level: 80, domain: 'ai-tools' },
   // DevOps
   { id: 'git',        name: 'Git',          level: 90, domain: 'devops' },
   { id: 'docker',     name: 'Docker',       level: 75, domain: 'devops' },
   { id: 'ci-cd',      name: 'CI/CD',        level: 72, domain: 'devops' },
-  { id: 'claude-code', name: 'Claude Code', level: 85, domain: 'devops' },
   { id: 'turborepo',  name: 'Turborepo',    level: 68, domain: 'devops' },
 ]
 

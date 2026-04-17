@@ -12,6 +12,8 @@ export const CONNECTIONS: ConnectionData[] = [
   { source: 'me', target: 'python',           strength: 0.8 },
   { source: 'me', target: 'machine-learning', strength: 0.75 },
   { source: 'me', target: 'git',              strength: 0.9 },
+  { source: 'me', target: 'claude-code',     strength: 0.9 },
+  { source: 'me', target: 'ai-agents',       strength: 0.85 },
   { source: 'me', target: 'supporthelper',    strength: 1.0 },
   { source: 'me', target: 'tiktok-edu',       strength: 0.9 },
   { source: 'me', target: 'neural-portfolio', strength: 0.9 },
@@ -124,6 +126,15 @@ export const CONNECTIONS: ConnectionData[] = [
   { source: 'machine-learning', target: 'big-data',   strength: 0.65 },
   { source: 'git',        target: 'ci-cd',            strength: 0.7 },
   { source: 'docker',     target: 'ci-cd',            strength: 0.65 },
+  // AI Tools
+  { source: 'claude-code',       target: 'ai-agents',          strength: 0.8 },
+  { source: 'claude-code',       target: 'prompt-engineering',  strength: 0.75 },
+  { source: 'github-copilot',    target: 'prompt-engineering',  strength: 0.7 },
+  { source: 'ai-agents',         target: 'prompt-engineering',  strength: 0.8 },
+  { source: 'ai-agents',         target: 'supporthelper',       strength: 0.75 },
+  { source: 'claude-code',       target: 'github-copilot',      strength: 0.6 },
+  { source: 'mcp',              target: 'claude-code',          strength: 0.8 },
+  { source: 'mcp',              target: 'ai-agents',            strength: 0.75 },
   // Easter egg — weak link to keep brain node in the network but at the periphery
   { source: 'me',         target: 'brain',            strength: 0.15 },
 ]

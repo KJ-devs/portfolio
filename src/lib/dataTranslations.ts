@@ -99,7 +99,11 @@ export const SKILL_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
   git:               { fr: 'Contrôle de version et collaboration', de: 'Versionskontrolle und Zusammenarbeit', en: 'Version control and collaboration' },
   docker:            { fr: "Conteneurisation d'applications", de: 'Anwendungs-Containerisierung', en: 'Application containerization' },
   'ci-cd':           { fr: 'Intégration et déploiement continus', de: 'Kontinuierliche Integration und Bereitstellung', en: 'Continuous integration and deployment' },
-  'claude-code':     { fr: 'Développement assisté par IA avec Claude', de: 'KI-gestütztes Entwickeln mit Claude', en: 'AI-assisted development with Claude' },
+  'claude-code':          { fr: 'Coding agent autonome — développement assisté par IA', de: 'Autonomer Coding-Agent — KI-gestütztes Entwickeln', en: 'Autonomous coding agent — AI-assisted development' },
+  'github-copilot':       { fr: 'Autocomplétion et suggestion de code par IA', de: 'KI-gestützte Code-Vervollständigung und -Vorschläge', en: 'AI-powered code completion and suggestions' },
+  'ai-agents':            { fr: 'Conception et intégration de workflows multi-agents autonomes', de: 'Entwurf und Integration autonomer Multi-Agenten-Workflows', en: 'Design and integration of autonomous multi-agent workflows' },
+  'prompt-engineering':   { fr: 'Conception de prompts et skills pour agents IA', de: 'Prompt-Design und Skills für KI-Agenten', en: 'Prompt design and skills for AI agents' },
+  mcp:                    { fr: 'Protocole d\'intégration d\'outils externes pour agents IA', de: 'Integrationsprotokoll für externe Tools in KI-Agenten', en: 'Tool integration protocol for AI agents' },
   turborepo:         { fr: 'Monorepo build system haute performance', de: 'Hochleistungs-Monorepo-Build-System', en: 'High-performance monorepo build system' },
 }
 

@@ -8,10 +8,11 @@ import type { Lang } from '@/lib/i18n'
 import type { SkillMeta } from '@/types/neuron'
 
 const DOMAIN_LABEL: Record<SkillMeta['domain'], Record<Lang, string>> = {
-  frontend: { fr: 'Frontend',  de: 'Frontend',  en: 'Frontend' },
-  backend:  { fr: 'Backend',   de: 'Backend',   en: 'Backend' },
-  ai:       { fr: 'IA / Data', de: 'KI / Data', en: 'AI / Data' },
-  devops:   { fr: 'DevOps',    de: 'DevOps',    en: 'DevOps' },
+  frontend:   { fr: 'Frontend',  de: 'Frontend',  en: 'Frontend' },
+  backend:    { fr: 'Backend',   de: 'Backend',   en: 'Backend' },
+  ai:         { fr: 'IA / Data', de: 'KI / Data', en: 'AI / Data' },
+  'ai-tools': { fr: 'AI Tools',  de: 'KI-Tools',  en: 'AI Tools' },
+  devops:     { fr: 'DevOps',    de: 'DevOps',    en: 'DevOps' },
 }
 
 interface Props {

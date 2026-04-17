@@ -18,7 +18,7 @@ export interface CoreMeta {
 export interface SkillMeta {
   type: 'skill'
   level: number // 0 à 100
-  domain: 'frontend' | 'backend' | 'ai' | 'devops'
+  domain: 'frontend' | 'backend' | 'ai' | 'devops' | 'ai-tools'
 }
 
 export interface ProjectMeta {

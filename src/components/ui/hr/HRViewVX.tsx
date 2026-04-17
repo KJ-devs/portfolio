@@ -34,7 +34,7 @@ const COLORS = {
   contact: '#06B6D4',
 }
 
-type Domain = 'frontend' | 'backend' | 'ai' | 'devops'
+type Domain = 'frontend' | 'backend' | 'ai' | 'devops' | 'ai-tools'
 
 type ProjectFilter = 'all' | 'frontend' | 'ia' | 'iot'
 
@@ -70,6 +70,7 @@ const BANDS: { key: Domain; label: string; color: string }[] = [
   { key: 'frontend', label: 'Frontend', color: '#06B6D4' },
   { key: 'backend', label: 'Backend', color: '#22C55E' },
   { key: 'ai', label: 'IA & Data', color: '#A855F7' },
+  { key: 'ai-tools', label: 'AI Tools', color: '#F59E0B' },
   { key: 'devops', label: 'DevOps', color: '#F472B6' },
 ]
 

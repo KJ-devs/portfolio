@@ -224,15 +224,6 @@ export const NEURONS: NeuronData[] = [
     metadata: { type: 'skill', level: 72, domain: 'devops' },
   },
   {
-    id: 'claude-code',
-    label: 'Claude Code',
-    category: 'skill',
-    description: 'Développement assisté par IA avec Claude',
-    size: 0.9,
-    color: CATEGORY_COLORS.skill,
-    metadata: { type: 'skill', level: 85, domain: 'devops' },
-  },
-  {
     id: 'turborepo',
     label: 'Turborepo',
     category: 'skill',
@@ -240,6 +231,56 @@ export const NEURONS: NeuronData[] = [
     size: 0.8,
     color: CATEGORY_COLORS.skill,
     metadata: { type: 'skill', level: 68, domain: 'devops' },
+  },
+
+  // ═══════════════════════════════════════════
+  // SKILLS — AI Tools
+  // ═══════════════════════════════════════════
+  {
+    id: 'claude-code',
+    label: 'Claude Code',
+    category: 'skill',
+    description: 'Développement assisté par IA — coding agent autonome',
+    size: 1.1,
+    color: CATEGORY_COLORS.skill,
+    metadata: { type: 'skill', level: 90, domain: 'ai-tools' },
+  },
+  {
+    id: 'github-copilot',
+    label: 'GitHub Copilot',
+    category: 'skill',
+    description: 'Autocomplétion et suggestion de code par IA',
+    size: 1.0,
+    color: CATEGORY_COLORS.skill,
+    metadata: { type: 'skill', level: 85, domain: 'ai-tools' },
+  },
+  {
+    id: 'ai-agents',
+    label: 'AI Agents',
+    category: 'skill',
+    description: 'Conception et intégration de workflows multi-agents autonomes',
+    size: 1.2,
+    color: CATEGORY_COLORS.skill,
+    metadata: { type: 'skill', level: 82, domain: 'ai-tools' },
+  },
+  {
+    id: 'prompt-engineering',
+    label: 'Prompt Engineering',
+    category: 'skill',
+    description: 'Conception de prompts et skills pour agents IA',
+    size: 0.9,
+    color: CATEGORY_COLORS.skill,
+    metadata: { type: 'skill', level: 85, domain: 'ai-tools' },
+  },
+
+  {
+    id: 'mcp',
+    label: 'MCP',
+    category: 'skill',
+    description: 'Protocole d\'intégration d\'outils externes pour agents IA',
+    size: 0.9,
+    color: CATEGORY_COLORS.skill,
+    metadata: { type: 'skill', level: 80, domain: 'ai-tools' },
   },
 
   // ═══════════════════════════════════════════

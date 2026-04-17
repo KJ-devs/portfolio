@@ -129,7 +129,11 @@ export const BRAIN_NEURON_POSITIONS: Record<string, [number, number, number]> = 
   'git':         [0, -6, -10],
   'docker':      [4, -7, -9],
   'ci-cd':       [-4, -7, -9],
-  'claude-code': [2, -5, -12],
+  'claude-code':      [2, -5, -12],
+  'github-copilot':   [-2, -3, -14],
+  'ai-agents':        [5, -3, -13],
+  'prompt-engineering': [0, -2, -15],
+  'mcp':                [-4, -4, -13],
   'turborepo':   [-2, -5, -12],
 
   // ══ PROJECTS → Left Temporal Lobe ══
