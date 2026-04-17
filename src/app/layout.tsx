@@ -16,13 +16,22 @@ const BASE_URL = 'https://neural-portfolio.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: 'Neural Portfolio — J.Krebs',
+  applicationName: 'Neural Portfolio',
+  creator: 'Jérémie Krebs',
+  title: 'Jérémie Krebs | Développeur Fullstack IA',
   description:
-    "Développeur Fullstack passionné par l'IA. Explore mon parcours, compétences et projets à travers un réseau de neurones 3D interactif.",
-  authors: [{ name: 'J.Krebs' }],
+    'Portfolio de Jérémie Krebs, développeur fullstack spécialisé IA, Next.js, TypeScript et expériences web interactives.',
+  authors: [{ name: 'Jérémie Krebs', url: BASE_URL }],
   keywords: [
+    'Jérémie Krebs',
+    'Jeremie Krebs',
+    'J. Krebs',
+    'Krebs',
+    'J.Krebs',
     'Portfolio',
     'Développeur Fullstack',
+    'Developpeur Fullstack',
+    'Développeur IA',
     'React',
     'TypeScript',
     'Next.js',
@@ -30,13 +39,16 @@ export const metadata: Metadata = {
     'Big Data',
     'Three.js',
   ],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
     url: BASE_URL,
-    title: 'Neural Portfolio — J.Krebs',
+    title: 'Jérémie Krebs | Portfolio Développeur Fullstack IA',
     description:
-      'Portfolio interactif en réseau de neurones 3D navigable. Développeur Fullstack · Master IA & Big Data.',
+      'Portfolio de Jérémie Krebs, développeur fullstack orienté IA, Next.js et TypeScript.',
     siteName: 'Neural Portfolio',
     images: [
       {
@@ -49,14 +61,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Neural Portfolio — J.Krebs',
+    title: 'Jérémie Krebs | Portfolio Développeur Fullstack IA',
     description:
-      'Portfolio interactif en réseau de neurones 3D. Développeur Fullstack · Master IA & Big Data.',
+      'Portfolio de Jérémie Krebs, développeur fullstack spécialisé IA et applications web interactives.',
     images: ['/opengraph-image'],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
   },
   icons: {
     icon: '/favicon.png',
@@ -67,11 +86,12 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'J.Krebs',
+  name: 'Jérémie Krebs',
+  alternateName: ['Jeremie Krebs', 'J.Krebs', 'J. Krebs'],
   jobTitle: 'Développeur Fullstack',
   description: 'Développeur Fullstack en alternance — Master IA & Big Data',
   url: BASE_URL,
-  sameAs: ['https://github.com/KJ-devs'],
+  sameAs: ['https://github.com/KJ-devs', 'https://www.linkedin.com/in/jeremie-krebs/'],
   knowsAbout: [
     'React',
     'TypeScript',
