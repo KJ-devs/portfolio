@@ -27,7 +27,7 @@ export function MediaStrip({ media, onSelect }: Props) {
     gsap.fromTo(
       containerRef.current,
       { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
     )
   }, [])
 
@@ -37,19 +37,17 @@ export function MediaStrip({ media, onSelect }: Props) {
       if (newIndex < 0 || newIndex >= media.length) return
 
       isAnimating.current = true
-      const direction = newIndex > currentIndex ? 1 : -1
 
       const tl = gsap.timeline({
         onComplete: () => {
           isAnimating.current = false
         },
       })
-      tl.to(imageRef.current, { opacity: 0, x: -30 * direction, duration: 0.25, ease: 'power2.in' })
+      tl.to(imageRef.current, { opacity: 0, duration: 0.2, ease: 'power2.in' })
       tl.call(() => setCurrentIndex(newIndex))
-      tl.set(imageRef.current, { x: 30 * direction })
-      tl.to(imageRef.current, { opacity: 1, x: 0, duration: 0.35, ease: 'power3.out' })
+      tl.to(imageRef.current, { opacity: 1, duration: 0.25, ease: 'power3.out' })
     },
-    [currentIndex, media.length],
+    [currentIndex, media.length]
   )
 
   const goNext = useCallback(() => navigateTo(currentIndex + 1), [navigateTo, currentIndex])
@@ -72,7 +70,7 @@ export function MediaStrip({ media, onSelect }: Props) {
         else goPrev()
       }
     },
-    [goNext, goPrev],
+    [goNext, goPrev]
   )
 
   return (
@@ -92,11 +90,7 @@ export function MediaStrip({ media, onSelect }: Props) {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div
-          ref={imageRef}
-          className="cursor-pointer"
-          onClick={() => onSelect(currentIndex)}
-        >
+        <div ref={imageRef} className="cursor-pointer" onClick={() => onSelect(currentIndex)}>
           {current && current.type === 'video' ? (
             <div className="flex aspect-video w-full items-center justify-center bg-black/40">
               {current.thumbnail ? (
@@ -107,7 +101,7 @@ export function MediaStrip({ media, onSelect }: Props) {
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <div className="h-full w-full bg-gradient-to-br from-violet-500/20 to-violet-900/20" />
+                <div className="h-full w-full bg-linear-to-br from-violet-500/20 to-violet-900/20" />
               )}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm">
@@ -129,7 +123,8 @@ export function MediaStrip({ media, onSelect }: Props) {
                 const parent = target.parentElement
                 if (parent) {
                   const fallback = document.createElement('div')
-                  fallback.className = 'aspect-video w-full bg-gradient-to-br from-violet-500/20 to-cyan-500/10 flex items-center justify-center'
+                  fallback.className =
+                    'aspect-video w-full bg-linear-to-br from-violet-500/20 to-cyan-500/10 flex items-center justify-center'
                   fallback.innerHTML = '<span class="text-white/30 text-xs">Preview</span>'
                   parent.appendChild(fallback)
                 }
@@ -145,7 +140,13 @@ export function MediaStrip({ media, onSelect }: Props) {
             className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white/70 opacity-0 backdrop-blur-sm transition-all hover:bg-black/70 hover:text-white group-hover:opacity-100"
           >
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
-              <path d="M13 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M13 4l-6 6 6 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         )}
@@ -155,16 +156,20 @@ export function MediaStrip({ media, onSelect }: Props) {
             className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white/70 opacity-0 backdrop-blur-sm transition-all hover:bg-black/70 hover:text-white group-hover:opacity-100"
           >
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
-              <path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M7 4l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         )}
       </div>
 
       {/* Caption */}
-      {current?.caption && (
-        <p className="text-center text-xs text-white/50">{current.caption}</p>
-      )}
+      {current?.caption && <p className="text-center text-xs text-white/50">{current.caption}</p>}
 
       {/* Dot indicators */}
       {media.length > 1 && (
@@ -174,9 +179,7 @@ export function MediaStrip({ media, onSelect }: Props) {
               key={i}
               onClick={() => navigateTo(i)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === currentIndex
-                  ? 'w-4 bg-violet-400'
-                  : 'w-1.5 bg-white/20 hover:bg-white/40'
+                i === currentIndex ? 'w-4 bg-violet-400' : 'w-1.5 bg-white/20 hover:bg-white/40'
               }`}
             />
           ))}

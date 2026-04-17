@@ -25,19 +25,17 @@ export function ProjectImageSlider({ media, accentColor }: Props) {
       if (newIndex < 0 || newIndex >= media.length) return
 
       isAnimating.current = true
-      const direction = newIndex > currentIndex ? 1 : -1
 
       const tl = gsap.timeline({
         onComplete: () => {
           isAnimating.current = false
         },
       })
-      tl.to(imageRef.current, { opacity: 0, x: -20 * direction, duration: 0.2, ease: 'power2.in' })
+      tl.to(imageRef.current, { opacity: 0, duration: 0.2, ease: 'power2.in' })
       tl.call(() => setCurrentIndex(newIndex))
-      tl.set(imageRef.current, { x: 20 * direction })
-      tl.to(imageRef.current, { opacity: 1, x: 0, duration: 0.3, ease: 'power3.out' })
+      tl.to(imageRef.current, { opacity: 1, duration: 0.25, ease: 'power3.out' })
     },
-    [currentIndex, media.length],
+    [currentIndex, media.length]
   )
 
   const goNext = useCallback(
@@ -45,14 +43,14 @@ export function ProjectImageSlider({ media, accentColor }: Props) {
       e.stopPropagation()
       navigateTo(currentIndex + 1)
     },
-    [navigateTo, currentIndex],
+    [navigateTo, currentIndex]
   )
   const goPrev = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation()
       navigateTo(currentIndex - 1)
     },
-    [navigateTo, currentIndex],
+    [navigateTo, currentIndex]
   )
 
   const touchStartX = useRef(0)
@@ -71,7 +69,7 @@ export function ProjectImageSlider({ media, accentColor }: Props) {
         else navigateTo(currentIndex - 1)
       }
     },
-    [navigateTo, currentIndex],
+    [navigateTo, currentIndex]
   )
 
   return (
@@ -83,11 +81,7 @@ export function ProjectImageSlider({ media, accentColor }: Props) {
         onTouchEnd={handleTouchEnd}
       >
         {/* Image */}
-        <div
-          ref={imageRef}
-          className="cursor-pointer"
-          onClick={() => setLightboxOpen(true)}
-        >
+        <div ref={imageRef} className="cursor-pointer" onClick={() => setLightboxOpen(true)}>
           {current && current.type === 'video' ? (
             <div className="flex aspect-video w-full items-center justify-center bg-black/40">
               <svg width="24" height="24" viewBox="0 0 12 14" fill="none">
@@ -106,7 +100,8 @@ export function ProjectImageSlider({ media, accentColor }: Props) {
                 const parent = target.parentElement
                 if (parent) {
                   const fallback = document.createElement('div')
-                  fallback.className = 'aspect-video w-full bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center'
+                  fallback.className =
+                    'aspect-video w-full bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center'
                   fallback.innerHTML = '<span class="text-white/20 text-xs">Preview</span>'
                   parent.appendChild(fallback)
                 }
@@ -127,7 +122,13 @@ export function ProjectImageSlider({ media, accentColor }: Props) {
               className="rounded-full p-1 text-white/40 transition-colors hover:text-white/80 disabled:opacity-20"
             >
               <svg width="12" height="12" viewBox="0 0 20 20" fill="none">
-                <path d="M13 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M13 4l-6 6 6 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
 
@@ -154,7 +155,13 @@ export function ProjectImageSlider({ media, accentColor }: Props) {
               className="rounded-full p-1 text-white/40 transition-colors hover:text-white/80 disabled:opacity-20"
             >
               <svg width="12" height="12" viewBox="0 0 20 20" fill="none">
-                <path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M7 4l6 6-6 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
@@ -205,16 +212,31 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
 
   const navigateTo = useCallback(
     (newIndex: number) => {
-      if (isAnimating.current || newIndex < 0 || newIndex >= media.length || newIndex === currentIndex) return
+      if (
+        isAnimating.current ||
+        newIndex < 0 ||
+        newIndex >= media.length ||
+        newIndex === currentIndex
+      )
+        return
       isAnimating.current = true
       const direction = newIndex > currentIndex ? 1 : -1
-      const tl = gsap.timeline({ onComplete: () => { isAnimating.current = false } })
-      tl.to(contentRef.current, { opacity: 0, x: -40 * direction, duration: 0.25, ease: 'power2.in' })
+      const tl = gsap.timeline({
+        onComplete: () => {
+          isAnimating.current = false
+        },
+      })
+      tl.to(contentRef.current, {
+        opacity: 0,
+        x: -40 * direction,
+        duration: 0.25,
+        ease: 'power2.in',
+      })
       tl.call(() => setCurrentIndex(newIndex))
       tl.set(contentRef.current, { x: 40 * direction })
       tl.to(contentRef.current, { opacity: 1, x: 0, duration: 0.35, ease: 'power3.out' })
     },
-    [currentIndex, media.length],
+    [currentIndex, media.length]
   )
 
   // Mount + open animation
@@ -230,8 +252,17 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
   useEffect(() => {
     if (!mounted) return
     const tl = gsap.timeline()
-    tl.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-    tl.fromTo(contentRef.current, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'power3.out' }, '-=0.15')
+    tl.fromTo(
+      backdropRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3, ease: 'power2.out' }
+    )
+    tl.fromTo(
+      contentRef.current,
+      { opacity: 0, scale: 0.85 },
+      { opacity: 1, scale: 1, duration: 0.5, ease: 'power3.out' },
+      '-=0.15'
+    )
   }, [mounted])
 
   // Keyboard
@@ -251,7 +282,7 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
   if (!mounted) return null
 
   return createPortal(
-    <div className="fixed inset-0 z-[100] flex items-center justify-center">
+    <div className="fixed inset-0 z-100 flex items-center justify-center">
       <div
         ref={backdropRef}
         className="absolute inset-0 bg-black/90 backdrop-blur-md"
@@ -265,7 +296,12 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
         className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white/60 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-white"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          <path
+            d="M4 4l12 12M16 4L4 16"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
         </svg>
       </button>
 
@@ -281,7 +317,13 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
           className="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white/60 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-white"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M13 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M13 4l-6 6 6 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       )}
@@ -293,7 +335,13 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
           className="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white/60 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-white"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M7 4l6 6-6 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       )}
@@ -301,7 +349,7 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
       {/* Content */}
       <div
         ref={contentRef}
-        className="relative z-[1] flex max-h-[85vh] max-w-[90vw] flex-col items-center"
+        className="relative z-1 flex max-h-[85vh] max-w-[90vw] flex-col items-center"
         style={{ opacity: 0 }}
         onTouchStart={(e) => {
           const touch = e.touches[0]
@@ -333,6 +381,6 @@ function SliderLightbox({ media, initialIndex, onClose }: LightboxProps) {
         )}
       </div>
     </div>,
-    document.body,
+    document.body
   )
 }
