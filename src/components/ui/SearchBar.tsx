@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { NEURONS } from '@/data/neurons'
+import { translations } from '@/lib/i18n'
+import { getTranslatedDescription, getTranslatedLabel } from '@/lib/dataTranslations'
 import { findPath } from '@/lib/pathfinding'
 import { usePortfolioStore } from '@/stores/usePortfolioStore'
 import type { NeuronData } from '@/types/neuron'
@@ -10,11 +12,20 @@ import { useTheme } from '@/hooks/useTheme'
 
 // ─── Fuzzy filter ────────────────────────────────────────────────────────────
 
-function matchesQuery(neuron: NeuronData, query: string): boolean {
-  const q = query.toLowerCase()
+function normalizeText(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+}
+
+function matchesQuery(neuron: NeuronData, query: string, lang: 'fr' | 'de' | 'en'): boolean {
+  const q = normalizeText(query)
+  const translatedLabel = getTranslatedLabel(neuron.id, neuron.category, lang) ?? neuron.label
+  const translatedDescription =
+    getTranslatedDescription(neuron.id, neuron.category, lang) ?? neuron.description
   return (
-    neuron.label.toLowerCase().includes(q) ||
-    neuron.description.toLowerCase().includes(q)
+    normalizeText(translatedLabel).includes(q) || normalizeText(translatedDescription).includes(q)
   )
 }
 
@@ -31,6 +42,8 @@ export function SearchBar() {
 
   const setSelectedNeuron = usePortfolioStore((s) => s.setSelectedNeuron)
   const setHighlightedPath = usePortfolioStore((s) => s.setHighlightedPath)
+  const language = usePortfolioStore((s) => s.language)
+  const t = translations[language]
 
   // Ctrl+K / Cmd+K global shortcut
   useEffect(() => {
@@ -61,7 +74,8 @@ export function SearchBar() {
     }
   }, [])
 
-  const results = query.length >= 1 ? NEURONS.filter((n) => matchesQuery(n, query)).slice(0, 8) : []
+  const results =
+    query.length >= 1 ? NEURONS.filter((n) => matchesQuery(n, query, language)).slice(0, 8) : []
 
   function handleSelect(neuron: NeuronData) {
     setSelectedNeuron(neuron)
@@ -87,9 +101,14 @@ export function SearchBar() {
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.2" />
-            <path d="M9.5 9.5L12 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            <path
+              d="M9.5 9.5L12 12"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
           </svg>
-          <span>Rechercher…</span>
+          <span>{t.search_open}</span>
           <kbd className="hidden rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-white/30 md:inline">
             ⌘K
           </kbd>
@@ -106,15 +125,26 @@ export function SearchBar() {
           <div className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-black/60 shadow-2xl backdrop-blur-xl">
             {/* Input */}
             <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 text-white/40">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                className="shrink-0 text-white/40"
+              >
                 <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.4" />
-                <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                <path
+                  d="M11 11L14 14"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                />
               </svg>
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Rechercher un neurone…"
+                placeholder={t.search_placeholder}
                 className="flex-1 bg-transparent text-sm text-white placeholder-white/30 outline-none"
               />
               <kbd
@@ -136,12 +166,17 @@ export function SearchBar() {
                     >
                       {/* Category dot */}
                       <span
-                        className="h-2 w-2 flex-shrink-0 rounded-full"
+                        className="h-2 w-2 shrink-0 rounded-full"
                         style={{ backgroundColor: theme.colors.categories[neuron.category] }}
                       />
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm text-white">{neuron.label}</p>
-                        <p className="truncate text-xs text-white/40">{neuron.description}</p>
+                        <p className="truncate text-sm text-white">
+                          {getTranslatedLabel(neuron.id, neuron.category, language) ?? neuron.label}
+                        </p>
+                        <p className="truncate text-xs text-white/40">
+                          {getTranslatedDescription(neuron.id, neuron.category, language) ??
+                            neuron.description}
+                        </p>
                       </div>
                     </button>
                   </li>
@@ -150,11 +185,15 @@ export function SearchBar() {
             )}
 
             {query.length >= 1 && results.length === 0 && (
-              <p className="px-4 py-4 text-sm text-white/30">Aucun résultat pour « {query} »</p>
+              <p className="px-4 py-4 text-sm text-white/30">
+                {(t.search_no_results as (q: string) => string)(query)}
+              </p>
             )}
 
             {query.length === 0 && (
-              <p className="px-4 py-3 text-xs text-white/20">Tapez pour rechercher parmi {NEURONS.length} neurones</p>
+              <p className="px-4 py-3 text-xs text-white/20">
+                {(t.search_hint as (n: number) => string)(NEURONS.length)}
+              </p>
             )}
           </div>
         </div>

@@ -9,7 +9,7 @@
  * i18n    : FR / DE via Zustand store + translations.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { EXPERIENCES } from '@/data/experiences'
@@ -84,14 +84,20 @@ export function HRViewVX() {
 
   const t = translations[language]
 
-  const filteredProjects =
-    activeFilter === 'all'
-      ? PROJECTS
-      : PROJECTS.filter((p) => {
-          const filterDef = PROJECT_FILTERS.find((f) => f.id === activeFilter)
-          if (!filterDef) return true
-          return p.stack.some((tech) => filterDef.matchTechs.includes(tech))
-        })
+  const filteredProjects = useMemo(() => {
+    const baseProjects =
+      activeFilter === 'all'
+        ? PROJECTS
+        : PROJECTS.filter((p) => {
+            const filterDef = PROJECT_FILTERS.find((f) => f.id === activeFilter)
+            if (!filterDef) return true
+            return p.stack.some((tech) => filterDef.matchTechs.includes(tech))
+          })
+
+    return [...baseProjects].sort(
+      (a, b) => Number(Boolean(b.media?.length)) - Number(Boolean(a.media?.length))
+    )
+  }, [activeFilter])
 
   const getProjectTags = useCallback((stack: string[]): { label: string; color: string }[] => {
     const tags: { label: string; color: string }[] = []
@@ -320,7 +326,10 @@ export function HRViewVX() {
               target={href.startsWith('mailto') ? undefined : '_blank'}
               rel="noreferrer"
               className="vx-hero-cta rounded-full px-7 py-3 font-mono text-sm transition-all duration-200 hover:scale-105"
-              style={{ border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.58)' }}
+              style={{
+                border: '1px solid rgba(255,255,255,0.12)',
+                color: 'rgba(255,255,255,0.58)',
+              }}
             >
               {label}
             </a>
@@ -424,6 +433,7 @@ export function HRViewVX() {
             const tags = getProjectTags(project.stack)
             const mainTag = tags[0]
             const accentColor = mainTag?.color ?? COLORS.projects
+            const hasMedia = Boolean(project.media && project.media.length > 0)
             return (
               <article
                 key={project.id}
@@ -445,7 +455,7 @@ export function HRViewVX() {
               >
                 {/* Top accent bar */}
                 <div
-                  className="h-[2px] w-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  className="h-0.5 w-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   style={{
                     background: `linear-gradient(90deg, ${accentColor}, ${accentColor}40, transparent)`,
                   }}
@@ -497,7 +507,10 @@ export function HRViewVX() {
                         >
                           <span
                             className="h-1.5 w-1.5 rounded-full"
-                            style={{ background: '#EAB308', boxShadow: '0 0 6px rgba(234,179,8,0.8)' }}
+                            style={{
+                              background: '#EAB308',
+                              boxShadow: '0 0 6px rgba(234,179,8,0.8)',
+                            }}
                           />
                           WIP
                         </span>
@@ -508,7 +521,11 @@ export function HRViewVX() {
                   <h3 className="mb-2 text-lg font-bold text-white/90 transition-colors duration-300 group-hover:text-white">
                     {project.title}
                   </h3>
-                  <p className="mb-5 flex-1 text-sm leading-relaxed text-white/40 transition-colors duration-300 group-hover:text-white/55">
+                  <p
+                    className={`mb-5 text-sm leading-relaxed text-white/40 transition-colors duration-300 group-hover:text-white/55 ${
+                      hasMedia ? 'flex-1' : ''
+                    }`}
+                  >
                     {PROJECT_DESCRIPTIONS[project.id]?.[language] ?? project.description}
                   </p>
 
@@ -689,7 +706,7 @@ export function HRViewVX() {
           {EXPERIENCES.map((exp, i) => (
             <div
               key={exp.id}
-              className="vx-exp group relative min-h-[260px] overflow-hidden rounded-2xl p-10 transition-all duration-300"
+              className="vx-exp group relative min-h-65 overflow-hidden rounded-2xl p-10 transition-all duration-300"
               style={{
                 background: `linear-gradient(120deg, ${COLORS.experience}09 0%, rgba(255,255,255,0.018) 50%)`,
                 border: '1px solid rgba(255,255,255,0.07)',

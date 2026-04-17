@@ -37,7 +37,7 @@ export const PROJECT_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
     en: 'Deep learning-based pneumonia diagnosis system from chest X-ray images',
   },
   'dofus-forge': {
-    fr: 'Outil communautaire de création de stuff pour Dofus — simulateur d\'équipement avec calcul de statistiques',
+    fr: "Outil communautaire de création de stuff pour Dofus — simulateur d'équipement avec calcul de statistiques",
     de: 'Community-Tool zur Ausrüstungserstellung für Dofus — Ausrüstungssimulator mit Statistikberechnung',
     en: 'Community tool for Dofus equipment building — gear simulator with stats calculation',
   },
@@ -45,7 +45,7 @@ export const PROJECT_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
 
 export const EXPERIENCE_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
   alternance: {
-    fr: "Développeur fullstack en alternance — plateforme de community building & intégration outils agentiques",
+    fr: 'Développeur fullstack en alternance — plateforme de community building & intégration outils agentiques',
     de: 'Fullstack-Entwickler im dualen Studium — Community-Building-Plattform & Integration agentischer Tools',
     en: 'Fullstack developer apprenticeship — community building platform & agentic tools integration',
   },
@@ -80,38 +80,150 @@ export const EXPERIENCE_TITLES: Record<string, Record<Lang, string>> = {
 }
 
 export const SKILL_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
-  react:             { fr: 'Bibliothèque UI pour interfaces réactives', de: 'UI-Bibliothek für reaktive Benutzeroberflächen', en: 'UI library for reactive interfaces' },
-  nextjs:            { fr: 'Framework React full-stack avec App Router', de: 'React Full-Stack-Framework mit App Router', en: 'Full-stack React framework with App Router' },
-  typescript:        { fr: 'JavaScript typé pour des apps robustes', de: 'Typisiertes JavaScript für robuste Apps', en: 'Typed JavaScript for robust apps' },
-  tailwind:          { fr: 'Framework CSS utility-first', de: 'Utility-First CSS-Framework', en: 'Utility-first CSS framework' },
-  threejs:           { fr: 'Rendu 3D WebGL pour le navigateur', de: '3D WebGL-Rendering im Browser', en: 'WebGL 3D rendering for the browser' },
-  gsap:              { fr: 'Animations performantes et précises', de: 'Performante und präzise Animationen', en: 'High-performance precise animations' },
-  nodejs:            { fr: 'Runtime JavaScript côté serveur', de: 'Serverseitige JavaScript-Laufzeitumgebung', en: 'Server-side JavaScript runtime' },
-  nestjs:            { fr: 'Framework Node.js structuré et scalable', de: 'Strukturiertes und skalierbares Node.js-Framework', en: 'Structured and scalable Node.js framework' },
-  python:            { fr: 'Langage polyvalent pour IA et scripting', de: 'Vielseitige Sprache für KI und Scripting', en: 'Versatile language for AI and scripting' },
-  postgresql:        { fr: 'Base de données relationnelle puissante', de: 'Leistungsstarke relationale Datenbank', en: 'Powerful relational database' },
-  'rest-api':        { fr: "Conception et consommation d'APIs REST", de: 'Entwurf und Nutzung von REST-APIs', en: 'Designing and consuming REST APIs' },
-  'machine-learning':{ fr: 'Apprentissage automatique et modèles prédictifs', de: 'Maschinelles Lernen und Vorhersagemodelle', en: 'Machine learning and predictive models' },
-  tensorflow:        { fr: 'Framework deep learning de Google', de: 'Deep-Learning-Framework von Google', en: "Google's deep learning framework" },
-  'big-data':        { fr: 'Traitement et analyse de données massives', de: 'Verarbeitung und Analyse massiver Datensätze', en: 'Processing and analysis of massive datasets' },
-  nlp:               { fr: 'Traitement du langage naturel', de: 'Verarbeitung natürlicher Sprache', en: 'Natural language processing' },
-  pgvector:          { fr: 'Extension PostgreSQL pour embeddings vectoriels', de: 'PostgreSQL-Erweiterung für Vektor-Embeddings', en: 'PostgreSQL extension for vector embeddings' },
-  git:               { fr: 'Contrôle de version et collaboration', de: 'Versionskontrolle und Zusammenarbeit', en: 'Version control and collaboration' },
-  docker:            { fr: "Conteneurisation d'applications", de: 'Anwendungs-Containerisierung', en: 'Application containerization' },
-  'ci-cd':           { fr: 'Intégration et déploiement continus', de: 'Kontinuierliche Integration und Bereitstellung', en: 'Continuous integration and deployment' },
-  'claude-code':          { fr: 'Coding agent autonome — développement assisté par IA', de: 'Autonomer Coding-Agent — KI-gestütztes Entwickeln', en: 'Autonomous coding agent — AI-assisted development' },
-  'github-copilot':       { fr: 'Autocomplétion et suggestion de code par IA', de: 'KI-gestützte Code-Vervollständigung und -Vorschläge', en: 'AI-powered code completion and suggestions' },
-  'ai-agents':            { fr: 'Conception et intégration de workflows multi-agents autonomes', de: 'Entwurf und Integration autonomer Multi-Agenten-Workflows', en: 'Design and integration of autonomous multi-agent workflows' },
-  'prompt-engineering':   { fr: 'Conception de prompts et skills pour agents IA', de: 'Prompt-Design und Skills für KI-Agenten', en: 'Prompt design and skills for AI agents' },
-  mcp:                    { fr: 'Protocole d\'intégration d\'outils externes pour agents IA', de: 'Integrationsprotokoll für externe Tools in KI-Agenten', en: 'Tool integration protocol for AI agents' },
-  turborepo:         { fr: 'Monorepo build system haute performance', de: 'Hochleistungs-Monorepo-Build-System', en: 'High-performance monorepo build system' },
+  react: {
+    fr: 'Bibliothèque UI pour interfaces réactives',
+    de: 'UI-Bibliothek für reaktive Benutzeroberflächen',
+    en: 'UI library for reactive interfaces',
+  },
+  nextjs: {
+    fr: 'Framework React full-stack avec App Router',
+    de: 'React Full-Stack-Framework mit App Router',
+    en: 'Full-stack React framework with App Router',
+  },
+  typescript: {
+    fr: 'JavaScript typé pour des apps robustes',
+    de: 'Typisiertes JavaScript für robuste Apps',
+    en: 'Typed JavaScript for robust apps',
+  },
+  tailwind: {
+    fr: 'Framework CSS utility-first',
+    de: 'Utility-First CSS-Framework',
+    en: 'Utility-first CSS framework',
+  },
+  threejs: {
+    fr: 'Rendu 3D WebGL pour le navigateur',
+    de: '3D WebGL-Rendering im Browser',
+    en: 'WebGL 3D rendering for the browser',
+  },
+  gsap: {
+    fr: 'Animations performantes et précises',
+    de: 'Performante und präzise Animationen',
+    en: 'High-performance precise animations',
+  },
+  nodejs: {
+    fr: 'Runtime JavaScript côté serveur',
+    de: 'Serverseitige JavaScript-Laufzeitumgebung',
+    en: 'Server-side JavaScript runtime',
+  },
+  nestjs: {
+    fr: 'Framework Node.js structuré et scalable',
+    de: 'Strukturiertes und skalierbares Node.js-Framework',
+    en: 'Structured and scalable Node.js framework',
+  },
+  python: {
+    fr: 'Langage polyvalent pour IA et scripting',
+    de: 'Vielseitige Sprache für KI und Scripting',
+    en: 'Versatile language for AI and scripting',
+  },
+  postgresql: {
+    fr: 'Base de données relationnelle puissante',
+    de: 'Leistungsstarke relationale Datenbank',
+    en: 'Powerful relational database',
+  },
+  'rest-api': {
+    fr: "Conception et consommation d'APIs REST",
+    de: 'Entwurf und Nutzung von REST-APIs',
+    en: 'Designing and consuming REST APIs',
+  },
+  'machine-learning': {
+    fr: 'Apprentissage automatique et modèles prédictifs',
+    de: 'Maschinelles Lernen und Vorhersagemodelle',
+    en: 'Machine learning and predictive models',
+  },
+  tensorflow: {
+    fr: 'Framework deep learning de Google',
+    de: 'Deep-Learning-Framework von Google',
+    en: "Google's deep learning framework",
+  },
+  'big-data': {
+    fr: 'Traitement et analyse de données massives',
+    de: 'Verarbeitung und Analyse massiver Datensätze',
+    en: 'Processing and analysis of massive datasets',
+  },
+  nlp: {
+    fr: 'Traitement du langage naturel',
+    de: 'Verarbeitung natürlicher Sprache',
+    en: 'Natural language processing',
+  },
+  pgvector: {
+    fr: 'Extension PostgreSQL pour embeddings vectoriels',
+    de: 'PostgreSQL-Erweiterung für Vektor-Embeddings',
+    en: 'PostgreSQL extension for vector embeddings',
+  },
+  git: {
+    fr: 'Contrôle de version et collaboration',
+    de: 'Versionskontrolle und Zusammenarbeit',
+    en: 'Version control and collaboration',
+  },
+  docker: {
+    fr: "Conteneurisation d'applications",
+    de: 'Anwendungs-Containerisierung',
+    en: 'Application containerization',
+  },
+  'ci-cd': {
+    fr: 'Intégration et déploiement continus',
+    de: 'Kontinuierliche Integration und Bereitstellung',
+    en: 'Continuous integration and deployment',
+  },
+  'claude-code': {
+    fr: 'Coding agent autonome — développement assisté par IA',
+    de: 'Autonomer Coding-Agent — KI-gestütztes Entwickeln',
+    en: 'Autonomous coding agent — AI-assisted development',
+  },
+  'github-copilot': {
+    fr: 'Autocomplétion et suggestion de code par IA',
+    de: 'KI-gestützte Code-Vervollständigung und -Vorschläge',
+    en: 'AI-powered code completion and suggestions',
+  },
+  'ai-agents': {
+    fr: 'Conception et intégration de workflows multi-agents autonomes',
+    de: 'Entwurf und Integration autonomer Multi-Agenten-Workflows',
+    en: 'Design and integration of autonomous multi-agent workflows',
+  },
+  'prompt-engineering': {
+    fr: 'Conception de prompts et skills pour agents IA',
+    de: 'Prompt-Design und Skills für KI-Agenten',
+    en: 'Prompt design and skills for AI agents',
+  },
+  mcp: {
+    fr: "Protocole d'intégration d'outils externes pour agents IA",
+    de: 'Integrationsprotokoll für externe Tools in KI-Agenten',
+    en: 'Tool integration protocol for AI agents',
+  },
+  turborepo: {
+    fr: 'Monorepo build system haute performance',
+    de: 'Hochleistungs-Monorepo-Build-System',
+    en: 'High-performance monorepo build system',
+  },
 }
 
 export const CONTACT_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
-  github:   { fr: 'Voir mes projets open source', de: 'Meine Open-Source-Projekte ansehen', en: 'View my open source projects' },
-  linkedin: { fr: 'Mon profil professionnel', de: 'Mein berufliches Profil', en: 'My professional profile' },
-  email:    { fr: 'Me contacter par email', de: 'Per E-Mail kontaktieren', en: 'Contact me by email' },
-  cv:       { fr: 'Télécharger mon CV en PDF', de: 'Lebenslauf als PDF herunterladen', en: 'Download my resume as PDF' },
+  github: {
+    fr: 'Voir mes projets open source',
+    de: 'Meine Open-Source-Projekte ansehen',
+    en: 'View my open source projects',
+  },
+  linkedin: {
+    fr: 'Mon profil professionnel',
+    de: 'Mein berufliches Profil',
+    en: 'My professional profile',
+  },
+  email: { fr: 'Me contacter par email', de: 'Per E-Mail kontaktieren', en: 'Contact me by email' },
+  cv: {
+    fr: 'Télécharger mon CV en PDF',
+    de: 'Lebenslauf als PDF herunterladen',
+    en: 'Download my resume as PDF',
+  },
 }
 
 export const CORE_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
@@ -120,6 +232,11 @@ export const CORE_DESCRIPTIONS: Record<string, Record<Lang, string>> = {
     de: 'Fullstack-Entwickler mit Leidenschaft für innovative Interfaces und KI. Master KI & Big Data im dualen Studium.',
     en: 'Fullstack Developer passionate about innovative interfaces and AI. Master AI & Big Data apprenticeship.',
   },
+  brain: {
+    fr: 'Pose-moi une question...',
+    de: 'Stell mir eine Frage...',
+    en: 'Ask me a question...',
+  },
 }
 
 export const CORE_TITLES: Record<string, Record<Lang, string>> = {
@@ -127,6 +244,11 @@ export const CORE_TITLES: Record<string, Record<Lang, string>> = {
     fr: 'Développeur Fullstack — Master IA & Big Data',
     de: 'Fullstack-Entwickler — Master KI & Big Data',
     en: 'Fullstack Developer — Master AI & Big Data',
+  },
+  brain: {
+    fr: 'Pose une question au chatbot',
+    de: 'Frag den Chatbot',
+    en: 'Ask the chatbot',
   },
 }
 
@@ -137,26 +259,48 @@ export const PROJECT_HIGHLIGHTS: Record<string, Record<Lang, string[]>> = {
     en: ['Navigable 3D neural network', 'GSAP animations', 'React Three Fiber'],
   },
   'nlp-pathfinding': {
-    fr: ['Recommandation de trajets par NLP', 'Données SNCF Open Data (GTFS)', 'Pipeline IA de bout en bout'],
+    fr: [
+      'Recommandation de trajets par NLP',
+      'Données SNCF Open Data (GTFS)',
+      'Pipeline IA de bout en bout',
+    ],
     de: ['NLP-gesteuerte Routenempfehlung', 'SNCF Open Data (GTFS)', 'End-to-End-KI-Pipeline'],
     en: ['NLP-driven route recommendation', 'SNCF Open Data (GTFS)', 'End-to-end AI pipeline'],
   },
   'pneumonia-detection': {
-    fr: ['Classification binaire et multi-classes (viral/bactérien)', 'Transfer learning (VGG16, ResNet50, MobileNetV2)', 'Class Activation Maps pour interprétabilité'],
-    de: ['Binäre und Mehrklassen-Klassifikation (viral/bakteriell)', 'Transfer Learning (VGG16, ResNet50, MobileNetV2)', 'Class Activation Maps für Interpretierbarkeit'],
-    en: ['Binary and multi-class classification (viral/bacterial)', 'Transfer learning (VGG16, ResNet50, MobileNetV2)', 'Class Activation Maps for interpretability'],
+    fr: [
+      'Classification binaire et multi-classes (viral/bactérien)',
+      'Transfer learning (VGG16, ResNet50, MobileNetV2)',
+      'Class Activation Maps pour interprétabilité',
+    ],
+    de: [
+      'Binäre und Mehrklassen-Klassifikation (viral/bakteriell)',
+      'Transfer Learning (VGG16, ResNet50, MobileNetV2)',
+      'Class Activation Maps für Interpretierbarkeit',
+    ],
+    en: [
+      'Binary and multi-class classification (viral/bacterial)',
+      'Transfer learning (VGG16, ResNet50, MobileNetV2)',
+      'Class Activation Maps for interpretability',
+    ],
   },
 }
 
 /** Returns the translated description for a neuron, or null if not found. */
 export function getTranslatedDescription(id: string, category: string, lang: Lang): string | null {
   switch (category) {
-    case 'project':    return PROJECT_DESCRIPTIONS[id]?.[lang] ?? null
-    case 'experience': return EXPERIENCE_DESCRIPTIONS[id]?.[lang] ?? null
-    case 'skill':      return SKILL_DESCRIPTIONS[id]?.[lang] ?? null
-    case 'contact':    return CONTACT_DESCRIPTIONS[id]?.[lang] ?? null
-    case 'core':       return CORE_DESCRIPTIONS[id]?.[lang] ?? null
-    default:           return null
+    case 'project':
+      return PROJECT_DESCRIPTIONS[id]?.[lang] ?? null
+    case 'experience':
+      return EXPERIENCE_DESCRIPTIONS[id]?.[lang] ?? null
+    case 'skill':
+      return SKILL_DESCRIPTIONS[id]?.[lang] ?? null
+    case 'contact':
+      return CONTACT_DESCRIPTIONS[id]?.[lang] ?? null
+    case 'core':
+      return CORE_DESCRIPTIONS[id]?.[lang] ?? null
+    default:
+      return null
   }
 }
 

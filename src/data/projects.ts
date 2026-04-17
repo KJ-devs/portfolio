@@ -5,7 +5,7 @@ export const PROJECTS: Project[] = [
     id: 'supporthelper',
     title: 'supportHelper v2',
     description:
-      "Plateforme B2B de gestion de tickets support avec analyse IA et génération automatique de bug reports visuels + issues GitHub",
+      'Plateforme B2B de gestion de tickets support avec analyse IA et génération automatique de bug reports visuels + issues GitHub',
     stack: ['TypeScript', 'NestJS', 'Next.js', 'PostgreSQL', 'pgvector', 'Turborepo'],
     highlights: [
       "Multi-agent Forge system pour l'analyse automatisée",
@@ -14,37 +14,82 @@ export const PROJECTS: Project[] = [
     ],
     links: {},
     media: [
-      { type: 'image', src: '/images/projects/supporthelper/dashboard.png', alt: 'Dashboard principal supportHelper', caption: 'Dashboard de gestion des tickets avec filtres' },
-      { type: 'image', src: '/images/projects/supporthelper/ai-analysis.png', alt: 'Détail ticket avec analyse IA', caption: 'Analyse IA automatique des tickets' },
-      { type: 'image', src: '/images/projects/supporthelper/applications.png', alt: 'Gestion multi-applications', caption: 'Plateforme multi-applications B2B' },
-      { type: 'image', src: '/images/projects/supporthelper/integrations.png', alt: 'Intégrations tierces', caption: 'Intégrations Slack, Discord, Notion, Jira' },
-      { type: 'image', src: '/images/projects/supporthelper/github-integration.png', alt: 'Intégration GitHub connectée', caption: 'Connexion GitHub pour la sync automatique' },
-      { type: 'image', src: '/images/projects/supporthelper/ai-config.png', alt: 'Configuration IA multi-providers', caption: 'BYOK — Choix du provider IA (OpenAI, Anthropic, Gemini...)' },
+      {
+        type: 'image',
+        src: '/images/projects/supporthelper/dashboard.png',
+        alt: 'Dashboard principal supportHelper',
+        caption: 'Dashboard de gestion des tickets avec filtres',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/supporthelper/ai-analysis.png',
+        alt: 'Détail ticket avec analyse IA',
+        caption: 'Analyse IA automatique des tickets',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/supporthelper/applications.png',
+        alt: 'Gestion multi-applications',
+        caption: 'Plateforme multi-applications B2B',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/supporthelper/integrations.png',
+        alt: 'Intégrations tierces',
+        caption: 'Intégrations Slack, Discord, Notion, Jira',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/supporthelper/github-integration.png',
+        alt: 'Intégration GitHub connectée',
+        caption: 'Connexion GitHub pour la sync automatique',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/supporthelper/ai-config.png',
+        alt: 'Configuration IA multi-providers',
+        caption: 'BYOK — Choix du provider IA (OpenAI, Anthropic, Gemini...)',
+      },
     ],
   },
   {
     id: 'dofus-forge',
     title: 'DofusForge',
     description:
-      'Outil communautaire de création de stuff pour Dofus — simulateur d\'équipement avec calcul de statistiques',
+      "Outil communautaire de création de stuff pour Dofus — simulateur d'équipement avec calcul de statistiques",
     stack: ['Angular', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Docker'],
     highlights: [
-      'Simulateur d\'équipement complet (tous slots)',
+      "Simulateur d'équipement complet (tous slots)",
       'Calcul de statistiques agrégées en temps réel',
       'Authentification et profils utilisateurs',
     ],
     links: {},
     media: [
-      { type: 'image', src: '/images/projects/dofus-forge/landing.png', alt: 'Page d\'accueil DofusForge', caption: 'Forgez votre Légende — Landing page' },
-      { type: 'image', src: '/images/projects/dofus-forge/stuff-builder.png', alt: 'Simulateur d\'équipement', caption: 'Stuff builder avec stats en temps réel' },
-      { type: 'image', src: '/images/projects/dofus-forge/equipment-list.png', alt: 'Liste des équipements', caption: 'Sélection d\'équipements avec filtres' },
+      {
+        type: 'image',
+        src: '/images/projects/dofus-forge/landing.png',
+        alt: "Page d'accueil DofusForge",
+        caption: 'Forgez votre Légende — Landing page',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/dofus-forge/stuff-builder.png',
+        alt: "Simulateur d'équipement",
+        caption: 'Stuff builder avec stats en temps réel',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/dofus-forge/equipment-list.png',
+        alt: 'Liste des équipements',
+        caption: "Sélection d'équipements avec filtres",
+      },
     ],
   },
   {
     id: 'nlp-pathfinding',
     title: 'NLP Pathfinding',
     description:
-      'Application de recommandation de trajets ferroviaires SNCF pilotée par le NLP — traitement du langage naturel pour la recherche d\'itinéraires',
+      "Application de recommandation de trajets ferroviaires SNCF pilotée par le NLP — traitement du langage naturel pour la recherche d'itinéraires",
     stack: ['Python', 'NLP', 'SNCF GTFS', 'Machine Learning'],
     highlights: [
       'Recommandation de trajets par NLP',
@@ -52,10 +97,6 @@ export const PROJECTS: Project[] = [
       'Pipeline IA de bout en bout',
     ],
     links: {},
-    media: [
-      { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-1.png', alt: 'Interface NLP Pathfinding', caption: 'Recommandation de trajets' },
-      { type: 'image', src: '/images/projects/nlp-pathfinding/screenshot-2.png', alt: 'Résultats de recherche', caption: 'Résultats de trajets optimisés' },
-    ],
   },
   {
     id: 'pneumonia-detection',
@@ -69,10 +110,6 @@ export const PROJECTS: Project[] = [
       'Class Activation Maps pour interprétabilité',
     ],
     links: {},
-    media: [
-      { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-1.png', alt: 'Analyse radiographie thoracique', caption: 'Détection de pneumonie par IA' },
-      { type: 'image', src: '/images/projects/pneumonia-detection/screenshot-2.png', alt: 'Résultats du modèle', caption: 'Métriques de performance du modèle' },
-    ],
   },
   {
     id: 'focus-shield',
@@ -87,12 +124,42 @@ export const PROJECTS: Project[] = [
     ],
     links: {},
     media: [
-      { type: 'image', src: '/images/projects/focus-shield/dashboard.png', alt: 'Dashboard Focus Shield', caption: 'Quick Start — Pomodoro, Deep Work, Quick Focus' },
-      { type: 'image', src: '/images/projects/focus-shield/session.png', alt: 'Session Pomodoro active', caption: 'Timer Pomodoro avec blocage actif' },
-      { type: 'image', src: '/images/projects/focus-shield/blocklists.png', alt: 'Listes de blocage', caption: 'Catégories de sites et apps à bloquer' },
-      { type: 'image', src: '/images/projects/focus-shield/achievements.png', alt: 'Achievements', caption: 'Système de gamification' },
-      { type: 'image', src: '/images/projects/focus-shield/study.png', alt: 'Mode étude flashcards', caption: 'Flashcards intégrées pour réviser' },
-      { type: 'image', src: '/images/projects/focus-shield/settings.png', alt: 'Paramètres', caption: 'Multi-langue et extensions navigateur' },
+      {
+        type: 'image',
+        src: '/images/projects/focus-shield/dashboard.png',
+        alt: 'Dashboard Focus Shield',
+        caption: 'Quick Start — Pomodoro, Deep Work, Quick Focus',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/focus-shield/session.png',
+        alt: 'Session Pomodoro active',
+        caption: 'Timer Pomodoro avec blocage actif',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/focus-shield/blocklists.png',
+        alt: 'Listes de blocage',
+        caption: 'Catégories de sites et apps à bloquer',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/focus-shield/achievements.png',
+        alt: 'Achievements',
+        caption: 'Système de gamification',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/focus-shield/study.png',
+        alt: 'Mode étude flashcards',
+        caption: 'Flashcards intégrées pour réviser',
+      },
+      {
+        type: 'image',
+        src: '/images/projects/focus-shield/settings.png',
+        alt: 'Paramètres',
+        caption: 'Multi-langue et extensions navigateur',
+      },
     ],
   },
   {
@@ -102,7 +169,7 @@ export const PROJECTS: Project[] = [
       'Application Python de planification de voyages — itinéraires intelligents, suggestions de destinations et gestion de budget',
     stack: ['Python', 'API REST', 'IoT'],
     highlights: [
-      'Génération automatique d\'itinéraires',
+      "Génération automatique d'itinéraires",
       'Suggestions de destinations personnalisées',
       'Gestion de budget voyage',
     ],

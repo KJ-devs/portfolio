@@ -33,6 +33,14 @@ export const translations = {
     connections: 'Connexions',
     gallery: 'Galerie',
     media_count: (n: number) => `${n} média${n > 1 ? 's' : ''}`,
+    search_open: 'Rechercher…',
+    search_placeholder: 'Rechercher un neurone…',
+    search_no_results: (q: string) => `Aucun résultat pour « ${q} »`,
+    search_hint: (n: number) => `Tapez pour rechercher parmi ${n} neurones`,
+    chat_badge: 'Pose une question au chatbot',
+    chat_initial:
+      'Salut ! Je suis le cerveau de J.Krebs 🧠 Pose-moi une question sur ses compétences, projets, ou expériences !',
+    chat_placeholder: 'Pose une question...',
   },
   de: {
     // Hero
@@ -66,6 +74,14 @@ export const translations = {
     connections: 'Verbindungen',
     gallery: 'Galerie',
     media_count: (n: number) => `${n} Medium${n > 1 ? 'en' : ''}`,
+    search_open: 'Suchen…',
+    search_placeholder: 'Ein Neuron suchen…',
+    search_no_results: (q: string) => `Keine Ergebnisse für „${q}“`,
+    search_hint: (n: number) => `Tippen zum Suchen unter ${n} Neuronen`,
+    chat_badge: 'Stell dem Chatbot eine Frage',
+    chat_initial:
+      'Hi! Ich bin das Gehirn von J.Krebs 🧠 Frag mich nach seinen Skills, Projekten oder Erfahrungen!',
+    chat_placeholder: 'Stell eine Frage...',
   },
   en: {
     // Hero
@@ -99,7 +115,15 @@ export const translations = {
     connections: 'Connections',
     gallery: 'Gallery',
     media_count: (n: number) => `${n} media`,
+    search_open: 'Search…',
+    search_placeholder: 'Search a neuron…',
+    search_no_results: (q: string) => `No results for "${q}"`,
+    search_hint: (n: number) => `Type to search among ${n} neurons`,
+    chat_badge: 'Ask the chatbot a question',
+    chat_initial:
+      "Hi! I'm the brain of J.Krebs 🧠 Ask me about his skills, projects, or experience!",
+    chat_placeholder: 'Ask a question...',
   },
-} satisfies Record<Lang, Record<string, string | ((n: number) => string)>>
+} satisfies Record<Lang, Record<string, string | ((n: number) => string) | ((q: string) => string)>>
 
 export type Translations = (typeof translations)['fr']
